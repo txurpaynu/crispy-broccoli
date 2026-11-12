@@ -30,14 +30,3 @@ struct VexleySawAppIntent: AppIntent {
         return .result(dialog: "I told Vexley you opened \(appName).")
     }
 }
-
-struct VexleyAppShortcuts: AppShortcutsProvider {
-    static var appShortcuts: [AppShortcut] {
-        AppShortcut(
-            intent: VexleySawAppIntent(),
-            phrases: ["Tell \(.applicationName) I opened \(\.$appName)"],
-            shortTitle: "Tell Vexley",
-            systemImageName: "pawprint.fill"
-        )
-    }
-}
