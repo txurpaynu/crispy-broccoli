@@ -1,0 +1,103 @@
+name: Build unsigned IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 26 (needed for Apple Intelligence / FoundationModels)
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -v -i beta | sort -V | tail -n 1)
+          if [ -z "$XCODE" ]; then
+            XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1)
+          fi
+          if [ -z "$XCODE" ]; then
+            echo "::error::Xcode 26 was not found on this runner. Installed versions:"; ls -d /Applications/Xcode*.app
+            exit 1
+          fi
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+          xcodebuild -version
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build (no code signing)
+        run: |
+          xcodebuild \
+            -project ShimejiCompanion.xcodeproj \
+            -scheme ShimejiCompanion \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Package IPA
+        run: |
+          APP=build/Build/Products/Release-iphoneos/ShimejiCompanion.app
+          test -d "$APP"
+          ls "$APP/PlugIns"
+          rm -rf Payload && mkdir Payload
+          cp -R "$APP" Payload/
+          zip -qry ShimejiCompanion.ipa Payload
+          ls -lh ShimejiCompanion.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ShimejiCompanion-ipa
+          path: ShimejiCompanion.ipa
+          if-no-files-found: error
+
+  # Simulator build for browser testing on appetize.io (upload the .zip there).
+  simulator:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 26
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -v -i beta | sort -V | tail -n 1)
+          [ -z "$XCODE" ] && XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1)
+          [ -z "$XCODE" ] && { echo "::error::Xcode 26 not found"; exit 1; }
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build for simulator
+        run: |
+          xcodebuild \
+            -project ShimejiCompanion.xcodeproj \
+            -scheme ShimejiCompanion \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Zip .app for Appetize
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          zip -qry "$GITHUB_WORKSPACE/ShimejiCompanion-simulator.zip" ShimejiCompanion.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ShimejiCompanion-simulator-for-appetize
+          path: ShimejiCompanion-simulator.zip
+          if-no-files-found: error
