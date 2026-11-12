@@ -12,6 +12,7 @@ Needs iOS 26 (any iPhone that runs it; the AI chat needs Apple Intelligence, e.g
 - **Boredom notifications:** opt in from the gear screen. When you leave the app, Vexley schedules one playful check-in for two hours later; opening the app cancels it. iOS notification permission is required.
 - **App-open reactions:** use the `Tell Vexley About an App` action in a Shortcuts personal automation. Create one automation for each app you want to share (App → Is Opened), add the Shimeji action, enter that app name, and turn off Ask Before Running if you want it automatic. It reacts with a local notification.
 - **Safari page sharing:** enable `Tell Vexley About This Page` under Safari → Extensions. On a page, tap the Safari page menu → Extensions → Tell Vexley, then allow site access when prompted. It sends the site’s domain to Vexley as a local notification; it does not watch browsing history.
+- **Home Screen widget:** add Vexley from the iPhone widget gallery in small or medium size. Tap it to open chat. It mirrors the latest face, mood, heart meter, and message while the Live Activity is active; otherwise it shows a friendly default state.
 - **Lock Screen / Dynamic Island:** "Show on Lock Screen" starts a Live Activity so the companion stays visible with its mood and last message.
 
 ## Change the character
@@ -44,7 +45,8 @@ You can also start a build by hand with **Run workflow**.
    - Settings → Privacy & Security → **Developer Mode** → on (the phone restarts).
    - Settings → General → VPN & Device Management → tap your Apple ID → **Trust**.
    - Settings → **Apple Intelligence & Siri** → turn on Apple Intelligence (needed once for the AI; you never have to call Siri).
-6. Open **Shimeji**. Tap the gear to set the personality.
+6. Open **Shimeji**. Tap the gear to set the personality and notifications.
+7. To add the Home Screen widget, touch and hold the Home Screen, tap **Edit → Add Widget**, search for **Vexley**, choose small or medium, then tap **Add Widget**.
 
 With a free Apple ID the app expires after **7 days**. Re-run Sideloadly to refresh it
 (your chat and settings stay). The app plus its Lock Screen widget use 2 of your
