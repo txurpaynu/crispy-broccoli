@@ -7,11 +7,12 @@ button.addEventListener("click", async () => {
   try {
     const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
     if (!tab || !tab.url) throw new Error("Safari didn't provide the current page.");
-    await browser.runtime.sendNativeMessage("com.shimeji.companion", {
+    const response = await browser.runtime.sendNativeMessage("com.shimeji.companion", {
       type: "sharePage",
       url: tab.url
     });
-    status.textContent = "Done! Vexley will have something to say.";
+    if (!response || !response.ok) throw new Error(response?.message || "Could not reach Vexley.");
+    status.textContent = response.message;
   } catch (error) {
     status.textContent = error.message || "Couldn't reach Vexley. Open Shimeji and enable notifications first.";
     button.disabled = false;
