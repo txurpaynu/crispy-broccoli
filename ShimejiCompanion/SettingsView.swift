@@ -7,7 +7,7 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name = ""
     @State private var persona = ""
-    @AppStorage(IdleNotifications.preferenceKey) private var idleNotificationsEnabled = false
+    @AppStorage("vexleyIdleNotificationsEnabled") private var idleNotificationsEnabled = false
 
     var body: some View {
         NavigationStack {
