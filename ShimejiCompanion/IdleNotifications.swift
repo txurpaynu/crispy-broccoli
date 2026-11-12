@@ -38,7 +38,7 @@ enum IdleNotifications {
 
             center.getPendingNotificationRequests { requests in
                 let oldIDs = requests
-                    .map(\\.identifier)
+                    .map(\.identifier)
                     .filter { $0.hasPrefix(randomThoughtPrefix) }
                 center.removePendingNotificationRequests(withIdentifiers: oldIDs)
 
@@ -65,7 +65,7 @@ enum IdleNotifications {
                     content.sound = .default
                     let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                     let request = UNNotificationRequest(
-                        identifier: "\\(randomThoughtPrefix)\\(UUID().uuidString)",
+                        identifier: "\(randomThoughtPrefix)\(UUID().uuidString)",
                         content: content,
                         trigger: trigger
                     )
@@ -79,7 +79,7 @@ enum IdleNotifications {
         let center = UNUserNotificationCenter.current()
         center.getPendingNotificationRequests { requests in
             let ids = requests
-                .map(\\.identifier)
+                .map(\.identifier)
                 .filter { $0.hasPrefix(randomThoughtPrefix) }
             center.removePendingNotificationRequests(withIdentifiers: ids)
         }
