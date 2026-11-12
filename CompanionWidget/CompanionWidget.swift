@@ -162,7 +162,7 @@ private struct VexleyHomeWidget: Widget {
 }
 
 private struct VexleyHomeWidgetView: View {
-    @Environment(\\.widgetFamily) private var family
+    @Environment(\.widgetFamily) private var family
     let entry: VexleyWidgetEntry
 
     var body: some View {
@@ -196,7 +196,7 @@ private struct VexleyHomeWidgetView: View {
             Text(entry.name)
                 .font(.system(.headline, design: .rounded))
                 .lineLimit(1)
-            Label("\\(entry.state.happiness)%", systemImage: "heart.fill")
+            Label("\(entry.state.happiness)%", systemImage: "heart.fill")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.pink)
             Text(entry.state.message)
@@ -221,7 +221,7 @@ private struct VexleyHomeWidgetView: View {
                     Spacer()
                     Text(entry.state.mood.emoji)
                 }
-                Label("\\(entry.state.happiness)%", systemImage: "heart.fill")
+                Label("\(entry.state.happiness)%", systemImage: "heart.fill")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.pink)
                 Text(entry.state.message)
