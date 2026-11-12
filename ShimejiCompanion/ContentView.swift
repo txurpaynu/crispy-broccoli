@@ -36,11 +36,13 @@ struct ContentView: View {
         .onChange(of: scenePhase) { _, phase in
             switch phase {
             case .active:
+                IdleNotifications.cancel()
                 engine.start()
                 store.appBecameActive()
             case .background:
                 engine.stop()
                 store.appWentToBackground()
+                IdleNotifications.schedule(name: store.name)
             default:
                 break
             }
