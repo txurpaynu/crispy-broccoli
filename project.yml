@@ -27,6 +27,7 @@ targets:
       - path: Shared
     dependencies:
       - target: CompanionWidget
+      - target: SafariWebExtension
     info:
       path: ShimejiCompanion/Info.plist
       properties:
@@ -64,4 +65,21 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.shimeji.companion.widget
         PRODUCT_NAME: CompanionWidget
+        SKIP_INSTALL: YES
+
+  SafariWebExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SafariExtension
+    info:
+      properties:
+        CFBundleDisplayName: Vexley Safari
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.Safari.web-extension
+          NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).SafariWebExtensionHandler"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shimeji.companion.safari
+        PRODUCT_NAME: SafariWebExtension
         SKIP_INSTALL: YES
