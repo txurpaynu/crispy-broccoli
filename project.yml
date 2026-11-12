@@ -73,6 +73,7 @@ targets:
     sources:
       - path: SafariExtension
     info:
+      path: SafariExtension/Info.plist
       properties:
         CFBundleDisplayName: Vexley Safari
         NSExtension:
