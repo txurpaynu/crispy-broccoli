@@ -6,6 +6,7 @@ import ActivityKit
 struct CompanionWidgetBundle: WidgetBundle {
     var body: some Widget {
         CompanionLiveActivity()
+        VexleyHomeWidget()
     }
 }
 
@@ -94,6 +95,140 @@ private struct LockScreenCompanion: View {
                     .padding(.vertical, 6)
                     .foregroundStyle(Color(red: 0.3, green: 0.05, blue: 0.2))
                     .background(RoundedRectangle(cornerRadius: 12).fill(.white))
+            }
+            .foregroundStyle(.white)
+        }
+        .padding(14)
+    }
+}
+
+
+private struct VexleyWidgetEntry: TimelineEntry {
+    let date: Date
+    let name: String
+    let state: CompanionAttributes.ContentState
+}
+
+private struct VexleyWidgetProvider: TimelineProvider {
+    func placeholder(in context: Context) -> VexleyWidgetEntry {
+        sampleEntry
+    }
+
+    func getSnapshot(in context: Context, completion: @escaping (VexleyWidgetEntry) -> Void) {
+        completion(currentEntry)
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<VexleyWidgetEntry>) -> Void) {
+        let entry = currentEntry
+        completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(15 * 60))))
+    }
+
+    private var currentEntry: VexleyWidgetEntry {
+        if let activity = Activity<CompanionAttributes>.activities.first {
+            return VexleyWidgetEntry(
+                date: Date(),
+                name: activity.attributes.name,
+                state: activity.content.state
+            )
+        }
+        return sampleEntry
+    }
+
+    private var sampleEntry: VexleyWidgetEntry {
+        VexleyWidgetEntry(
+            date: Date(),
+            name: "Vexley",
+            state: CompanionAttributes.ContentState(
+                message: "Tap me and tell me something weird.",
+                mood: .happy,
+                happiness: 70,
+                face: .happy
+            )
+        )
+    }
+}
+
+private struct VexleyHomeWidget: Widget {
+    static let kind = "VexleyHomeWidget"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: Self.kind, provider: VexleyWidgetProvider()) { entry in
+            VexleyHomeWidgetView(entry: entry)
+        }
+        .configurationDisplayName("Vexley")
+        .description("See Vexley's current face, mood, heart, and last message.")
+        .supportedFamilies([.systemSmall, .systemMedium])
+    }
+}
+
+private struct VexleyHomeWidgetView: View {
+    @Environment(\\.widgetFamily) private var family
+    let entry: VexleyWidgetEntry
+
+    var body: some View {
+        Group {
+            if family == .systemSmall {
+                smallLayout
+            } else {
+                mediumLayout
+            }
+        }
+        .containerBackground(
+            LinearGradient(
+                colors: [Color(red: 0.10, green: 0.01, blue: 0.10), Color(red: 0.20, green: 0.04, blue: 0.22)],
+                startPoint: .top,
+                endPoint: .bottom
+            ),
+            for: .widget
+        )
+        .widgetURL(URL(string: "shimeji://chat"))
+    }
+
+    private var smallLayout: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                FaceImage(face: entry.state.face)
+                    .frame(width: 64, height: 64)
+                Spacer(minLength: 0)
+                Text(entry.state.mood.emoji)
+                    .font(.title2)
+            }
+            Text(entry.name)
+                .font(.system(.headline, design: .rounded))
+                .lineLimit(1)
+            Label("\\(entry.state.happiness)%", systemImage: "heart.fill")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.pink)
+            Text(entry.state.message)
+                .font(.caption2)
+                .lineLimit(2)
+                .foregroundStyle(.white.opacity(0.85))
+            Spacer(minLength: 0)
+        }
+        .padding(12)
+        .foregroundStyle(.white)
+    }
+
+    private var mediumLayout: some View {
+        HStack(spacing: 12) {
+            FaceImage(face: entry.state.face)
+                .frame(width: 92, height: 92)
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(entry.name)
+                        .font(.system(.headline, design: .rounded))
+                        .lineLimit(1)
+                    Spacer()
+                    Text(entry.state.mood.emoji)
+                }
+                Label("\\(entry.state.happiness)%", systemImage: "heart.fill")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.pink)
+                Text(entry.state.message)
+                    .font(.system(.subheadline, design: .rounded))
+                    .lineLimit(3)
+                    .foregroundStyle(.white.opacity(0.9))
+                Spacer(minLength: 0)
             }
             .foregroundStyle(.white)
         }
