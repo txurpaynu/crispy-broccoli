@@ -10,6 +10,8 @@ Needs iOS 26 (any iPhone that runs it; the AI chat needs Apple Intelligence, e.g
 - **AI chat, no paid API:** uses Apple's on-device model (Foundation Models + Apple Intelligence). Free, offline, private. For every reply the model also picks which face to make. If Apple Intelligence isn't available it falls back to scripted replies with keyword-based faces.
 - **Editable personality:** tap the gear icon to change the name and the personality text the AI follows.
 - **Boredom notifications:** opt in from the gear screen. When you leave the app, Vexley schedules one playful check-in for two hours later; opening the app cancels it. iOS notification permission is required.
+- **App-open reactions:** use the `Tell Vexley About an App` action in a Shortcuts personal automation. Create one automation for each app you want to share (App → Is Opened), add the Shimeji action, enter that app name, and turn off Ask Before Running if you want it automatic. It reacts with a local notification.
+- **Safari page sharing:** enable `Tell Vexley About This Page` under Safari → Extensions. On a page, tap the Safari page menu → Extensions → Tell Vexley, then allow site access when prompted. It sends the site’s domain to Vexley as a local notification; it does not watch browsing history.
 - **Lock Screen / Dynamic Island:** "Show on Lock Screen" starts a Live Activity so the companion stays visible with its mood and last message.
 
 ## Change the character
