@@ -9,6 +9,7 @@ Needs iOS 26 (any iPhone that runs it; the AI chat needs Apple Intelligence, e.g
 - **On-screen mascot (in the app):** hops along the bottom, clings to the sides, crawls on the ceiling, naps, falls. Drag it to pick it up (scared face), flick it to throw it (angry face), tap it to pet it, tap the floor to call it over.
 - **AI chat, no paid API:** uses Apple's on-device model (Foundation Models + Apple Intelligence). Free, offline, private. For every reply the model also picks which face to make. If Apple Intelligence isn't available it falls back to scripted replies with keyword-based faces.
 - **Editable personality:** tap the gear icon to change the name and the personality text the AI follows.
+- **Boredom notifications:** opt in from the gear screen. When you leave the app, Vexley schedules one playful check-in for two hours later; opening the app cancels it. iOS notification permission is required.
 - **Lock Screen / Dynamic Island:** "Show on Lock Screen" starts a Live Activity so the companion stays visible with its mood and last message.
 
 ## Change the character
