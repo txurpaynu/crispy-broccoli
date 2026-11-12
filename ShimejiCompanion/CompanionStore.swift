@@ -201,7 +201,7 @@ final class CompanionStore: ObservableObject {
 
     private func liveState(message: String) -> CompanionAttributes.ContentState {
         lastLiveMessage = message
-        CompanionAttributes.ContentState(message: message, mood: mood, happiness: happiness, face: face)
+        return CompanionAttributes.ContentState(message: message, mood: mood, happiness: happiness, face: face)
     }
 
     // MARK: Persistence
