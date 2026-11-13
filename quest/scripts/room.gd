@@ -166,14 +166,14 @@ func _rebuild_from_anchors() -> void:
 		new_surfs.append(ceil_s)
 	# Walls must face into the room.
 	var room_center := floor_s.xf.origin
-	for s in new_surfs:
+	for s: Surf in new_surfs:
 		if s.kind == "wall" and s.normal().dot(room_center - s.xf.origin) < 0.0:
 			s.xf.basis.y = -s.xf.basis.y
 			s.xf.basis.x = -s.xf.basis.x
 	surfaces = new_surfs
 	from_scan = true
 	var counts := {}
-	for s in surfaces:
+	for s: Surf in surfaces:
 		counts[s.kind] = counts.get(s.kind, 0) + 1
 	print("[room] built from room scan: ", counts)
 	rebuilt.emit()
@@ -259,7 +259,7 @@ func tables() -> Array:
 func ground_below(p: Vector3, radius: float) -> Surf:
 	var best: Surf = null
 	var best_y := -INF
-	for s in surfaces:
+	for s: Surf in surfaces:
 		if s.kind != "floor" and s.kind != "table":
 			continue
 		var top := s.xf.origin.y
@@ -273,7 +273,7 @@ func ground_below(p: Vector3, radius: float) -> Surf:
 
 ## Keeps a point inside the walls (used while falling or being thrown).
 func keep_inside(p: Vector3, radius: float) -> Vector3:
-	for s in surfaces:
+	for s: Surf in surfaces:
 		if s.kind != "wall":
 			continue
 		var uv: Vector2 = s.to_uv(p)

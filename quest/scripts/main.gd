@@ -274,7 +274,7 @@ func _update_hand(c: XRController3D, delta: float) -> void:
 func _ray_room(from: Vector3, dir: Vector3) -> Array:
 	var best_t := INF
 	var best := []
-	for s in room.surfaces:
+	for s: Room.Surf in room.surfaces:
 		var n: Vector3 = s.normal()
 		var denom := dir.dot(n)
 		if denom > -0.0001:

@@ -201,7 +201,7 @@ func call_to(world_point: Vector3) -> void:
 		return
 	var best: Room.Surf = null
 	var best_d := 0.12
-	for s in room.surfaces:
+	for s: Room.Surf in room.surfaces:
 		var d := absf(s.height_of(world_point))
 		if d < best_d and s.contains(s.to_uv(world_point), -0.05):
 			best = s
@@ -353,7 +353,7 @@ func _plan_climb() -> void:
 	var wall: Room.Surf = ws.pick_random()
 	if camera:
 		var best := -INF
-		for w in ws:
+		for w: Room.Surf in ws:
 			var score := randf() * 0.8 + (-camera.global_transform.basis.z).dot((w.xf.origin - camera.global_position).normalized())
 			if score > best:
 				best = score
@@ -569,7 +569,7 @@ func _do_fall(delta: float) -> void:
 	_hop_h = 0.0
 	_spin += vel.length() * delta * 2.0 * signf(vel.x + 0.001)
 	# Walls: bounce, or splat and cling if thrown hard.
-	for w in room.walls():
+	for w: Room.Surf in room.walls():
 		var wuv: Vector2 = w.to_uv(pos)
 		var h: float = w.height_of(pos)
 		if h < RADIUS and h > -0.4 and w.contains(wuv, -0.05):
