@@ -8,6 +8,7 @@ struct SettingsView: View {
     @State private var name = ""
     @State private var persona = ""
     @AppStorage("vexleyIdleNotificationsEnabled") private var idleNotificationsEnabled = false
+    @AppStorage("vexleyRandomThoughtsEnabled") private var randomThoughtsEnabled = false
 
     var body: some View {
         NavigationStack {
@@ -35,7 +36,22 @@ struct SettingsView: View {
                                 IdleNotifications.cancel()
                             }
                         }
-                    Text("If you leave Vexley for two hours, he may send one playful check-in. You can change notification access in iPhone Settings.")
+                    Toggle("Send random thoughts", isOn: $randomThoughtsEnabled)
+                        .onChange(of: randomThoughtsEnabled) { _, enabled in
+                            if enabled {
+                                Task {
+                                    let allowed = await IdleNotifications.requestPermission()
+                                    if !allowed {
+                                        randomThoughtsEnabled = false
+                                    } else {
+                                        IdleNotifications.scheduleRandomThoughts(name: store.name)
+                                    }
+                                }
+                            } else {
+                                IdleNotifications.cancelRandomThoughts()
+                            }
+                        }
+                    Text("Bored notifications send one playful check-in after two hours away. Random thoughts queue about one message per day at a daytime hour. They are prepared messages; iOS does not let Vexley run his AI while the app is asleep. You can change notification access in iPhone Settings.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
