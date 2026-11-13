@@ -1,0 +1,14 @@
+[
+  { "id": "poster", "title": "PAPERLIGHT poster", "kind": "object",
+    "body": "PAPERLIGHT\nHalden Softworks · 1999\n\nA kid with a paper lantern, a red-and-white lighthouse, a sea the colour of ink.\n\nI got this poster in a magazine when I was nine. I've moved apartments four times and it's come with me every time." },
+  { "id": "childhood_note", "title": "Note in the game box (age 9)", "kind": "note",
+    "body": "SECRETS I KNOW\n\n1. the lighthouse key is under the 3rd fence post\n2. if you go BEHIND the lighthouse and press UP 3 TIMES there is a secret fox!!!\n3. Danny says the fox is fake. Danny is a liar\n\ndo not throw this away" },
+  { "id": "phone_theo", "title": "Messages: Theo", "kind": "phone",
+    "body": "THEO  (yesterday, 9:12 PM)\ndude\nPAPERLIGHT IS GETTING A REMASTER\nlike actually. Reawakened. it's on kestrel\n\nTHEO  (9:13 PM)\nremember when you made me sit through the lighthouse level like 40 times\n\nYOU  (9:40 PM)\nno way. buying it tonight\n\nTHEO  (11:58 PM)\nreviews are... not great lol. tell me if it's bad" },
+  { "id": "todo_crumpled", "title": "Crumpled to-do list", "kind": "note",
+    "body": "- call mom back\n- renew lease (MARCH)\n- cancel gym\n- PAPERLIGHT REMASTER OUT FRIDAY!!!\n\n(the last line is underlined three times)" },
+  { "id": "notes_dont_ship", "title": "notes_dont_ship.txt", "kind": "file",
+    "body": "Packed the 0.7.3 dev build into OLD before the handoff, so the new owners can't poke at the helper module.\n\nSame passphrase scheme as always: CODENAME + the year it was packed (all caps, no spaces).\n\nIf anyone finds this: please don't run it.\n— R. Okafor" },
+  { "id": "changelog_legacy", "title": "changelog_legacy.txt", "kind": "file",
+    "body": "PAPERLIGHT — internal codename LANTERN\n\n0.7.3\n- lighthouse interior blocked out (TODO art)\n- bridge texture missing, ask Priya\n- VXL helper: conversation memory now persists between sessions\n- VXL helper: removed ability to edit menu strings at runtime (it kept doing it anyway??)\n\n0.7.2\n- town_01 layout final\n- Wren dialogue placeholder" }
+]

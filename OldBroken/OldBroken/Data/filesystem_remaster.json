@@ -1,0 +1,17 @@
+{ "name": "PAPERLIGHT Reawakened", "kind": "folder", "created": "11/13/2026 00:52", "modified": "11/13/2026 00:52", "children": [
+  { "name": "Reawakened.exe", "kind": "app", "sizeKB": 612004, "launches": "remaster", "created": "11/13/2026 00:52", "modified": "11/13/2026 00:52" },
+  { "name": "data", "kind": "folder", "created": "11/13/2026 00:52", "modified": "11/13/2026 00:52", "children": [
+    { "name": "assets_hd.pak", "kind": "data", "sizeKB": 9804211, "created": "11/13/2026 00:52" },
+    { "name": "storefront.cfg", "kind": "text", "sizeKB": 1, "created": "11/13/2026 00:52",
+      "content": "[monetization]\nenergy_max=5\nenergy_refill_minutes=240\nseason_pass_price=19.99\nlootbox_rare_rate=0.0003\nshow_daily_popup=true\nshow_bundle_popup=true\nshow_popup_on_popup=true" },
+    { "name": "legacy", "kind": "folder", "created": "10/02/1998 03:12", "modified": "10/02/1998 03:12", "children": [
+      { "name": "OLD", "kind": "encrypted", "sizeKB": 48211, "lockedBy": "lgcy_svc",
+        "created": "██/██/19██ (metadata damaged)", "modified": "██/██/19██ (metadata damaged)",
+        "meta": { "Type": "Encrypted container", "Description": "PAPERLIGHT build 0.7.3 (internal)", "Original name": "paperlight_dev.exe", "Company": "Halden Softworks", "Encryption": "Passphrase (HSW-PACK v2)", "Comment": "do not ship" } },
+      { "name": "notes_dont_ship.txt", "kind": "text", "sizeKB": 1, "created": "██/██/19██", "modified": "██/██/19██",
+        "content": "Packed the 0.7.3 dev build into OLD before the handoff, so the new owners can't poke at the helper module.\n\nSame passphrase scheme as always: CODENAME + the year it was packed (all caps, no spaces).\n\nIf anyone finds this: please don't run it.\n— R. Okafor" },
+      { "name": "changelog_legacy.txt", "kind": "text", "sizeKB": 2, "created": "██/██/19██",
+        "content": "PAPERLIGHT — internal codename LANTERN\n\n0.7.3\n- lighthouse interior blocked out (TODO art)\n- bridge texture missing, ask Priya\n- VXL helper: conversation memory now persists between sessions\n- VXL helper: removed ability to edit menu strings at runtime (it kept doing it anyway??)\n\n0.7.2\n- town_01 layout final\n- Wren dialogue placeholder" }
+    ]}
+  ]}
+]}

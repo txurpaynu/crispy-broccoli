@@ -1,0 +1,37 @@
+{ "name": "C:", "kind": "folder", "children": [
+  { "name": "Users", "kind": "folder", "children": [
+    { "name": "sam", "kind": "folder", "children": [
+      { "name": "Desktop", "kind": "folder", "children": [
+        { "name": "budget_nov.txt", "kind": "text", "sizeKB": 2, "modified": "11/01/2026 18:02",
+          "content": "rent        1150\nutilities    95\nphone        40\ngames       ???\n\n(stop buying games)" }
+      ]},
+      { "name": "Documents", "kind": "folder", "children": [
+        { "name": "paperlight_memories.txt", "kind": "text", "sizeKB": 3, "created": "03/14/2019 23:40", "modified": "03/14/2019 23:51",
+          "content": "Things I remember about PAPERLIGHT (writing this down before I forget)\n\n- Lantern Town at night. The music when you first walk out.\n- Old Wren, who never had anything useful to say\n- the lighthouse. the light that swept over the map\n- the bridge that was always missing a texture on my copy\n- the fox. Everyone at school said there was a secret fox behind the lighthouse. I never found it. Danny said I made it up.\n\nHalden Softworks closed in 2003. Nobody ever made a sequel." },
+        { "name": "lease_renewal.txt", "kind": "text", "sizeKB": 4, "modified": "10/20/2026 09:15",
+          "content": "Lease renewal due MARCH.\nAsk about: the bedroom door (sticks), the heating, the hallway light." },
+        { "name": "cover_letter_draft.txt", "kind": "text", "sizeKB": 6, "modified": "09/02/2026 22:47",
+          "content": "Dear Hiring Manager,\n\nI am writing to\n\n(finish this)" }
+      ]},
+      { "name": "Downloads", "kind": "folder", "children": [
+        { "name": "kestrel_setup.exe", "kind": "installer", "sizeKB": 88120, "modified": "05/11/2025 20:03" },
+        { "name": "receipt_monitor.pdf", "kind": "data", "sizeKB": 140, "modified": "02/02/2026 13:20" }
+      ]},
+      { "name": "Pictures", "kind": "folder", "children": [
+        { "name": "desk_setup.jpg", "kind": "image", "sizeKB": 2210, "modified": "02/03/2026 19:44" },
+        { "name": "theo_bday.jpg", "kind": "image", "sizeKB": 3105, "modified": "07/19/2026 23:02" }
+      ]}
+    ]}
+  ]},
+  { "name": "Games", "kind": "folder", "children": [
+    { "name": "Kestrel", "kind": "folder", "children": [
+      { "name": "kestrel.exe", "kind": "app", "sizeKB": 152330, "launches": "kestrel", "protected": true, "lockedBy": "kestrel.exe" }
+    ]}
+  ]},
+  { "name": "Pane", "kind": "folder", "protected": true, "children": [
+    { "name": "system", "kind": "folder", "protected": true, "children": [
+      { "name": "kernel.sys", "kind": "system", "sizeKB": 10422, "protected": true },
+      { "name": "shell.exe", "kind": "system", "sizeKB": 4410, "protected": true }
+    ]}
+  ]}
+]}
