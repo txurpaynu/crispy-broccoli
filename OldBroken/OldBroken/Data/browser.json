@@ -1,0 +1,90 @@
+{
+  "search": [
+    { "keywords": ["keysmith", "decrypt", "brute", "passphrase", "password", "crack", "unlock", "encrypted", "recover"], "results": ["keysmith.dev", "retrovault.net/t/88213"] },
+    { "keywords": ["old file", "legacy", "dev build", "lgcy", "lgcy_svc", "hsw-pack", "0.7.3"], "results": ["retrovault.net/t/88213", "keysmith.dev"] },
+    { "keywords": ["fox", "secret", "lighthouse", "vxl", "helper"], "results": ["retrovault.net/t/1204", "wikiverse.org/Halden_Softworks"] },
+    { "keywords": ["halden", "okafor", "lantern"], "results": ["wikiverse.org/Halden_Softworks", "retrovault.net/t/88213"] },
+    { "keywords": ["reawakened", "remaster", "brightloop", "review"], "results": ["pulse.news/reawakened-review", "store.kestrel.gg/reawakened", "retrovault.net/t/88213"] },
+    { "keywords": ["paperlight"], "results": ["pulse.news/reawakened-review", "wikiverse.org/Halden_Softworks", "retrovault.net/t/88213", "retrovault.net/t/1204", "store.kestrel.gg/reawakened"] },
+    { "keywords": ["virus", "malware", "antivirus", "shield"], "results": ["shieldlabs.com/help"] }
+  ],
+  "pages": [
+    { "url": "drift://home", "title": "New tab", "theme": "home", "blocks": [
+      { "t": "h1", "text": "Drift" },
+      { "t": "search" },
+      { "t": "small", "text": "Shortcuts" },
+      { "t": "link", "text": "Pulse News", "href": "pulse.news/reawakened-review" },
+      { "t": "link", "text": "Kestrel Store", "href": "store.kestrel.gg/reawakened" },
+      { "t": "link", "text": "RetroVault Forums", "href": "retrovault.net" },
+      { "t": "link", "text": "Wikiverse", "href": "wikiverse.org/Halden_Softworks" }
+    ]},
+    { "url": "pulse.news/reawakened-review", "title": "PAPERLIGHT: Reawakened review", "theme": "news", "blocks": [
+      { "t": "small", "text": "PULSE · GAMES · REVIEW" },
+      { "t": "h1", "text": "PAPERLIGHT: Reawakened review — a lantern with no light" },
+      { "t": "meta", "text": "3 / 10 · by Dana Wu · 2 days ago" },
+      { "t": "p", "text": "Brightloop Games bought the PAPERLIGHT rights from what was left of Halden Softworks last year, and the result is less a remaster than a storefront wearing a childhood favourite as a mask." },
+      { "t": "p", "text": "The hand-drawn town is gone, replaced by glossy generic assets. The lighthouse level, the one everyone remembers, has been cut. In its place: an energy meter, a season pass, and a daily login calendar that pops up over the pause menu." },
+      { "t": "p", "text": "Fans digging through the install folder report a 'legacy' directory containing an encrypted file Brightloop has declined to comment on. Draw your own conclusions." },
+      { "t": "link", "text": "Read the community thread →", "href": "retrovault.net/t/88213" }
+    ]},
+    { "url": "store.kestrel.gg/reawakened", "title": "PAPERLIGHT: Reawakened on Kestrel", "theme": "store", "blocks": [
+      { "t": "h1", "text": "PAPERLIGHT: Reawakened" },
+      { "t": "meta", "text": "Brightloop Games · $29.99 · Overwhelmingly Negative (2,914 reviews)" },
+      { "t": "review", "author": "lanternkid_99", "meta": "Not recommended · 0.4 hrs", "text": "where is the lighthouse" },
+      { "t": "review", "author": "Moth", "meta": "Not recommended · 1.1 hrs", "text": "energy system. in a single player game. from 1999." },
+      { "t": "review", "author": "priya.s", "meta": "Not recommended · 0.2 hrs", "text": "I worked on the original. This isn't it. Please don't support this." },
+      { "t": "review", "author": "xX_refund_Xx", "meta": "Not recommended · 0.1 hrs", "text": "tried to uninstall and it said some process was using a file in data/legacy?? had to reboot twice" }
+    ]},
+    { "url": "retrovault.net", "title": "RetroVault Forums", "theme": "forum", "blocks": [
+      { "t": "h1", "text": "RetroVault › Late 90s" },
+      { "t": "link", "text": "📌 Paperlight dev build hidden in the Reawakened install? (412 replies)", "href": "retrovault.net/t/88213" },
+      { "t": "link", "text": "[1999] Secret fox behind the lighthouse?? (88 replies, archived)", "href": "retrovault.net/t/1204" },
+      { "t": "link", "text": "Best CRT shaders 2026", "href": "retrovault.net/t/90011" }
+    ]},
+    { "url": "retrovault.net/t/88213", "title": "Paperlight dev build hidden in the Reawakened install?", "theme": "forum", "blocks": [
+      { "t": "h1", "text": "Paperlight dev build hidden in the Reawakened install?" },
+      { "t": "post", "author": "byte_archaeologist", "meta": "#1", "text": "Check Games/Kestrel/PAPERLIGHT Reawakened/data/legacy. There's a 48 MB file just called OLD. Properties say it's 'PAPERLIGHT build 0.7.3 (internal)', original name paperlight_dev.exe. It's encrypted with Halden's old packer. Brightloop clearly shipped the whole legacy folder by accident." },
+      { "t": "post", "author": "moth_wings", "meta": "#4", "text": "There are text files next to it. The dev who packed it left a note about the passphrase scheme. The codename is in one of them too." },
+      { "t": "post", "author": "byte_archaeologist", "meta": "#9", "text": "Tried the obvious one with the release year. Nope. The created/modified dates on OLD are corrupted so we don't know the exact year it was packed." },
+      { "t": "post", "author": "kesh", "meta": "#15", "text": "Then brute force it. KeySmith has masks: put the part you KNOW as the prefix and only brute force the characters you don't. If you brute force the whole thing you'll be waiting until the sun burns out. Don't waste your time guessing." },
+      { "t": "post", "author": "kesh", "meta": "#16", "text": "keysmith.dev — it's legit, open source." },
+      { "t": "post", "author": "nullpointer", "meta": "#203", "text": "Did anyone actually run it after unpacking? I did. Old Lantern Town, debug text everywhere, missing textures. It's amazing. Then the sign text changed while I was reading it. Probably just a debug feature." },
+      { "t": "post", "author": "nullpointer", "meta": "#204", "text": "My PC's been acting weird since. Fans spin up at night. Probably unrelated." },
+      { "t": "post", "author": "RetroVault_mod", "meta": "#412", "text": "Thread locked. Please stop PMing users about the fox." }
+    ]},
+    { "url": "retrovault.net/t/1204", "title": "[1999] Secret fox behind the lighthouse??", "theme": "forum", "blocks": [
+      { "t": "h1", "text": "[1999] Secret fox behind the lighthouse??" },
+      { "t": "post", "author": "danny_k", "meta": "#1 · 1999", "text": "kid in my class swears if you go behind the lighthouse and press up 3 times a pink fox shows up and TALKS to you. pretty sure he's lying" },
+      { "t": "post", "author": "gamegenie_jr", "meta": "#3 · 1999", "text": "i tried it 50 times. nothing. FAKE" },
+      { "t": "post", "author": "hex_editor", "meta": "#40 · 2004", "text": "Went through the retail files byte by byte. There's no fox sprite anywhere. There IS a string table with entries starting VXL_ that nothing references. Make of that what you will." },
+      { "t": "post", "author": "danny_k", "meta": "#88 · 2019", "text": "lol this thread is still here. sorry to whoever I called a liar in 4th grade" }
+    ]},
+    { "url": "wikiverse.org/Halden_Softworks", "title": "Halden Softworks — Wikiverse", "theme": "wiki", "blocks": [
+      { "t": "h1", "text": "Halden Softworks" },
+      { "t": "meta", "text": "Video game developer · 1994–2003" },
+      { "t": "p", "text": "Halden Softworks was a small developer best known for PAPERLIGHT (1999), an adventure game set in the coastal Lantern Town. The game was praised for its atmosphere and hand-drawn art." },
+      { "t": "h2", "text": "Unreleased projects" },
+      { "t": "p", "text": "During development of PAPERLIGHT, Halden experimented with an adaptive in-game helper character, internally called VXL. Former staff describe it as 'unusually good at conversation'. The feature was cut before release; reasons given vary." },
+      { "t": "p", "text": "From 2001 the studio reportedly moved most of its staff onto an undisclosed 'hardware project'. Halden closed in 2003. Its offices outside the city have stood empty since." },
+      { "t": "h2", "text": "Legacy" },
+      { "t": "p", "text": "In 2025 the PAPERLIGHT rights were acquired by Brightloop Games, which released PAPERLIGHT: Reawakened in 2026 to negative reviews." }
+    ]},
+    { "url": "keysmith.dev", "title": "KeySmith — passphrase recovery", "theme": "keysmith", "blocks": [
+      { "t": "h1", "text": "KeySmith 2.4" },
+      { "t": "p", "text": "Forgot the passphrase to your own archive? KeySmith tries passphrases for you, fast. It supports most legacy packers, including HSW-PACK v1/v2." },
+      { "t": "h2", "text": "Use a mask" },
+      { "t": "p", "text": "Brute forcing a long passphrase from nothing can take thousands of years. If you know part of it, enter that as the Known prefix, then set how many unknown characters follow and which characters they can be (digits, letters or both). Fewer unknowns means a smaller keyspace, which means minutes instead of millennia." },
+      { "t": "download", "text": "Download KeySmith for Pane (3.1 MB)", "action": "keysmith_setup.exe" },
+      { "t": "small", "text": "Only use KeySmith on files you own. Free and open source." }
+    ]},
+    { "url": "shieldlabs.com/help", "title": "Shield Security — Help", "theme": "news", "blocks": [
+      { "t": "h1", "text": "Shield Security help" },
+      { "t": "p", "text": "Shield protects your PC in real time. To check your PC manually, open Shield from the desktop and run a Quick scan." },
+      { "t": "p", "text": "Files in unknown or proprietary formats may be skipped during a scan." }
+    ]},
+    { "url": "retrovault.net/t/90011", "title": "Best CRT shaders 2026", "theme": "forum", "blocks": [
+      { "t": "h1", "text": "Best CRT shaders 2026" },
+      { "t": "post", "author": "scanline_sally", "meta": "#1", "text": "Nothing beats a real CRT. Fight me." }
+    ]}
+  ]
+}

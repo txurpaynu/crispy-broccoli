@@ -138,13 +138,19 @@ struct VirtualFilesystem: Codable {
     }
 
     /// All files of a given kind with their paths (used by KeySmith's file picker).
-    func find(kind: VFSKind) -> [(String, VFSNode)] {
-        var out: [(String, VFSNode)] = []
+    func find(kind: VFSKind) -> [VFSHit] {
+        var out: [VFSHit] = []
         func walk(_ n: VFSNode, _ p: String) {
-            if n.kind == kind { out.append((p, n)) }
+            if n.kind == kind { out.append(VFSHit(path: p, node: n)) }
             for c in n.children ?? [] { walk(c, p + "/" + c.name) }
         }
         walk(root, root.name)
         return out
     }
+}
+
+struct VFSHit: Identifiable {
+    let path: String
+    let node: VFSNode
+    var id: String { path }
 }

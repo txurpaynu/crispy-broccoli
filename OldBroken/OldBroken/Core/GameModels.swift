@@ -37,6 +37,22 @@ struct DesktopPersistentState: Codable {
     var downloads: [String] = []
     var oldWindowOpen: Bool = false
     var lastFocusLossAt: Date? = nil
+    var recycled: [RecycledItem] = []
+    var notifications: [DesktopNotification] = []
+}
+
+struct RecycledItem: Codable, Identifiable {
+    var id: String { originalPath }
+    let originalPath: String
+    let node: VFSNode
+}
+
+struct DesktopNotification: Codable, Identifiable, Equatable {
+    var id = UUID()
+    let app: String
+    let title: String
+    let body: String
+    var time: String = ""
 }
 
 /// A line of the protagonist's inner monologue, shown as a subtitle.
