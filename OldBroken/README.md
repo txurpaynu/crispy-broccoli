@@ -67,7 +67,7 @@ Use this to check that the whole slice can be completed. Every step is gated by 
 
 | Placeholder | Replace by |
 |---|---|
-| Apartment geometry and materials are built in code (`World/ApartmentBuilder.swift`, `ApartmentDressing.swift`) | Add `.usdz` models and swap the nodes with the same names (`ia:computer`, `ia:bed`, …) |
+| Monitor, keyboard, PC tower, door, window, shelf and books are still built in code. The furniture now uses real models (see Third-party assets) | Drop a `.usdz` in `Resources/Models` and load it with `ModelLibrary.place` under the same node name (`ia:computer`, …) |
 | Poster, game box and remaster key art are drawn in code (`ArtTex`, `RemasterKeyArt`) | Use real images |
 | 1998 tiles and sprites are drawn in code (`OriginalGame/RetroArt.swift`) | Add 16×16 PNGs named `retro_<key>.png` (e.g. `retro_grass.png`, `retro_player_down.png`, `retro_fox.png`). They're picked up automatically |
 | Vexley **neutral** and **curious** faces reuse the happy and excited GIFs | Add `vx_neutral.gif` / `vx_curious.gif` and update the two lines in `VexleyExpression.assetName` |
@@ -79,8 +79,16 @@ Use this to check that the whole slice can be completed. Every step is gated by 
 - Vexley full-body 2D mascot (front: idle and talking), and **neutral** and **curious** expressions matching the existing GIFs
 - 16×16 tileset for Lantern Town (grass, path, water, tree, house, lighthouse, sign, fence, missing-texture), plus a 4-direction kid sprite and the Old Wren sprite
 - PAPERLIGHT logo, 1999 box cover, and Reawakened key art
-- 3D: desk, monitor, office chair, bed, wardrobe and window models (`.usdz`)
+- 3D: CRT-era monitor, keyboard and PC tower, a door and a window frame (`.usdz`)
 - Audio: Vexley voice actor (calm young adult), room tone, PC fan, keyboard, CRT whine, a lo-fi PAPERLIGHT theme
+
+## Third-party assets
+
+The furniture and room textures come from [Poly Haven](https://polyhaven.com) and are CC0 (public domain, no attribution required; credited here anyway).
+- Models: WoodenTable_03, dining_chair_02, vintage_day_bed, ClassicNightstand_01, drawer_cabinet, potted_plant_02, modern_ceiling_lamp_01, desk_lamp_arm_01, alarm_clock_01, gaming_console, cardboard_box_01, hanging_picture_frame_02, throw_pillows_01
+- Textures: laminate_floor_02, painted_plaster_wall, ceiling_interior, dirty_carpet
+
+They are fetched and converted to USDZ by `.github/workflows/fetch-assets.yml` (`tools/assets/`). Edit `tools/assets/manifest.json` and re-run that workflow to change them. `World/ModelLibrary.swift` loads them, and the blockout geometry stays as a fallback if a file is missing.
 
 ## Known limitations
 - Touch-only. No game controller or hardware keyboard support yet.
@@ -105,3 +113,4 @@ Use this to check that the whole slice can be completed. Every step is gated by 
 - **Phase 3:** desktop OS (windows, taskbar, start menu, notifications), Files, Notepad, Drift (9 fictional sites, search), Kestrel, the remaster, Task Manager, Shield, Settings, Recycle Bin. CI green.
 - **Phase 4:** blocked uninstall, blocked delete, OLD properties, passphrase prompt with reactive hints, KeySmith mask brute forcer with real keyspace and time math. CI green.
 - **Phase 5:** original game, Vexley's first appearance, branching dialogue, behavior and memory, UI manipulation, refusal to close, end of slice.
+- **Visual pass:** fixed the overexposed room (exposure, bloom, light levels in one `Lighting` table). Swapped the blocky furniture for 13 CC0 Poly Haven models and added PBR textures to the walls, floor, ceiling and rug.
