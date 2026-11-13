@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Tell Vexley About This Page",
+  "version": "1.0",
+  "description": "Share the current Safari website with Vexley when you choose.",
+  "permissions": ["activeTab", "nativeMessaging"],
+  "browser_action": {
+    "default_title": "Tell Vexley about this page",
+    "default_popup": "popup.html"
+  }
+}

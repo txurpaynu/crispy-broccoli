@@ -1,5 +1,6 @@
 import Foundation
 import ActivityKit
+import WidgetKit
 
 /// Starts, updates and ends the Lock Screen / Dynamic Island companion.
 @MainActor
@@ -30,6 +31,7 @@ final class LiveActivityManager: ObservableObject {
             )
             isRunning = true
             lastError = nil
+            WidgetCenter.shared.reloadTimelines(ofKind: "VexleyHomeWidget")
         } catch {
             lastError = "Couldn't start the Live Activity: \(error.localizedDescription)"
         }
@@ -37,7 +39,10 @@ final class LiveActivityManager: ObservableObject {
 
     func update(_ state: CompanionAttributes.ContentState) {
         guard let activity else { return }
-        Task { await activity.update(ActivityContent(state: state, staleDate: nil)) }
+        Task {
+            await activity.update(ActivityContent(state: state, staleDate: nil))
+            WidgetCenter.shared.reloadTimelines(ofKind: "VexleyHomeWidget")
+        }
     }
 
     func stop() {
@@ -47,6 +52,7 @@ final class LiveActivityManager: ObservableObject {
             for a in Activity<CompanionAttributes>.activities {
                 await a.end(nil, dismissalPolicy: .immediate)
             }
+            WidgetCenter.shared.reloadTimelines(ofKind: "VexleyHomeWidget")
         }
     }
 }
