@@ -28,4 +28,7 @@ for line in open(listfile):
     # Blender is Z-up; USD export converts to Y-up. Report size as (x, y=height, z=depth).
     info[mid] = {"size": [mx.x - mn.x, mx.z - mn.z, mx.y - mn.y], "tris": tris, "bytes": os.path.getsize(out)}
     print("converted", mid, info[mid])
-json.dump(info, open(os.path.join(out_dir, "models.json"), "w"), indent=1)
+mj = os.path.join(out_dir, "models.json")
+merged = json.load(open(mj)) if os.path.exists(mj) else {}
+merged.update(info)
+json.dump(merged, open(mj, "w"), indent=1)
