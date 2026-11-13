@@ -143,6 +143,7 @@ func _rebuild_from_anchors() -> void:
 		if node == null or not is_instance_valid(node):
 			continue
 		var labels := PackedStringArray(entity.call("get_semantic_labels"))
+		print("[room] anchor ", labels)
 		var label := labels[0].to_lower() if labels.size() > 0 else "other"
 		var s := _surf_from_anchor(node, entity, label)
 		if s == null:
@@ -179,8 +180,9 @@ func _rebuild_from_anchors() -> void:
 
 func _surf_from_anchor(node: Node3D, entity: Object, label: String) -> Surf:
 	var gx := node.global_transform
-	var bounded_2d := bool(entity.call("is_component_enabled", 3))
-	var bounded_3d := bool(entity.call("is_component_enabled", 4))
+	# 3 = COMPONENT_TYPE_BOUNDED_2D, 4 = COMPONENT_TYPE_BOUNDED_3D
+	var bounded_2d := bool(entity.call("is_component_supported", 3))
+	var bounded_3d := bool(entity.call("is_component_supported", 4))
 	if bounded_2d:
 		var rect: Rect2 = entity.call("get_bounding_box_2d")
 		if rect.size.x < 0.2 or rect.size.y < 0.2:

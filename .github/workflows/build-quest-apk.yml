@@ -61,8 +61,7 @@ jobs:
           echo "Android SDK: $SDK"
           echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
           ls "$SDK" "$SDK/build-tools" "$SDK/platforms" || true
-          SDKM=$(ls "$SDK"/cmdline-tools/*/bin/sdkmanager | tail -n 1)
-          yes | "$SDKM" --licenses > /dev/null 2>&1 || true
+          ls "$SDK/licenses" || true
           mkdir -p ~/.config/godot
           for f in editor_settings-4.tres editor_settings-4.4.tres; do
             printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$SDK" "$JAVA_HOME" > ~/.config/godot/$f
