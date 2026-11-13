@@ -87,7 +87,7 @@ func _ready() -> void:
 	add_child(vexley)
 	vexley.room = room
 	vexley.camera = camera
-	vexley.spawn(Vector3(0, 1.3, -1.0))
+	vexley.spawn(Vector3(0, 0.6, -1.0))
 	vexley.event.connect(_on_vexley_event)
 	companion.bubble_changed.connect(vexley.say)
 	companion.face_changed.connect(vexley.set_face)
