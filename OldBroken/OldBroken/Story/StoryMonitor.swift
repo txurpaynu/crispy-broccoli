@@ -13,7 +13,10 @@ enum StoryMonitor {
         case 2:
             if s.has("ate_dinner") && !s.has("ch2_read_log") { return (MonitorImages.messagesWaiting(), pink) }
             return (MonitorImages.overhaul(), pink)
+        case 3 where s.has("vx_on_desktop"):
+            return (MonitorImages.desktopWithVexley(), pink)
         default:
+            if s.has("vx_on_desktop") { return (MonitorImages.desktopWithVexley(), pink) }
             return (ProcTex.monitorIdle(), blue)
         }
     }
@@ -52,6 +55,25 @@ extension MonitorImages {
             }
             if let face = VexleyArt.still(.happy) {
                 face.draw(in: CGRect(x: 300, y: 70, width: 190, height: 190))
+            }
+        }
+    }
+
+    /// The purple desktop, and him, standing on the taskbar.
+    static func desktopWithVexley() -> UIImage {
+        ProcTex.render(CGSize(width: 512, height: 304)) { c, s in
+            let colors = [UIColor(red: 0.12, green: 0.05, blue: 0.18, alpha: 1).cgColor,
+                          UIColor(red: 0.02, green: 0.02, blue: 0.05, alpha: 1).cgColor] as CFArray
+            let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors, locations: [0, 1])!
+            c.drawLinearGradient(g, start: .zero, end: CGPoint(x: 0, y: s.height), options: [])
+            c.setFillColor(UIColor(white: 0, alpha: 0.7).cgColor)
+            c.fill(CGRect(x: 0, y: s.height - 26, width: s.width, height: 26))
+            for i in 0..<5 {
+                c.setFillColor(UIColor(white: 1, alpha: 0.12).cgColor)
+                c.fill(CGRect(x: 14, y: 14 + CGFloat(i) * 44, width: 30, height: 30))
+            }
+            if let face = VexleyArt.still(.happy) {
+                face.draw(in: CGRect(x: 330, y: s.height - 26 - 110, width: 110, height: 110))
             }
         }
     }

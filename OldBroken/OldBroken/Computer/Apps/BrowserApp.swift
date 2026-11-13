@@ -53,6 +53,7 @@ struct BrowserApp: View {
     @State private var query = ""
     @State private var searchResults: [WebPage]? = nil
     @State private var lastQuery = ""
+    @State private var showHistory = false
 
     private let data = BrowserData.shared
 
@@ -61,6 +62,7 @@ struct BrowserApp: View {
             HStack(spacing: 6) {
                 Button { goBack() } label: { Image(systemName: "chevron.left") }.disabled(back.isEmpty)
                 Button { navigate("drift://home") } label: { Image(systemName: "house") }
+                Button { showHistory.toggle() } label: { Image(systemName: "clock.arrow.circlepath") }
                 TextField("Search or enter address", text: $address)
                     .textInputAutocapitalization(.never).autocorrectionDisabled()
                     .font(.system(size: 11))
@@ -73,10 +75,14 @@ struct BrowserApp: View {
             .padding(6)
             .background(Color(red: 0.09, green: 0.1, blue: 0.13))
 
-            ScrollView {
-                pageBody
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(14)
+            if showHistory {
+                historyView
+            } else {
+                ScrollView {
+                    pageBody
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(14)
+                }
             }
             .background(background)
         }
@@ -183,6 +189,39 @@ struct BrowserApp: View {
         }
     }
 
+    private var historyView: some View {
+        let vx = StoryDirector.shared.vexleyHistory
+        let mine = session.data.flags.filter { $0.hasPrefix("visited_") }.map { String($0.dropFirst(8)) }.sorted()
+        return ScrollView {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("History").font(.system(size: 18, weight: .bold))
+                if !vx.isEmpty {
+                    Text("Today, while you were asleep").font(.system(size: 10, weight: .semibold)).opacity(0.5).padding(.top, 4)
+                    ForEach(Array(vx.enumerated()), id: \.offset) { _, h in
+                        HStack(spacing: 10) {
+                            Text(h.0).font(.system(size: 10, design: .monospaced)).opacity(0.5).frame(width: 58, alignment: .leading)
+                            Image(systemName: "magnifyingglass").font(.system(size: 10)).opacity(0.6)
+                            Text(h.1).font(.system(size: 12))
+                        }
+                    }
+                }
+                Text("Earlier").font(.system(size: 10, weight: .semibold)).opacity(0.5).padding(.top, 8)
+                if mine.isEmpty { Text("Nothing yet.").font(.system(size: 12)).opacity(0.6) }
+                ForEach(mine, id: \.self) { u in
+                    Button { showHistory = false; navigate(u) } label: {
+                        Text(u).font(.system(size: 12)).foregroundStyle(Color(red: 0.55, green: 0.7, blue: 1))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .foregroundStyle(.white)
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .background(Color(red: 0.12, green: 0.13, blue: 0.17))
+        .onAppear { if !vx.isEmpty { session.set("saw_vx_history") } }
+    }
+
     private func submitAddress() {
         let a = address.trimmingCharacters(in: .whitespaces)
         if a.contains(".") && !a.contains(" ") || a.hasPrefix("drift://") { navigate(a) } else { search(a) }
@@ -205,9 +244,11 @@ struct BrowserApp: View {
         session.set("visited_" + clean)
         if clean == "retrovault.net/t/88213" { session.set("read_forum_thread") }
         if clean == "retrovault.net/t/1204" { session.set("read_fox_thread") }
+        StoryDirector.shared.pageVisited(clean)
     }
 
     private func push(_ u: String) {
+        showHistory = false
         if u != url { back.append(url) }
         url = u
         AudioManager.shared.play(.mouseClick)

@@ -213,8 +213,21 @@ struct SettingsApp: View {
                 }
                 Text("Sound").font(.system(size: 13, weight: .semibold))
                 Slider(value: $settings.masterVolume, in: 0...1).frame(maxWidth: 260)
+                Text("Security").font(.system(size: 13, weight: .semibold))
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Controlled folder access").font(.system(size: 12))
+                        Text("Protects files from changes by unfamiliar apps.").font(.system(size: 9)).foregroundStyle(.white.opacity(0.5))
+                    }
+                    Toggle("", isOn: Binding(get: { !session.has("cfa_off") }, set: { StoryDirector.shared.setFolderAccess($0) }))
+                        .labelsHidden().tint(.blue)
+                }
+                .frame(maxWidth: 320)
+                if session.has("update_installed") {
+                    Text("Some settings are managed by your organization.").font(.system(size: 10)).foregroundStyle(.orange.opacity(0.8))
+                }
                 Text("About").font(.system(size: 13, weight: .semibold))
-                Text("Pane 11 Home · build 26100.2\nDevice: SAM-DESKTOP · 32 GB RAM\nShield Security: active")
+                Text("Pane 11 Home · build 26100.2\nDevice: SAM-DESKTOP · 32 GB RAM\nShield Security: \(session.has("shield_rt_off") ? "off" : "active")")
                     .font(.system(size: 11, design: .monospaced)).foregroundStyle(.white.opacity(0.6))
             }
             .padding(14)

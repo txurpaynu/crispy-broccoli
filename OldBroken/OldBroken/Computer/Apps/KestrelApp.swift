@@ -215,6 +215,7 @@ struct TaskManagerApp: View {
             }
         }
         .onReceive(timer) { _ in tick += 1 }
+        .onAppear { if GameSession.shared.has("update_installed") { GameSession.shared.set("saw_vxl_procs") } }
     }
 }
 
@@ -235,10 +236,21 @@ struct ShieldApp: View {
     }
 
     var body: some View {
-        VStack(spacing: 14) {
-            Image(systemName: "checkmark.shield.fill").font(.system(size: 40)).foregroundStyle(.green)
-            Text("You're protected").font(.system(size: 16, weight: .semibold))
-            Text("Real-time protection: On · Definitions updated today").font(.system(size: 10)).foregroundStyle(.white.opacity(0.5))
+        let off = session.has("shield_rt_off")
+        VStack(spacing: 12) {
+            Image(systemName: off ? "xmark.shield.fill" : "checkmark.shield.fill").font(.system(size: 40))
+                .foregroundStyle(off ? .red : .green)
+            Text(off ? "Your device is at risk" : "You're protected").font(.system(size: 16, weight: .semibold))
+            HStack(spacing: 10) {
+                Text("Real-time protection").font(.system(size: 12))
+                Toggle("", isOn: Binding(get: { !session.has("shield_rt_off") },
+                                         set: { StoryDirector.shared.setRealtime($0) }))
+                    .labelsHidden().tint(.green)
+            }
+            .padding(.horizontal, 12).padding(.vertical, 6)
+            .background(.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 8))
+            Text(session.has("update_installed") && off ? "Some settings are managed by your administrator."
+                 : "Definitions updated today").font(.system(size: 10)).foregroundStyle(.white.opacity(0.5))
             if let p = progress {
                 ProgressView(value: p).tint(.green).frame(width: 260)
                 Text("Scanning \(current)").font(.system(size: 10, design: .monospaced)).foregroundStyle(.white.opacity(0.6)).lineLimit(1)

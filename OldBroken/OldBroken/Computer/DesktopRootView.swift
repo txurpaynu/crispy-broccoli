@@ -88,12 +88,22 @@ struct DesktopView: View {
                         .zIndex(600)
                 }
 
+                if session.has("vx_on_desktop") && session.day >= 3 && !session.has("arrived_facility") {
+                    DesktopVexley(area: areaSize)
+                        .zIndex(520)
+                }
+
                 if let d = comp.dialog {
                     Color.black.opacity(0.25).zIndex(700)
                     SystemDialogView(dialog: d)
                         .frame(width: min(380, geo.size.width - 40))
                         .position(x: geo.size.width / 2, y: areaSize.height / 2)
                         .zIndex(701)
+                }
+            }
+            .overlay {
+                if let p = comp.updateScreen {
+                    UpdateInstallScreen(progress: p, glitch: comp.updateGlitch).transition(.opacity)
                 }
             }
             .onAppear { comp.area = areaSize }
@@ -144,6 +154,12 @@ struct DesktopIcons: View {
         }
         if session.has("keysmith_installed") {
             list.append(Icon(id: "keysmith", name: "KeySmith", app: .keysmith) { comp.launch(.keysmith) })
+        }
+        if session.has("chatter_synced") {
+            list.append(Icon(id: "chatter", name: "Chatter", app: .chatter) { comp.open(.chatter) })
+        }
+        if session.has("lumen_installed") {
+            list.append(Icon(id: "lumen", name: "Lumen", app: .lumen) { comp.open(.lumen) })
         }
         return list
     }
@@ -209,7 +225,8 @@ struct Taskbar: View {
             HStack(spacing: 8) {
                 Image(systemName: "wifi")
                 Image(systemName: "speaker.wave.2.fill")
-                Image(systemName: "checkmark.shield.fill").foregroundStyle(.green.opacity(0.8))
+                Image(systemName: session.has("shield_rt_off") ? "xmark.shield.fill" : "checkmark.shield.fill")
+                    .foregroundStyle(session.has("shield_rt_off") ? .red : .green.opacity(0.8))
                 Button {
                     comp.notificationCenterOpen.toggle()
                     comp.startOpen = false
@@ -236,6 +253,9 @@ struct StartMenu: View {
         var a: [AppKind] = [.files, .browser, .kestrel, .shield, .taskmgr, .settings, .recycle]
         if session.has("remaster_installed") { a.append(.remaster) }
         if session.has("keysmith_installed") { a.append(.keysmith) }
+        if session.has("ch3_update_offered") && !session.has("update_installed") { a.append(.update) }
+        if session.has("chatter_synced") { a.append(.chatter) }
+        if session.has("lumen_installed") { a.append(.lumen) }
         return a
     }
 

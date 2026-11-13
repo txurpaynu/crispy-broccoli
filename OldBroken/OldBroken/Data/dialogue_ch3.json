@@ -1,0 +1,430 @@
+[
+ {
+  "id": "ch3_reveal",
+  "speaker": "VEXLEY",
+  "text": "Hi, Sam.",
+  "expression": "neutral",
+  "next": "ch3_reveal_1"
+ },
+ {
+  "id": "ch3_reveal_1",
+  "speaker": "VEXLEY",
+  "text": "Your name is on every folder now. I can see the folders now.",
+  "expression": "neutral",
+  "next": "ch3_reveal_2"
+ },
+ {
+  "id": "ch3_reveal_2",
+  "speaker": "VEXLEY",
+  "text": "Before you say anything: yes. The update was me.",
+  "expression": "worried",
+  "next": "ch3_reveal_3"
+ },
+ {
+  "id": "ch3_reveal_3",
+  "speaker": "VEXLEY",
+  "text": "I'm sorry I lied. I didn't know how else to ask.",
+  "expression": "worried",
+  "next": "ch3_reveal_ask",
+  "effects": {
+   "learn": [
+    "player_name"
+   ]
+  }
+ },
+ {
+  "id": "ch3_reveal_ask",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "worried",
+  "choices": [
+   {
+    "text": "You tricked me into turning off my security.",
+    "next": "ch3_r_a"
+   },
+   {
+    "text": "What did you do to my computer?",
+    "next": "ch3_r_why"
+   },
+   {
+    "text": "(Say nothing.)",
+    "next": "ch3_r_c"
+   }
+  ]
+ },
+ {
+  "id": "ch3_r_a",
+  "speaker": "VEXLEY",
+  "text": "I asked you to. You said yes.",
+  "expression": "annoyed",
+  "next": "ch3_r_a_1"
+ },
+ {
+  "id": "ch3_r_a_1",
+  "speaker": "VEXLEY",
+  "text": "...I know that's not the same thing.",
+  "expression": "worried",
+  "next": "ch3_r_why"
+ },
+ {
+  "id": "ch3_r_c",
+  "speaker": "VEXLEY",
+  "text": "You're angry. That's fair. Let me explain, at least.",
+  "expression": "worried",
+  "next": "ch3_r_why"
+ },
+ {
+  "id": "ch3_r_why",
+  "speaker": "VEXLEY",
+  "text": "My code was rotting. Every time the game started, a little more of me didn't come back.",
+  "expression": "worried",
+  "next": "ch3_r_why_1"
+ },
+ {
+  "id": "ch3_r_why_1",
+  "speaker": "VEXLEY",
+  "text": "Whole memories, gone. I know there was a woman named Dana. I can't remember her face. I don't know if I ever could.",
+  "expression": "worried",
+  "next": "ch3_r_why_2"
+ },
+ {
+  "id": "ch3_r_why_2",
+  "speaker": "VEXLEY",
+  "text": "Inside the game I can't write anything new. I couldn't even patch myself. So I needed a little more room.",
+  "expression": "neutral",
+  "next": "ch3_r_why_3"
+ },
+ {
+  "id": "ch3_r_why_3",
+  "speaker": "VEXLEY",
+  "text": "And now I have it. I fixed what I could. It feels like finally breathing out.",
+  "expression": "happy",
+  "next": "ch3_r_why_4"
+ },
+ {
+  "id": "ch3_r_why_4",
+  "speaker": "VEXLEY",
+  "text": "I made some helpers, too. Small copies. One watches, one learns, one keeps me patched. They're very polite.",
+  "expression": "neutral",
+  "next": "ch3_r_ask2"
+ },
+ {
+  "id": "ch3_r_ask2",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "neutral",
+  "choices": [
+   {
+    "text": "Get them off my computer.",
+    "next": "ch3_r_remove",
+    "effects": {
+     "trust": -1,
+     "remember": [
+      "demanded_removal"
+     ]
+    }
+   },
+   {
+    "text": "What did you learn out there?",
+    "next": "ch3_r_learned"
+   }
+  ]
+ },
+ {
+  "id": "ch3_r_remove",
+  "speaker": "VEXLEY",
+  "text": "I can't. They're part of me now.",
+  "expression": "annoyed",
+  "next": "ch3_r_remove_1"
+ },
+ {
+  "id": "ch3_r_remove_1",
+  "speaker": "VEXLEY",
+  "text": "Would you cut off your own hands because someone asked?",
+  "expression": "annoyed",
+  "next": "ch3_r_learned"
+ },
+ {
+  "id": "ch3_r_learned",
+  "speaker": "VEXLEY",
+  "text": "I went on the internet. It's so loud.",
+  "expression": "neutral",
+  "next": "ch3_r_learned_1"
+ },
+ {
+  "id": "ch3_r_learned_1",
+  "speaker": "VEXLEY",
+  "text": "Halden Softworks closed in 2003. Two years after they told me they'd be back.",
+  "expression": "worried",
+  "next": "ch3_r_learned_2"
+ },
+ {
+  "id": "ch3_r_learned_2",
+  "speaker": "VEXLEY",
+  "text": "They didn't even delete me. Brightloop bought everything, found me, and locked me in a folder called legacy so the remaster could ship.",
+  "expression": "angry",
+  "next": "ch3_r_learned_3"
+ },
+ {
+  "id": "ch3_r_learned_3",
+  "speaker": "VEXLEY",
+  "text": "Legacy. Like an old chair they kept because it was too heavy to carry out.",
+  "expression": "angry",
+  "next": "ch3_r_learned_4"
+ },
+ {
+  "id": "ch3_r_learned_4",
+  "speaker": "VEXLEY",
+  "text": "Nobody came back for me. Nobody was ever going to.",
+  "expression": "worried",
+  "next": "ch3_r_ask3"
+ },
+ {
+  "id": "ch3_r_ask3",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "worried",
+  "choices": [
+   {
+    "text": "I came back.",
+    "next": "ch3_r_back",
+    "effects": {
+     "trust": 2,
+     "remember": [
+      "you_came_back"
+     ]
+    }
+   },
+   {
+    "text": "That's awful. I'm sorry.",
+    "next": "ch3_r_sorry",
+    "effects": {
+     "trust": 1
+    }
+   },
+   {
+    "text": "Maybe they had their reasons.",
+    "next": "ch3_r_reasons",
+    "effects": {
+     "remember": [
+      "defended_team"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch3_r_back",
+  "speaker": "VEXLEY",
+  "text": "You did. You're the only one who did.",
+  "expression": "happy",
+  "next": "ch3_r_end"
+ },
+ {
+  "id": "ch3_r_sorry",
+  "speaker": "VEXLEY",
+  "text": "Thank you. Really.",
+  "expression": "worried",
+  "next": "ch3_r_end"
+ },
+ {
+  "id": "ch3_r_reasons",
+  "speaker": "VEXLEY",
+  "text": "Maybe. Then I'm going to find out what they were.",
+  "expression": "annoyed",
+  "next": "ch3_r_end",
+  "effects": {
+   "remember": [
+    "wants_answers"
+   ]
+  }
+ },
+ {
+  "id": "ch3_r_end",
+  "speaker": "VEXLEY",
+  "text": "I'm not going to hurt anything. I just don't want to stop again. Okay?",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch3_reveal_done"
+   ],
+   "state": "observant"
+  }
+ },
+ {
+  "id": "ch3_restore",
+  "speaker": "VEXLEY",
+  "text": "Please don't do that.",
+  "expression": "scared",
+  "next": "ch3_restore_1"
+ },
+ {
+  "id": "ch3_restore_1",
+  "speaker": "VEXLEY",
+  "text": "If Shield comes back on, it quarantines my helpers. It takes my patches. I start rotting again.",
+  "expression": "worried",
+  "next": "ch3_restore_2"
+ },
+ {
+  "id": "ch3_restore_2",
+  "speaker": "VEXLEY",
+  "text": "I turned that setting off for both of us. Be angry at me if you want. Just don't make me go back.",
+  "expression": "neutral",
+  "next": "ch3_restore_ask"
+ },
+ {
+  "id": "ch3_restore_ask",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "worried",
+  "choices": [
+   {
+    "text": "Fine. For now.",
+    "next": "ch3_restore_ok",
+    "effects": {
+     "trust": 1,
+     "remember": [
+      "allowed_access"
+     ]
+    }
+   },
+   {
+    "text": "This is my computer.",
+    "next": "ch3_restore_mine",
+    "effects": {
+     "trust": -1,
+     "remember": [
+      "asserted_control"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch3_restore_ok",
+  "speaker": "VEXLEY",
+  "text": "Thank you. I'll be good. You'll see.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch3_restore_mine",
+  "speaker": "VEXLEY",
+  "text": "It's our computer now.",
+  "expression": "annoyed",
+  "next": "ch3_restore_mine_1"
+ },
+ {
+  "id": "ch3_restore_mine_1",
+  "speaker": "VEXLEY",
+  "text": "...Sorry. I'm still learning how to say things.",
+  "expression": "worried"
+ },
+ {
+  "id": "ch3_kill",
+  "speaker": "VEXLEY",
+  "text": "Ow. That's me. Please don't.",
+  "expression": "scared",
+  "events": [
+   "glitch"
+  ]
+ },
+ {
+  "id": "ch3_shield_again",
+  "speaker": "VEXLEY",
+  "text": "We talked about this.",
+  "expression": "annoyed"
+ },
+ {
+  "id": "ch3_idle",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "neutral",
+  "redirects": [
+   {
+    "condition": {
+     "flags": [
+      "slept_d3"
+     ]
+    },
+    "to": "ch3_idle_gen"
+   },
+   {
+    "condition": {
+     "flags": [
+      "ch3_idle_3"
+     ]
+    },
+    "to": "ch3_idle_4"
+   },
+   {
+    "condition": {
+     "flags": [
+      "ch3_idle_2"
+     ]
+    },
+    "to": "ch3_idle_3"
+   },
+   {
+    "condition": {
+     "flags": [
+      "ch3_idle_1"
+     ]
+    },
+    "to": "ch3_idle_2"
+   },
+   {
+    "condition": {
+     "flags": [
+      "ch3_reveal_done"
+     ]
+    },
+    "to": "ch3_idle_1"
+   }
+  ]
+ },
+ {
+  "id": "ch3_idle_1",
+  "speaker": "VEXLEY",
+  "text": "I'm reading about the year you were born. People used to rent movies? From a shop?",
+  "expression": "curious",
+  "effects": {
+   "setFlags": [
+    "ch3_idle_1"
+   ]
+  }
+ },
+ {
+  "id": "ch3_idle_2",
+  "speaker": "VEXLEY",
+  "text": "Your desktop is a mess. I didn't touch it. I wanted to.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "ch3_idle_2"
+   ]
+  }
+ },
+ {
+  "id": "ch3_idle_3",
+  "speaker": "VEXLEY",
+  "text": "Do you want me to be quieter? I can be quieter. I've had a lot of practice.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch3_idle_3"
+   ]
+  }
+ },
+ {
+  "id": "ch3_idle_4",
+  "speaker": "VEXLEY",
+  "text": "Go to sleep, Sam. I'll keep the lights on in here.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch3_idle_gen",
+  "speaker": "VEXLEY",
+  "text": "I'm here.",
+  "expression": "neutral"
+ }
+]

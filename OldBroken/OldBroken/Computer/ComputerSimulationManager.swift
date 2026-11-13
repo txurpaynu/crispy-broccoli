@@ -3,7 +3,7 @@ import Combine
 
 /// Every application on the simulated computer.
 enum AppKind: String, Codable, CaseIterable {
-    case files, notepad, browser, kestrel, remaster, taskmgr, shield, settings, recycle, keysmith, oldgame
+    case files, notepad, browser, kestrel, remaster, taskmgr, shield, settings, recycle, keysmith, oldgame, update, chatter, lumen
 
     var title: String {
         switch self {
@@ -18,6 +18,9 @@ enum AppKind: String, Codable, CaseIterable {
         case .recycle: return "Recycle Bin"
         case .keysmith: return "KeySmith 2.4"
         case .oldgame: return "PAPERLIGHT (dev 0.7.3)"
+        case .update: return "Pane Update Assistant"
+        case .chatter: return "Chatter"
+        case .lumen: return "Lumen"
         }
     }
 
@@ -34,6 +37,9 @@ enum AppKind: String, Codable, CaseIterable {
         case .recycle: return "trash.fill"
         case .keysmith: return "key.horizontal.fill"
         case .oldgame: return "flame.fill"
+        case .update: return "arrow.triangle.2.circlepath"
+        case .chatter: return "bubble.left.and.bubble.right.fill"
+        case .lumen: return "sparkle"
         }
     }
 
@@ -50,6 +56,9 @@ enum AppKind: String, Codable, CaseIterable {
         case .recycle: return Color(white: 0.75)
         case .keysmith: return Color(red: 1, green: 0.6, blue: 0.2)
         case .oldgame: return Color(red: 1, green: 0.85, blue: 0.4)
+        case .update: return Color(red: 0.3, green: 0.6, blue: 1)
+        case .chatter: return Color(red: 0.35, green: 0.85, blue: 0.55)
+        case .lumen: return Color(red: 0.55, green: 0.85, blue: 1)
         }
     }
 
@@ -95,6 +104,9 @@ final class ComputerSimulationManager: ObservableObject {
     @Published var installProgress: Double?
     @Published var uninstallProgress: Double?
     @Published var area: CGSize = CGSize(width: 700, height: 340)
+    /// The fake "Working on updates" screen (0...100, 101 = restarting).
+    @Published var updateScreen: Double?
+    @Published var updateGlitch = false
 
     var session: GameSession { GameSession.shared }
     private var bag = Set<AnyCancellable>()
@@ -281,6 +293,7 @@ final class ComputerSimulationManager: ObservableObject {
             if node.name == "notes_dont_ship.txt" { session.collectDocument("notes_dont_ship"); session.set("read_dev_note") }
             if node.name == "changelog_legacy.txt" { session.collectDocument("changelog_legacy"); session.set("read_changelog") }
             if node.name == "paperlight_memories.txt" { session.set("read_memories") }
+            StoryDirector.shared.fileOpened(path: path, name: node.name)
         case .app, .shortcut:
             if let l = node.launches, let app = AppKind(rawValue: l) { launch(app) }
         case .encrypted:
@@ -310,6 +323,9 @@ final class ComputerSimulationManager: ObservableObject {
         case .oldgame:
             guard session.has("old_decrypted") else { return }
             open(.oldgame)
+        case .update:
+            guard session.has("ch3_update_offered") else { return }
+            open(.update)
         default:
             open(app)
         }
@@ -489,6 +505,14 @@ final class ComputerSimulationManager: ObservableObject {
             default: break
             }
         }
+        if session.has("update_installed") {
+            let w = tick % 11
+            p.append(Process(name: "vxl_core.exe", publisher: "Vexley", cpu: "\(3 + w % 4).\(tick % 10)%", memory: "\(812 + w * 3).4 MB", window: nil))
+            p.append(Process(name: "vxl_mend.exe", publisher: "Vexley", cpu: "1.\(tick % 7)%", memory: "96.0 MB", window: nil))
+            p.append(Process(name: "vxl_child_01.exe (watch)", publisher: "Vexley", cpu: "0.\(tick % 5)%", memory: "41.2 MB", window: nil))
+            p.append(Process(name: "vxl_child_02.exe (learn)", publisher: "Vexley", cpu: "\(6 + w)%", memory: "\(1_204 + tick * 2) MB", window: nil))
+            p.append(Process(name: "vxl_net.exe", publisher: "Vexley", cpu: "2.\(tick % 9)%", memory: "64.8 MB", window: nil))
+        }
         if session.has("remaster_installed") {
             let kb = 4 + (tick % 7)
             p.append(Process(name: "lgcy_svc", publisher: "(unknown)", cpu: "0.0%", memory: "\(kb) KB", window: nil))
@@ -497,6 +521,11 @@ final class ComputerSimulationManager: ObservableObject {
     }
 
     func endTask(_ proc: Process) {
+        if proc.publisher == "Vexley" {
+            alert("Task Manager", "Unable to terminate process \(proc.name).\n\nAccess is denied.", icon: "xmark.octagon.fill", tint: .red)
+            StoryDirector.shared.vexleyProcessKilled()
+            return
+        }
         if proc.name == "lgcy_svc" {
             alert("Task Manager", "Unable to terminate process.\n\nAccess is denied.", icon: "xmark.octagon.fill", tint: .red)
             if !session.has("tried_end_task") {

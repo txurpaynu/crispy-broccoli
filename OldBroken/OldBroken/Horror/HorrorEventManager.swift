@@ -50,6 +50,17 @@ final class HorrorEventManager {
             }
             s.say("He keeps talking even when I'm not at the desk.")
         },
+        // Chapter 3
+        Beat(id: "h_ch3_disk", condition: { $0.day == 3 && $0.has("update_installed") && !$0.has("ch3_reveal_done") }, delay: 6) { w, s in
+            AudioManager.shared.play(.decryptTick)
+            AudioManager.shared.play(.decryptTick)
+            w.flickerLamp(times: 3)
+            s.say("The hard drive light hasn't stopped blinking since the update.")
+        },
+        Beat(id: "h_ch3_watch", condition: { $0.day == 3 && $0.has("ch3_reveal_done") }, delay: 12) { _, s in
+            AudioManager.shared.play(.vexleyVoice(pitch: 300, rough: 0.05))
+            s.say("The webcam light just came on. I don't even use the webcam.")
+        },
         Beat(id: "h_dead_monitor", condition: { $0.day == 2 && $0.has("pc_shutdown") }, delay: 7) { w, s in
             w.flashMonitorFace(s.data.vexley.remembered.contains("silent_shutdown") ? .scared : .worried)
             AudioManager.shared.setDread(0.3)

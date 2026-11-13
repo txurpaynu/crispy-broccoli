@@ -84,18 +84,22 @@ final class StoryDirector: ObservableObject {
         case "heartbeat":
             AudioManager.shared.play(.heartbeat)
         default:
-            _ = ch2Event(e)
+            if ch2Event(e) { return }
+            _ = laterEvent(e)
         }
     }
 
     private func flag(_ f: String) {
         ch2Flag(f)
+        ch3Flag(f)
+        laterFlag(f)
     }
 
     private func tick() {
         guard session.screen != .title, !session.paused else { return }
         if !dialogue.isActive { idleSeconds += 1 }
         ch2Tick()
+        laterTick()
     }
 
     private func loaded() {
@@ -106,6 +110,8 @@ final class StoryDirector: ObservableObject {
 
     func desktopEntered() {
         ch2DesktopEntered()
+        ch3DesktopEntered()
+        laterDesktopEntered()
     }
 
     /// Return true if the story took over the door.
@@ -130,6 +136,8 @@ final class StoryDirector: ObservableObject {
         case "ch2_play": return "It's the middle of the day."
         case "ch2_dinner": return "Food first. I'm shaking."
         case "ch2_read", "ch2_shutdown": return "Not with the computer still running."
+        case "ch3_boot", "ch3_wait": return "I just got up."
+        case "ch3_update", "ch3_notice", "ch3_talk", "ch3_restore": return "Not until I know what's happening on that computer."
         default: return "I'm not tired yet."
         }
     }

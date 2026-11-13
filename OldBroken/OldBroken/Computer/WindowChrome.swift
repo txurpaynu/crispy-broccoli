@@ -80,6 +80,9 @@ struct AppContent: View {
         case .recycle: RecycleBinApp()
         case .keysmith: KeySmithApp()
         case .oldgame: OldGameWindow()
+        case .update: UpdateAssistantApp()
+        case .chatter: ChatterApp()
+        case .lumen: LumenApp()
         }
     }
 }
