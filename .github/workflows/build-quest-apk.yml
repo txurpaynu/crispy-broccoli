@@ -26,8 +26,6 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - uses: android-actions/setup-android@v3
-
       - name: Cache Godot
         uses: actions/cache@v4
         with:
@@ -61,6 +59,10 @@ jobs:
           set -e
           SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
           echo "Android SDK: $SDK"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          ls "$SDK" "$SDK/build-tools" "$SDK/platforms" || true
+          SDKM=$(ls "$SDK"/cmdline-tools/*/bin/sdkmanager | tail -n 1)
+          yes | "$SDKM" --licenses > /dev/null 2>&1 || true
           mkdir -p ~/.config/godot
           for f in editor_settings-4.tres editor_settings-4.4.tres; do
             printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$SDK" "$JAVA_HOME" > ~/.config/godot/$f
@@ -76,6 +78,7 @@ jobs:
 
       - name: Import project
         run: |
+          godot --headless -s res://tools/make_action_map.gd 2>&1 | grep "action map" || true
           godot --headless --import 2>&1 | tee "$RUNNER_TEMP/import.log" | tail -n 30
           if grep -E "SCRIPT ERROR|Parse Error|Failed to load script" "$RUNNER_TEMP/import.log"; then
             echo "::error::Script errors during import"; exit 1

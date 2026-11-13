@@ -48,6 +48,12 @@ func _ready() -> void:
 	add_child(quad)
 	visible = false
 
+func _process(_delta: float) -> void:
+	# Only render the chat window while it's open.
+	var mode := SubViewport.UPDATE_ALWAYS if is_visible_in_tree() else SubViewport.UPDATE_DISABLED
+	if viewport.render_target_update_mode != mode:
+		viewport.render_target_update_mode = mode
+
 func bind(c: Companion) -> void:
 	companion = c
 	c.messages_changed.connect(refresh)
