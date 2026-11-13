@@ -48,6 +48,9 @@ final class StoryDirector: ObservableObject {
         messagesOpen = false
         idleSeconds = 0
         afterDialogue = []
+        FacilityHolder.reset()
+        FacilityUI.shared.alarm = false
+        FacilityUI.shared.keypad = false
     }
 
     var showsOverlayDialogue: Bool { dialogue.isActive && inlineHosts == 0 }

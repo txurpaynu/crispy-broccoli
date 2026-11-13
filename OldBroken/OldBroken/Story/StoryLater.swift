@@ -5,8 +5,9 @@ extension StoryDirector {
     func laterFlag(_ f: String) {
         ch4Flag(f)
         ch5Flag(f)
+        facilityFlag(f)
     }
-    func laterEvent(_ e: String) -> Bool { false }
+    func laterEvent(_ e: String) -> Bool { facilityEvent(e) }
     func laterTick() {}
     func laterDesktopEntered() {
         ch4DesktopEntered()

@@ -2,7 +2,7 @@
  {
   "id": "gamebox",
   "name": "PAPERLIGHT (1999) game box",
-  "description": "Halden Softworks, © 1999. The corners are soft from being carried everywhere. Something folded is tucked behind the disc.",
+  "description": "Halden Softworks, \u00a9 1999. The corners are soft from being carried everywhere. Something folded is tucked behind the disc.",
   "revealsDocument": "childhood_note"
  },
  {
@@ -15,6 +15,18 @@
   "id": "usb",
   "name": "USB drive",
   "description": "A cheap 8 GB USB stick from the Halden basement. A copy of PAPERLIGHT 0.7.3 is on it.",
+  "revealsDocument": null
+ },
+ {
+  "id": "halden_key",
+  "name": "Spare key: T. Halden",
+  "description": "A small brass key on a ring labelled \"T.H. \u2014 spare\".",
+  "revealsDocument": null
+ },
+ {
+  "id": "keycard",
+  "name": "Halden keycard",
+  "description": "A yellow staff keycard. MARCUS O. \u2014 LAB ACCESS. The photo has been scratched out.",
   "revealsDocument": null
  }
 ]

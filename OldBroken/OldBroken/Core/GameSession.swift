@@ -182,12 +182,12 @@ final class GameSession: ObservableObject {
         if data.filesystem == nil { data.filesystem = FilesystemFactory.initial() }
         resetWorlds()
         switch d.screen {
-        case .title, .endSlice, .interstitial, .ending: screen = .apartment
+        case .title, .endSlice, .interstitial: screen = .apartment
         default: screen = d.screen
         }
         paused = false
         startClock()
-        AudioManager.shared.setScene(screen == .desktop ? .desktop : .apartment)
+        AudioManager.shared.setScene(screen == .desktop ? .desktop : screen == .facility ? (has("robot_awake") ? .chase : .facility) : .apartment)
         StoryHooks.onLoad?(self)
         if screen == .desktop {
             apartmentWorld().sitAtComputer {}

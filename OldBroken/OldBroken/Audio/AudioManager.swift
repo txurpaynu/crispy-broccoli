@@ -14,7 +14,7 @@ enum SoundEvent {
 }
 
 enum AudioScene {
-    case title, apartment, desktop, retro, retroDread, silence
+    case title, apartment, desktop, retro, retroDread, silence, facility, chase
 }
 
 final class AudioManager {
@@ -114,6 +114,8 @@ fileprivate final class Synth {
         case .retro: a.fan = 0.04; a.music = 0.05
         case .retroDread: a.fan = 0.04; a.music = 0.03; a.drone = 0.05
         case .silence: break
+        case .facility: a.room = 0.03; a.drone = 0.045; a.hum = 0.006
+        case .chase: a.drone = 0.1; a.hum = 0.03; a.fan = 0.03
         }
         lock.lock(); target = a; lock.unlock()
     }

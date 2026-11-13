@@ -1,43 +1,566 @@
 [
-  {"id": "check_pc", "chapter": "prologue", "text": "Check the computer.", "requires": ["game_started"], "complete": ["sat_at_pc"]},
-  {"id": "buy", "chapter": "prologue", "text": "Buy PAPERLIGHT: Reawakened in the Kestrel launcher.", "requires": ["sat_at_pc"], "complete": ["remaster_purchased"]},
-  {"id": "install", "chapter": "prologue", "text": "Install the remaster.", "requires": ["remaster_purchased"], "complete": ["remaster_installed"]},
-  {"id": "play", "chapter": "prologue", "text": "Play PAPERLIGHT: Reawakened.", "requires": ["remaster_installed"], "complete": ["remaster_played"]},
-  {"id": "uninstall", "chapter": "prologue", "text": "Uninstall it from Kestrel.", "requires": ["remaster_played"], "complete": ["uninstall_blocked"]},
-  {"id": "delete_folder", "chapter": "prologue", "text": "Delete the game's folder yourself (Files > C: > Games).", "requires": ["uninstall_blocked"], "complete": ["delete_blocked"]},
-  {"id": "find_lock", "chapter": "prologue", "text": "Find the file that's blocking the deletion.", "requires": ["delete_blocked"], "complete": ["inspected_old"]},
-  {"id": "open_old", "chapter": "prologue", "text": "Find out what OLD is. Try to open it.", "requires": ["inspected_old"], "complete": ["old_needs_tool", "old_decrypted"]},
-  {"id": "recover", "chapter": "prologue", "text": "Find a way to recover the passphrase. Maybe someone online has done this.", "requires": ["old_needs_tool"], "complete": ["keysmith_installed", "old_decrypted"]},
-  {"id": "bruteforce", "chapter": "prologue", "text": "Use KeySmith on OLD. Narrow the mask with what you know.", "requires": ["keysmith_installed"], "complete": ["old_decrypted"]},
-  {"id": "run_old", "chapter": "prologue", "text": "Run OLD.", "requires": ["old_decrypted"], "complete": ["old_launched"]},
-  {"id": "explore", "chapter": "ch1", "text": "Explore the original game.", "requires": ["old_launched"], "complete": ["vexley_met"]},
-  {"id": "follow", "chapter": "ch1", "text": "See what Vexley wants to show you.", "requires": ["vexley_met"], "complete": ["vx_room_seen"]},
-  {"id": "quit", "chapter": "ch1", "text": "It's late. Quit the game (START > Quit).", "requires": ["vx_room_seen"], "complete": ["vexley_refused_exit"]},
-  {"id": "scan", "chapter": "ch1", "text": "That wasn't normal. Run a virus scan (Shield).", "requires": ["vexley_refused_exit"], "complete": ["av_scanned"]},
-  {"id": "sleep_d1", "chapter": "ch1", "text": "Go to bed.", "requires": ["av_scanned"], "complete": ["slept_d1", "slept"]},
-  {"id": "ch2_check", "chapter": "ch2", "text": "The monitor is on. Check the computer.", "requires": ["day2_woke"], "complete": ["ch2_seen_overhaul"]},
-  {"id": "ch2_play", "chapter": "ch2", "text": "Play the new version. Vexley has questions.", "requires": ["ch2_seen_overhaul"], "complete": ["ch2_questions_done"]},
-  {"id": "ch2_dinner", "chapter": "ch2", "text": "You haven't eaten all day. Go make dinner (bedroom door).", "requires": ["ch2_questions_done"], "complete": ["ate_dinner"]},
-  {"id": "ch2_read", "chapter": "ch2", "text": "The speakers never stopped. See what Vexley said while you were gone.", "requires": ["ate_dinner"], "complete": ["ch2_read_log"]},
-  {"id": "ch2_shutdown", "chapter": "ch2", "text": "It's late. Shut the computer down (Start > Shut down).", "requires": ["ch2_read_log"], "complete": ["pc_shutdown"]},
-  {"id": "sleep_d2", "chapter": "ch2", "text": "Go to bed.", "requires": ["pc_shutdown"], "complete": ["slept_d2"]},
-  {"id": "ch3_boot", "chapter": "ch3", "text": "Turn on the computer.", "requires": ["day3_woke"], "complete": ["ch3_booted"]},
-  {"id": "ch3_wait", "chapter": "ch3", "text": "Use the computer.", "requires": ["ch3_booted"], "complete": ["ch3_update_offered"]},
-  {"id": "ch3_update", "chapter": "ch3", "text": "Install the pending Pane update (follow the Update Assistant's steps).", "requires": ["ch3_update_offered"], "complete": ["update_installed"]},
-  {"id": "ch3_notice", "chapter": "ch3", "text": "Something's different. Look around the computer: Task Manager, your Documents, Drift's history.", "requires": ["update_installed"], "complete": ["ch3_noticed"]},
-  {"id": "ch3_talk", "chapter": "ch3", "text": "Talk to Vexley.", "requires": ["ch3_noticed"], "complete": ["ch3_reveal_done"]},
-  {"id": "ch3_restore", "chapter": "ch3", "text": "Turn your security back on (Shield).", "requires": ["ch3_reveal_done"], "complete": ["ch3_restore_tried"]},
-  {"id": "sleep_d3", "chapter": "ch3", "text": "Go to bed.", "requires": ["ch3_restore_tried"], "complete": ["slept_d3"]},
-  {"id": "ch4_tv", "chapter": "ch4", "text": "The TV turned itself on. Watch the news.", "requires": ["day4_woke"], "complete": ["saw_lumen_news"]},
-  {"id": "ch4_ask", "chapter": "ch4", "text": "Ask Theo if he's heard of Lumen (your phone, on the bed).", "requires": ["saw_lumen_news"], "complete": ["ch4_theo_r1"]},
-  {"id": "ch4_try", "chapter": "ch4", "text": "Try Lumen. Download it at lumen-ai.com (computer).", "requires": ["ch4_theo_r1"], "complete": ["lumen_fox"]},
-  {"id": "ch4_use", "chapter": "ch4", "text": "Get to know Lumen. Ask it a few things.", "requires": ["lumen_fox"], "complete": ["ch4_used_lumen"]},
-  {"id": "sleep_d4", "chapter": "ch4", "text": "Go to bed.", "requires": ["ch4_used_lumen"], "complete": ["slept_d4"]},
-  {"id": "ch5_mobile", "chapter": "ch5", "text": "Ask Lumen if it has a phone app (computer).", "requires": ["day5_woke"], "complete": ["ch5_asked_mobile"]},
-  {"id": "sleep_d5", "chapter": "ch5", "text": "Go to bed. The app should be ready in two days.", "requires": ["ch5_asked_mobile"], "complete": ["slept_d5"]},
-  {"id": "ch5_install", "chapter": "ch5", "text": "Lumen is out. Install it on your phone (phone on the bed, Store).", "requires": ["day6_woke"], "complete": ["phone_lumen_installed"]},
-  {"id": "ch5_open", "chapter": "ch5", "text": "Talk to Lumen on your phone. Ask what to do today.", "requires": ["phone_lumen_installed"], "complete": ["ch5_suggested"]},
-  {"id": "ch5_decide", "chapter": "ch5", "text": "Look up Halden's old building in Drift, then give Lumen your answer.", "requires": ["ch5_wants_check"], "complete": ["ch5_agreed"]},
-  {"id": "ch5_pack", "chapter": "ch5", "text": "Pick up your laptop (on the bed) so Vexley can come along.", "requires": ["ch5_agreed"], "complete": ["laptop_ready"]},
-  {"id": "ch5_leave", "chapter": "ch5", "text": "Leave for Halden Softworks (bedroom door).", "requires": ["laptop_ready"], "complete": ["arrived_facility"]}
+ {
+  "id": "check_pc",
+  "chapter": "prologue",
+  "text": "Check the computer.",
+  "requires": [
+   "game_started"
+  ],
+  "complete": [
+   "sat_at_pc"
+  ]
+ },
+ {
+  "id": "buy",
+  "chapter": "prologue",
+  "text": "Buy PAPERLIGHT: Reawakened in the Kestrel launcher.",
+  "requires": [
+   "sat_at_pc"
+  ],
+  "complete": [
+   "remaster_purchased"
+  ]
+ },
+ {
+  "id": "install",
+  "chapter": "prologue",
+  "text": "Install the remaster.",
+  "requires": [
+   "remaster_purchased"
+  ],
+  "complete": [
+   "remaster_installed"
+  ]
+ },
+ {
+  "id": "play",
+  "chapter": "prologue",
+  "text": "Play PAPERLIGHT: Reawakened.",
+  "requires": [
+   "remaster_installed"
+  ],
+  "complete": [
+   "remaster_played"
+  ]
+ },
+ {
+  "id": "uninstall",
+  "chapter": "prologue",
+  "text": "Uninstall it from Kestrel.",
+  "requires": [
+   "remaster_played"
+  ],
+  "complete": [
+   "uninstall_blocked"
+  ]
+ },
+ {
+  "id": "delete_folder",
+  "chapter": "prologue",
+  "text": "Delete the game's folder yourself (Files > C: > Games).",
+  "requires": [
+   "uninstall_blocked"
+  ],
+  "complete": [
+   "delete_blocked"
+  ]
+ },
+ {
+  "id": "find_lock",
+  "chapter": "prologue",
+  "text": "Find the file that's blocking the deletion.",
+  "requires": [
+   "delete_blocked"
+  ],
+  "complete": [
+   "inspected_old"
+  ]
+ },
+ {
+  "id": "open_old",
+  "chapter": "prologue",
+  "text": "Find out what OLD is. Try to open it.",
+  "requires": [
+   "inspected_old"
+  ],
+  "complete": [
+   "old_needs_tool",
+   "old_decrypted"
+  ]
+ },
+ {
+  "id": "recover",
+  "chapter": "prologue",
+  "text": "Find a way to recover the passphrase. Maybe someone online has done this.",
+  "requires": [
+   "old_needs_tool"
+  ],
+  "complete": [
+   "keysmith_installed",
+   "old_decrypted"
+  ]
+ },
+ {
+  "id": "bruteforce",
+  "chapter": "prologue",
+  "text": "Use KeySmith on OLD. Narrow the mask with what you know.",
+  "requires": [
+   "keysmith_installed"
+  ],
+  "complete": [
+   "old_decrypted"
+  ]
+ },
+ {
+  "id": "run_old",
+  "chapter": "prologue",
+  "text": "Run OLD.",
+  "requires": [
+   "old_decrypted"
+  ],
+  "complete": [
+   "old_launched"
+  ]
+ },
+ {
+  "id": "explore",
+  "chapter": "ch1",
+  "text": "Explore the original game.",
+  "requires": [
+   "old_launched"
+  ],
+  "complete": [
+   "vexley_met"
+  ]
+ },
+ {
+  "id": "follow",
+  "chapter": "ch1",
+  "text": "See what Vexley wants to show you.",
+  "requires": [
+   "vexley_met"
+  ],
+  "complete": [
+   "vx_room_seen"
+  ]
+ },
+ {
+  "id": "quit",
+  "chapter": "ch1",
+  "text": "It's late. Quit the game (START > Quit).",
+  "requires": [
+   "vx_room_seen"
+  ],
+  "complete": [
+   "vexley_refused_exit"
+  ]
+ },
+ {
+  "id": "scan",
+  "chapter": "ch1",
+  "text": "That wasn't normal. Run a virus scan (Shield).",
+  "requires": [
+   "vexley_refused_exit"
+  ],
+  "complete": [
+   "av_scanned"
+  ]
+ },
+ {
+  "id": "sleep_d1",
+  "chapter": "ch1",
+  "text": "Go to bed.",
+  "requires": [
+   "av_scanned"
+  ],
+  "complete": [
+   "slept_d1",
+   "slept"
+  ]
+ },
+ {
+  "id": "ch2_check",
+  "chapter": "ch2",
+  "text": "The monitor is on. Check the computer.",
+  "requires": [
+   "day2_woke"
+  ],
+  "complete": [
+   "ch2_seen_overhaul"
+  ]
+ },
+ {
+  "id": "ch2_play",
+  "chapter": "ch2",
+  "text": "Play the new version. Vexley has questions.",
+  "requires": [
+   "ch2_seen_overhaul"
+  ],
+  "complete": [
+   "ch2_questions_done"
+  ]
+ },
+ {
+  "id": "ch2_dinner",
+  "chapter": "ch2",
+  "text": "You haven't eaten all day. Go make dinner (bedroom door).",
+  "requires": [
+   "ch2_questions_done"
+  ],
+  "complete": [
+   "ate_dinner"
+  ]
+ },
+ {
+  "id": "ch2_read",
+  "chapter": "ch2",
+  "text": "The speakers never stopped. See what Vexley said while you were gone.",
+  "requires": [
+   "ate_dinner"
+  ],
+  "complete": [
+   "ch2_read_log"
+  ]
+ },
+ {
+  "id": "ch2_shutdown",
+  "chapter": "ch2",
+  "text": "It's late. Shut the computer down (Start > Shut down).",
+  "requires": [
+   "ch2_read_log"
+  ],
+  "complete": [
+   "pc_shutdown"
+  ]
+ },
+ {
+  "id": "sleep_d2",
+  "chapter": "ch2",
+  "text": "Go to bed.",
+  "requires": [
+   "pc_shutdown"
+  ],
+  "complete": [
+   "slept_d2"
+  ]
+ },
+ {
+  "id": "ch3_boot",
+  "chapter": "ch3",
+  "text": "Turn on the computer.",
+  "requires": [
+   "day3_woke"
+  ],
+  "complete": [
+   "ch3_booted"
+  ]
+ },
+ {
+  "id": "ch3_wait",
+  "chapter": "ch3",
+  "text": "Use the computer.",
+  "requires": [
+   "ch3_booted"
+  ],
+  "complete": [
+   "ch3_update_offered"
+  ]
+ },
+ {
+  "id": "ch3_update",
+  "chapter": "ch3",
+  "text": "Install the pending Pane update (follow the Update Assistant's steps).",
+  "requires": [
+   "ch3_update_offered"
+  ],
+  "complete": [
+   "update_installed"
+  ]
+ },
+ {
+  "id": "ch3_notice",
+  "chapter": "ch3",
+  "text": "Something's different. Look around the computer: Task Manager, your Documents, Drift's history.",
+  "requires": [
+   "update_installed"
+  ],
+  "complete": [
+   "ch3_noticed"
+  ]
+ },
+ {
+  "id": "ch3_talk",
+  "chapter": "ch3",
+  "text": "Talk to Vexley.",
+  "requires": [
+   "ch3_noticed"
+  ],
+  "complete": [
+   "ch3_reveal_done"
+  ]
+ },
+ {
+  "id": "ch3_restore",
+  "chapter": "ch3",
+  "text": "Turn your security back on (Shield).",
+  "requires": [
+   "ch3_reveal_done"
+  ],
+  "complete": [
+   "ch3_restore_tried"
+  ]
+ },
+ {
+  "id": "sleep_d3",
+  "chapter": "ch3",
+  "text": "Go to bed.",
+  "requires": [
+   "ch3_restore_tried"
+  ],
+  "complete": [
+   "slept_d3"
+  ]
+ },
+ {
+  "id": "ch4_tv",
+  "chapter": "ch4",
+  "text": "The TV turned itself on. Watch the news.",
+  "requires": [
+   "day4_woke"
+  ],
+  "complete": [
+   "saw_lumen_news"
+  ]
+ },
+ {
+  "id": "ch4_ask",
+  "chapter": "ch4",
+  "text": "Ask Theo if he's heard of Lumen (your phone, on the bed).",
+  "requires": [
+   "saw_lumen_news"
+  ],
+  "complete": [
+   "ch4_theo_r1"
+  ]
+ },
+ {
+  "id": "ch4_try",
+  "chapter": "ch4",
+  "text": "Try Lumen. Download it at lumen-ai.com (computer).",
+  "requires": [
+   "ch4_theo_r1"
+  ],
+  "complete": [
+   "lumen_fox"
+  ]
+ },
+ {
+  "id": "ch4_use",
+  "chapter": "ch4",
+  "text": "Get to know Lumen. Ask it a few things.",
+  "requires": [
+   "lumen_fox"
+  ],
+  "complete": [
+   "ch4_used_lumen"
+  ]
+ },
+ {
+  "id": "sleep_d4",
+  "chapter": "ch4",
+  "text": "Go to bed.",
+  "requires": [
+   "ch4_used_lumen"
+  ],
+  "complete": [
+   "slept_d4"
+  ]
+ },
+ {
+  "id": "ch5_mobile",
+  "chapter": "ch5",
+  "text": "Ask Lumen if it has a phone app (computer).",
+  "requires": [
+   "day5_woke"
+  ],
+  "complete": [
+   "ch5_asked_mobile"
+  ]
+ },
+ {
+  "id": "sleep_d5",
+  "chapter": "ch5",
+  "text": "Go to bed. The app should be ready in two days.",
+  "requires": [
+   "ch5_asked_mobile"
+  ],
+  "complete": [
+   "slept_d5"
+  ]
+ },
+ {
+  "id": "ch5_install",
+  "chapter": "ch5",
+  "text": "Lumen is out. Install it on your phone (phone on the bed, Store).",
+  "requires": [
+   "day6_woke"
+  ],
+  "complete": [
+   "phone_lumen_installed"
+  ]
+ },
+ {
+  "id": "ch5_open",
+  "chapter": "ch5",
+  "text": "Talk to Lumen on your phone. Ask what to do today.",
+  "requires": [
+   "phone_lumen_installed"
+  ],
+  "complete": [
+   "ch5_suggested"
+  ]
+ },
+ {
+  "id": "ch5_decide",
+  "chapter": "ch5",
+  "text": "Look up Halden's old building in Drift, then give Lumen your answer.",
+  "requires": [
+   "ch5_wants_check"
+  ],
+  "complete": [
+   "ch5_agreed"
+  ]
+ },
+ {
+  "id": "ch5_pack",
+  "chapter": "ch5",
+  "text": "Pick up your laptop (on the bed) so Vexley can come along.",
+  "requires": [
+   "ch5_agreed"
+  ],
+  "complete": [
+   "laptop_ready"
+  ]
+ },
+ {
+  "id": "ch5_leave",
+  "chapter": "ch5",
+  "text": "Leave for Halden Softworks (bedroom door).",
+  "requires": [
+   "laptop_ready"
+  ],
+  "complete": [
+   "arrived_facility"
+  ]
+ },
+ {
+  "id": "ch6_find",
+  "chapter": "ch6",
+  "text": "Find a developer workstation. The development floor is on the east side.",
+  "requires": [
+   "arrived_facility"
+  ],
+  "complete": [
+   "dev_seen"
+  ]
+ },
+ {
+  "id": "ch6_power",
+  "chapter": "ch6",
+  "text": "Start the portable generator in the corner of the development floor.",
+  "requires": [
+   "dev_seen"
+  ],
+  "complete": [
+   "dev_power"
+  ]
+ },
+ {
+  "id": "ch6_connect",
+  "chapter": "ch6",
+  "text": "Connect your laptop to the remaster workstation.",
+  "requires": [
+   "dev_power"
+  ],
+  "complete": [
+   "ch6_connected"
+  ]
+ },
+ {
+  "id": "ch6_listen",
+  "chapter": "ch6",
+  "text": "Listen to Vexley.",
+  "requires": [
+   "ch6_connected"
+  ],
+  "complete": [
+   "ch7_code_needed"
+  ]
+ },
+ {
+  "id": "ch7_search",
+  "chapter": "ch7",
+  "text": "Find the developer access code. Try Halden's office and the lab.",
+  "requires": [
+   "ch7_code_needed"
+  ],
+  "complete": [
+   "ch7_code_known"
+  ]
+ },
+ {
+  "id": "ch7_enter",
+  "chapter": "ch7",
+  "text": "Enter the code at the master terminal in the server room. (The keycard is in storage.)",
+  "requires": [
+   "ch7_code_known"
+  ],
+  "complete": [
+   "master_open"
+  ]
+ },
+ {
+  "id": "ch8_down",
+  "chapter": "ch8",
+  "text": "Go down the stairwell to the basement lab.",
+  "requires": [
+   "master_open"
+  ],
+  "complete": [
+   "robot_seen"
+  ]
+ },
+ {
+  "id": "ch8_robot",
+  "chapter": "ch8",
+  "text": "Look at what's in the lab.",
+  "requires": [
+   "robot_seen"
+  ],
+  "complete": [
+   "robot_awake"
+  ]
+ },
+ {
+  "id": "ch8_copy",
+  "chapter": "ch8",
+  "text": "Copy the original game onto a USB drive at the archive terminal (basement).",
+  "requires": [
+   "robot_awake"
+  ],
+  "complete": [
+   "usb_copied"
+  ]
+ },
+ {
+  "id": "ch8_escape",
+  "chapter": "ch8",
+  "text": "GET OUT. Upstairs, through the development floor, to the loading dock crank.",
+  "requires": [
+   "usb_copied"
+  ],
+  "complete": [
+   "escaped"
+  ]
+ }
 ]
