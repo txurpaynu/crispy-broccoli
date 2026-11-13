@@ -1,4 +1,6 @@
 {
-  "models": [],
-  "textures": []
+  "models": ["WoodenTable_03", "dining_chair_02", "vintage_day_bed", "ClassicNightstand_01", "drawer_cabinet",
+             "potted_plant_02", "desk_lamp_arm_01", "alarm_clock_01", "gaming_console", "cardboard_box_01",
+             "hanging_picture_frame_02", "throw_pillows_01", "modern_ceiling_lamp_01"],
+  "textures": ["laminate_floor_02", "painted_plaster_wall", "ceiling_interior", "dirty_carpet", "fabric_pattern_07"]
 }
