@@ -26,7 +26,7 @@ final class RobotRig {
     private var floorDelay: Float = -1
     private var pendingLevel: FacilityLevel?
     var speed: Float = 0
-    var onCatch: (() -> Void)?
+    var onCatch: (@MainActor () -> Void)?
 
     init() {
         let shell = SK.material(UIColor(white: 0.82, alpha: 1), roughness: 0.35, metalness: 0.2)

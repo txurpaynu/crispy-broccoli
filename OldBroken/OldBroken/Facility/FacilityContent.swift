@@ -11,9 +11,10 @@ enum FacilityContent {
 
         /// Places a model; `block` adds a collision box of that footprint.
         @discardableResult
-        func prop(_ name: String, _ lvl: FacilityLevel, _ x: Float, _ z: Float, yaw: Float = 0, h: Float? = nil,
-                  y: Float = 0, block: (Float, Float)? = nil, node: String? = nil) -> SCNNode? {
-            let n = ModelLibrary.place(name, at: w.pos(lvl, x, z, y: y), yaw: yaw, height: h, in: root, nodeName: node)
+        func prop(_ name: String, _ lvl: FacilityLevel, _ x: Float, _ z: Float, yaw: Float = 0, y: Float = 0,
+                  anchorTop: Bool = false, h: Float? = nil, block: (Float, Float)? = nil, node: String? = nil) -> SCNNode? {
+            let n = ModelLibrary.place(name, at: w.pos(lvl, x, z, y: y), yaw: yaw, height: h, anchorTop: anchorTop,
+                                       in: root, nodeName: node)
             if let (bw, bd) = block {
                 let swap = abs(sin(yaw)) > 0.7
                 w.propObstacles.append(AABB2D(x: lvl.offsetX + x, z: z, w: swap ? bd : bw, d: swap ? bw : bd))
@@ -22,7 +23,7 @@ enum FacilityContent {
         }
         /// A sheet of paper (or a folder) on a surface that opens a document.
         func paper(_ doc: String, _ lvl: FacilityLevel, _ x: Float, _ z: Float, y: Float, yaw: Float = 0,
-                   onRead: (() -> Void)? = nil) {
+                   onRead: (@MainActor () -> Void)? = nil) {
             let n = SK.box(0.22, 0.006, 0.3, SK.material(UIColor(white: 0.88, alpha: 1), roughness: 0.9),
                            at: w.pos(lvl, x, z, y: y + 0.003), in: root, name: InteractionSystem.prefix + "doc_" + doc)
             n.eulerAngles.y = yaw

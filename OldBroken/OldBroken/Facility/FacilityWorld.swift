@@ -478,7 +478,7 @@ final class FacilityWorld: NSObject, PlayableWorld {
 
     // MARK: Helpers for content
 
-    func register(_ id: String, prompt: @escaping () -> String?, action: @escaping () -> Void) {
+    func register(_ id: String, prompt: @escaping @MainActor () -> String?, action: @escaping @MainActor () -> Void) {
         interaction.register(ActionInteractable(id: id, prompt: { _ in prompt() }, action: { _ in action() }))
     }
 }
