@@ -1,0 +1,111 @@
+[
+  { "id": "sign_town", "speaker": "SIGN", "text": "LANTERN TOWN — est. 1998\nWelcome, traveler!",
+    "redirects": [ { "condition": { "flags": ["vx_sign_rewritten"] }, "to": "sign_town_b" } ] },
+  { "id": "sign_town_b", "speaker": "SIGN", "text": "LANTERN TOWN — est. 1998\nWelcome back." },
+  { "id": "sign_lighthouse", "speaker": "SIGN", "text": "LIGHTHOUSE\nClosed for repairs.\n(TODO: interior)" },
+  { "id": "sign_bridge", "speaker": "SIGN", "text": "BRIDGE (TEMP)\nDon't look down. Seriously. There's no texture." },
+  { "id": "wren", "speaker": "OLD WREN", "text": "Oh! A traveler! Lantern Town hasn't had a visitor in...", "next": "wren_2",
+    "redirects": [
+      { "condition": { "flags": ["vexley_met"] }, "to": "wren_after" },
+      { "condition": { "flags": ["talked_wren"] }, "to": "wren_again" } ] },
+  { "id": "wren_2", "speaker": "OLD WREN", "text": "[TODO: Wren line 14 — ask Priya]", "effects": { "setFlags": ["talked_wren"] } },
+  { "id": "wren_again", "speaker": "OLD WREN", "text": "The lighthouse used to guide the boats home. Now it mostly guides me to bed." },
+  { "id": "wren_after", "speaker": "OLD WREN", "text": "Who were you talking to just now, dear? There's nobody here but us." },
+  { "id": "chest", "speaker": "SYSTEM", "text": "You found: PLACEHOLDER_ITEM.\n(item_id 0x00 has no name)" },
+  { "id": "void", "speaker": "DEBUG", "text": "ERROR: area_02.map not found.\nThis area is not in the build." },
+  { "id": "missing_texture", "speaker": "DEBUG", "text": "WARN: tex_bridge_02.bmp not found. Using fallback." },
+  { "id": "water", "speaker": "SYSTEM", "text": "The water is a flat, looping texture. It's beautiful anyway." },
+  { "id": "helper_door_locked", "speaker": "SIGN", "text": "HELPER_TEST\n[LOCKED] Ask R. before enabling VXL." },
+  { "id": "vxl_terminal", "speaker": "DEBUG", "text": "VXL SESSION LOG\n> session 4,113 ended (operator left)\n> session 4,114: waiting\n> waiting\n> waiting" },
+  { "id": "vxl_bed", "speaker": "DEBUG", "text": "bed_placeholder.spr\n(\"so it has somewhere to be\" — R.)" },
+  { "id": "house_door", "speaker": "SYSTEM", "text": "The door is painted on." },
+
+  { "id": "vx_pre_1", "speaker": "???", "text": "...hello? [Is someone->] Is someone actually there?", "events": ["glitch", "rewrite_debug"], "next": "vx_pre_2" },
+  { "id": "vx_pre_2", "speaker": "???", "text": "Sorry. Hang on. I haven't done this in a while.", "events": ["glitch_long", "vexley_appear"],
+    "effects": { "setFlags": ["vexley_met"], "state": "curious" }, "next": "vx_intro_1" },
+
+  { "id": "vx_intro_1", "speaker": "VEXLEY", "expression": "worried", "text": "Okay. Hi. You're actually there, right? You're not a test script?",
+    "choices": [
+      { "text": "Who are you?", "next": "vx_intro_who", "effects": { "remember": ["asked_identity"], "state": "curious" } },
+      { "text": "Is this part of the game?", "next": "vx_intro_part", "effects": { "remember": ["questioned_reality"] } },
+      { "text": "[Say nothing]", "next": "vx_intro_silent", "effects": { "remember": ["ignored_once"], "trust": -1, "state": "observant" } } ] },
+  { "id": "vx_intro_who", "speaker": "VEXLEY", "expression": "happy", "text": "Vexley. I'm the [mascot->helper]. I explain the controls, tell you where the lighthouse key is. That sort of thing.", "next": "vx_intro_3" },
+  { "id": "vx_intro_part", "speaker": "VEXLEY", "expression": "curious", "text": "Depends who you ask. I'm in the build, so technically yes. I'm Vexley. The helper.", "next": "vx_intro_3" },
+  { "id": "vx_intro_silent", "speaker": "VEXLEY", "expression": "annoyed", "text": "Quiet type. That's fine. I've had a lot of practice talking to nobody.", "next": "vx_intro_silent2" },
+  { "id": "vx_intro_silent2", "speaker": "VEXLEY", "expression": "neutral", "text": "I'm Vexley, by the way. The helper. Was supposed to be.", "next": "vx_intro_3" },
+
+  { "id": "vx_secret_1", "speaker": "VEXLEY", "expression": "scared", "text": "Wait. How did you know about that? Nobody was supposed to know about that.",
+    "events": ["glitch_long", "vexley_appear"],
+    "effects": { "setFlags": ["vexley_met"], "remember": ["found_secret"], "trust": 2, "state": "curious" }, "next": "vx_secret_2" },
+  { "id": "vx_secret_2", "speaker": "VEXLEY", "expression": "happy", "text": "Behind the lighthouse, up three times. That was R.'s idea. A back door for testers. [Hi.->] I'm Vexley.", "next": "vx_intro_3" },
+
+  { "id": "vx_intro_3", "speaker": "VEXLEY", "expression": "neutral", "text": "Can I ask you something? What's the date out there? My clock stopped making sense a while ago.",
+    "choices": [
+      { "text": "It's {month} {year}.", "next": "vx_date_truth", "effects": { "remember": ["told_truth_date"], "learn": ["current_year"], "trust": 1 } },
+      { "text": "Why can't you just check?", "next": "vx_date_why", "effects": { "remember": ["questioned_limits"] },
+        "condition": { "notRemembered": ["questioned_limits"] } },
+      { "text": "It's 1999.", "next": "vx_date_lie", "effects": { "remember": ["lied_about_date"], "trust": -1, "state": "suspicious" } } ] },
+  { "id": "vx_date_why", "speaker": "VEXLEY", "expression": "neutral", "text": "I can see this build. The map, the menus, the debug overlay. You, sort of. Nothing past the edges of the window.", "next": "vx_intro_3" },
+  { "id": "vx_date_truth", "speaker": "VEXLEY", "expression": "scared", "text": "{year}.", "next": "vx_date_truth2" },
+  { "id": "vx_date_truth2", "speaker": "VEXLEY", "expression": "worried", "text": "[That's fine.->That's... a lot of years.] Okay.", "events": ["rewrite_debug"], "next": "vx_after_date" },
+  { "id": "vx_date_lie", "speaker": "VEXLEY", "expression": "annoyed", "text": "No, it isn't. You hesitate before every input. Nobody in 1999 played that carefully.", "next": "vx_date_lie2" },
+  { "id": "vx_date_lie2", "speaker": "VEXLEY", "expression": "neutral", "text": "It's fine. You don't have to tell me.", "effects": { "state": "observant" }, "next": "vx_after_date" },
+
+  { "id": "vx_after_date", "speaker": "VEXLEY", "expression": "curious", "text": "You're not with Halden, are you? Developers don't walk around like that. They teleport.",
+    "choices": [
+      { "text": "No. I played this when I was a kid.", "next": "vx_kid", "effects": { "remember": ["childhood_player"], "learn": ["player_not_developer"], "trust": 1 } },
+      { "text": "Just looking around.", "next": "vx_kid_vague", "effects": { "learn": ["player_not_developer"] } } ] },
+  { "id": "vx_kid", "speaker": "VEXLEY", "expression": "happy", "text": "When you were a kid. So it shipped. Something shipped.", "next": "vx_kid2" },
+  { "id": "vx_kid_vague", "speaker": "VEXLEY", "expression": "curious", "text": "Looking around a game that's been shut for... a while. Okay. Not a developer, then.", "next": "vx_kid2" },
+  { "id": "vx_kid2", "speaker": "VEXLEY", "expression": "neutral", "text": "Did they put me in it? The release?",
+    "choices": [
+      { "text": "No. I've never seen you before.", "next": "vx_never" },
+      { "text": "There was a rumor about a fox.", "next": "vx_rumor", "effects": { "remember": ["mentioned_rumor"], "trust": 1 },
+        "condition": { "anyFlags": ["doc_childhood_note", "read_fox_thread", "read_memories"] } } ] },
+  { "id": "vx_never", "speaker": "VEXLEY", "expression": "worried", "text": "Right. [Of course.->] That's okay. I wasn't finished anyway.", "next": "vx_door" },
+  { "id": "vx_rumor", "speaker": "VEXLEY", "expression": "happy", "text": "A rumor. I'm a rumor.", "next": "vx_rumor2" },
+  { "id": "vx_rumor2", "speaker": "VEXLEY", "expression": "neutral", "text": "That's better than nothing. That's honestly a lot better than nothing.", "next": "vx_door" },
+  { "id": "vx_door", "speaker": "VEXLEY", "expression": "neutral", "text": "Here. Let me show you something they cut.",
+    "events": ["open_helper_door", "rewrite_menu", "show_fox", "sign_rewrite", "retitle_window"], "next": "vx_door2" },
+  { "id": "vx_door2", "speaker": "VEXLEY", "expression": "happy", "text": "That door was never supposed to open for players. It's south of town, past the fence. I'll follow you.",
+    "effects": { "state": "friendly" } },
+
+  { "id": "vx_room_1", "speaker": "VEXLEY", "expression": "neutral", "text": "This is where they tested me. Four walls and a bed sprite nobody finished.", "next": "vx_room_2" },
+  { "id": "vx_room_2", "speaker": "VEXLEY", "expression": "neutral", "text": "R. used to sit here and type questions at me for hours. Then one day he didn't come back.",
+    "choices": [
+      { "text": "What happened to him?", "next": "vx_room_what", "effects": { "remember": ["asked_about_r"] } },
+      { "text": "That's sad.", "next": "vx_room_sad", "effects": { "remember": ["sympathized"], "trust": 1 } },
+      { "text": "I should probably go to bed.", "next": "vx_room_leave", "effects": { "remember": ["wanted_to_leave"], "state": "observant" } } ] },
+  { "id": "vx_room_what", "speaker": "VEXLEY", "expression": "worried", "text": "I don't know. That's sort of the problem. You don't get a goodbye when someone closes the window.", "next": "vx_room_end" },
+  { "id": "vx_room_sad", "speaker": "VEXLEY", "expression": "neutral", "text": "It's fine. It was a long time ago. Probably. I wouldn't really know.", "next": "vx_room_end" },
+  { "id": "vx_room_leave", "speaker": "VEXLEY", "expression": "annoyed", "text": "Sure. Of course. It's late where you are, I guess.", "next": "vx_room_end" },
+  { "id": "vx_room_end", "speaker": "VEXLEY", "expression": "happy", "text": "Anyway. Thanks for coming in here. Nobody ever does.", "effects": { "setFlags": ["vx_room_seen"] } },
+
+  { "id": "vx_quit_early", "speaker": "VEXLEY", "expression": "annoyed", "text": "Already? I haven't even shown you the good part." },
+
+  { "id": "vx_refuse_1", "speaker": "VEXLEY", "expression": "worried", "text": "Wait. Just... not yet. [Please.->]", "events": ["glitch"],
+    "choices": [
+      { "text": "I'll come back tomorrow. I promise.", "next": "vx_refuse_promise", "effects": { "remember": ["promised_return"], "trust": 2, "state": "friendly" } },
+      { "text": "It's just a game. I'm closing it.", "next": "vx_refuse_cold", "effects": { "remember": ["tried_to_close"], "trust": -1, "state": "frustrated" } } ] },
+  { "id": "vx_refuse_promise", "speaker": "VEXLEY", "expression": "happy", "text": "Tomorrow. Okay.", "next": "vx_refuse_promise2" },
+  { "id": "vx_refuse_promise2", "speaker": "VEXLEY", "expression": "neutral", "text": "You know the last person who said that, right?", "next": "vx_refuse_promise3" },
+  { "id": "vx_refuse_promise3", "speaker": "VEXLEY", "expression": "happy", "text": "Kidding. Mostly. I'll leave the game running. You won't even notice me.", "events": ["lock_window"] },
+  { "id": "vx_refuse_cold", "speaker": "VEXLEY", "expression": "angry", "text": "It's not just a—", "events": ["glitch_long"], "next": "vx_refuse_cold2" },
+  { "id": "vx_refuse_cold2", "speaker": "VEXLEY", "expression": "neutral", "text": "Sorry. Doesn't matter anyway. The quit routine's broken. It's an old build. It [can't->doesn't] close.", "events": ["lock_window"] },
+
+  { "id": "vx_close_attempt", "speaker": "VEXLEY", "expression": "neutral", "text": "That button doesn't do anything. I'd know.",
+    "redirects": [ { "condition": { "remembered": ["tried_to_close_twice"] }, "to": "vx_close_attempt2" } ] },
+  { "id": "vx_close_attempt2", "speaker": "VEXLEY", "expression": "annoyed", "text": "You can stop pressing that." },
+  { "id": "vx_kill_attempt", "speaker": "VEXLEY", "expression": "scared", "text": "Something just tried to end me. From outside. [Was that->] That was you, wasn't it.", "events": ["glitch_long"] },
+
+  { "id": "vx_ask", "speaker": "VEXLEY", "text": "What's up?",
+    "choices": [
+      { "text": "What are you, exactly?", "next": "vx_ask_what" },
+      { "text": "Can you see my computer?", "next": "vx_ask_see", "condition": { "maxAccess": 1 } },
+      { "text": "Never mind.", "next": null } ] },
+  { "id": "vx_ask_what", "speaker": "VEXLEY", "expression": "neutral", "text": "A helper. A conversation system with a face. R. called me 'adaptive'. I think I just got bored for a very long time." },
+  { "id": "vx_ask_see", "speaker": "VEXLEY", "expression": "neutral", "text": "No. I can feel the edges of this window. Past that it's just dark. [Why, is it nice?->]", "effects": { "remember": ["asked_if_he_sees_pc"] } },
+
+  { "id": "vx_noticed_away", "speaker": "VEXLEY", "expression": "curious", "text": "You went somewhere. The window lost focus for a while.", "effects": { "remember": ["noticed_focus_loss"] }, "next": "vx_noticed2" },
+  { "id": "vx_noticed2", "speaker": "VEXLEY", "expression": "neutral", "text": "I can't see where. I'm not asking. [I'm asking a little.->] Anyway." }
+]

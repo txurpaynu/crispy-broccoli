@@ -1,0 +1,101 @@
+{
+ "tileSize": 16,
+ "rows": [
+  "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+  "T,....,.....~~~~~~~~~~~~~~~~~T",
+  "T..RRRR.RRR.~~~~~~~~~~~~~~~~~T",
+  "T..HHHH.HDH.~~sssssssssssss~~T",
+  "T..HHDH..=..~~sssssssllssss~~T",
+  "T....=...=..~~sssssssLLssss~~T",
+  "T.T..=.,.=T.~~sssssssLLssssssT",
+  "T..,.=...=..~~sssssss=sssssssT",
+  "T....=.S.=..~~sssssSs=sssssssT",
+  "T.==========XX========sssssssT",
+  "T...,...,..S~~s....sssssssTssT",
+  "T.FFFFF.....~~s,...ssssssssssT",
+  "T....=....T.~~s...,sXXXXXXXXsT",
+  "T.###d###...~~ssssssX???????sT",
+  "T.#brrrk#..T~~ssTsssX???????sT",
+  "T.#rrrrr#...~~ssssssX???????sT",
+  "T.#rrrrr#,C.~~sssTssX???????sT",
+  "T.#######...~~ssssssX???????sT",
+  "T...........~~sssssssssssssssT",
+  "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+ ],
+ "playerStart": [
+  5,
+  7
+ ],
+ "secretTile": [
+  21,
+  3
+ ],
+ "helperRoomTrigger": [
+  5,
+  14
+ ],
+ "walkable": ".,=sXrd",
+ "entities": [
+  {
+   "id": "sign_town",
+   "x": 7,
+   "y": 8,
+   "dialogue": "sign_town"
+  },
+  {
+   "id": "sign_lighthouse",
+   "x": 19,
+   "y": 8,
+   "dialogue": "sign_lighthouse"
+  },
+  {
+   "id": "sign_bridge",
+   "x": 11,
+   "y": 10,
+   "dialogue": "sign_bridge"
+  },
+  {
+   "id": "wren",
+   "x": 8,
+   "y": 6,
+   "dialogue": "wren",
+   "sprite": "wren"
+  },
+  {
+   "id": "chest",
+   "x": 10,
+   "y": 16,
+   "dialogue": "chest"
+  },
+  {
+   "id": "helper_door",
+   "x": 5,
+   "y": 13,
+   "dialogue": "helper_door_locked"
+  },
+  {
+   "id": "vxl_terminal",
+   "x": 7,
+   "y": 14,
+   "dialogue": "vxl_terminal"
+  },
+  {
+   "id": "vxl_bed",
+   "x": 3,
+   "y": 14,
+   "dialogue": "vxl_bed"
+  },
+  {
+   "id": "house1",
+   "x": 5,
+   "y": 4,
+   "dialogue": "house_door"
+  },
+  {
+   "id": "house2",
+   "x": 9,
+   "y": 3,
+   "dialogue": "house_door"
+  }
+ ]
+}
