@@ -32,5 +32,12 @@
   {"id": "ch4_ask", "chapter": "ch4", "text": "Ask Theo if he's heard of Lumen (your phone, on the bed).", "requires": ["saw_lumen_news"], "complete": ["ch4_theo_r1"]},
   {"id": "ch4_try", "chapter": "ch4", "text": "Try Lumen. Download it at lumen-ai.com (computer).", "requires": ["ch4_theo_r1"], "complete": ["lumen_fox"]},
   {"id": "ch4_use", "chapter": "ch4", "text": "Get to know Lumen. Ask it a few things.", "requires": ["lumen_fox"], "complete": ["ch4_used_lumen"]},
-  {"id": "sleep_d4", "chapter": "ch4", "text": "Go to bed.", "requires": ["ch4_used_lumen"], "complete": ["slept_d4"]}
+  {"id": "sleep_d4", "chapter": "ch4", "text": "Go to bed.", "requires": ["ch4_used_lumen"], "complete": ["slept_d4"]},
+  {"id": "ch5_mobile", "chapter": "ch5", "text": "Ask Lumen if it has a phone app (computer).", "requires": ["day5_woke"], "complete": ["ch5_asked_mobile"]},
+  {"id": "sleep_d5", "chapter": "ch5", "text": "Go to bed. The app should be ready in two days.", "requires": ["ch5_asked_mobile"], "complete": ["slept_d5"]},
+  {"id": "ch5_install", "chapter": "ch5", "text": "Lumen is out. Install it on your phone (phone on the bed, Store).", "requires": ["day6_woke"], "complete": ["phone_lumen_installed"]},
+  {"id": "ch5_open", "chapter": "ch5", "text": "Talk to Lumen on your phone. Ask what to do today.", "requires": ["phone_lumen_installed"], "complete": ["ch5_suggested"]},
+  {"id": "ch5_decide", "chapter": "ch5", "text": "Look up Halden's old building in Drift, then give Lumen your answer.", "requires": ["ch5_wants_check"], "complete": ["ch5_agreed"]},
+  {"id": "ch5_pack", "chapter": "ch5", "text": "Pick up your laptop (on the bed) so Vexley can come along.", "requires": ["ch5_agreed"], "complete": ["laptop_ready"]},
+  {"id": "ch5_leave", "chapter": "ch5", "text": "Leave for Halden Softworks (bedroom door).", "requires": ["laptop_ready"], "complete": ["arrived_facility"]}
 ]

@@ -4,6 +4,7 @@ import Foundation
 extension StoryDirector {
     func laterFlag(_ f: String) {
         ch4Flag(f)
+        ch5Flag(f)
     }
     func laterEvent(_ e: String) -> Bool { false }
     func laterTick() {}
@@ -12,18 +13,19 @@ extension StoryDirector {
     }
     func laterPageVisited(_ url: String) {
         if url == "lumen-ai.com" { session.set("visited_lumen_site") }
+        ch5PageVisited(url)
     }
-    func laterLumenSuggestions() -> [(String, String)] { [] }
+    func laterLumenSuggestions() -> [(String, String)] { ch5LumenSuggestions() }
     func chapterTalk() {
         switch session.day {
         case 4: start("ch4_confront")
+        case 5, 6: start("ch5_idle")
         default: start("ch3_idle_gen")
         }
     }
 
-    // Laptop (Chapter 5). Placeholder lines until then.
-    func laptopPrompt() -> String? { "Laptop" }
-    func useLaptop() { session.say("My old laptop. It still turns on, barely.") }
+    func laptopPrompt() -> String? { ch5LaptopPrompt() }
+    func useLaptop() { ch5UseLaptop() }
 }
 
 extension StoryDirector {

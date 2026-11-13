@@ -1,3 +1,20 @@
 [
-  { "id": "gamebox", "name": "PAPERLIGHT (1999) game box", "description": "Halden Softworks, © 1999. The corners are soft from being carried everywhere. Something folded is tucked behind the disc.", "revealsDocument": "childhood_note" }
+ {
+  "id": "gamebox",
+  "name": "PAPERLIGHT (1999) game box",
+  "description": "Halden Softworks, © 1999. The corners are soft from being carried everywhere. Something folded is tucked behind the disc.",
+  "revealsDocument": "childhood_note"
+ },
+ {
+  "id": "laptop",
+  "name": "Old laptop (Vexley inside)",
+  "description": "Your old laptop. Warm. The fan spins up whenever you talk near it.",
+  "revealsDocument": null
+ },
+ {
+  "id": "usb",
+  "name": "USB drive",
+  "description": "A cheap 8 GB USB stick from the Halden basement. A copy of PAPERLIGHT 0.7.3 is on it.",
+  "revealsDocument": null
+ }
 ]

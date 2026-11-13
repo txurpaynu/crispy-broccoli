@@ -351,6 +351,7 @@ struct LumenView: View {
             if session.has("lumen_fox") { chat } else { setup }
         }
         .foregroundStyle(.white)
+        .onAppear { if compact { StoryDirector.shared.phoneLumenOpened() } }
     }
 
     private var setup: some View {

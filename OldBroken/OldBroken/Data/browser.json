@@ -2,6 +2,21 @@
  "search": [
   {
    "keywords": [
+    "halden building",
+    "halden office",
+    "urbex",
+    "abandoned",
+    "trespass",
+    "halden softworks building",
+    "industrial road"
+   ],
+   "results": [
+    "urbex.zone/t/halden-building",
+    "pulse.news/halden-closes"
+   ]
+  },
+  {
+   "keywords": [
     "lumen",
     "assistant",
     "ai assistant",
@@ -578,6 +593,41 @@
     {
      "t": "meta",
      "text": "© Lumen Labs. All rights reserved. Site registered 2 days ago."
+    }
+   ]
+  },
+  {
+   "url": "urbex.zone/t/halden-building",
+   "title": "Halden Softworks building — DON'T",
+   "theme": "forum",
+   "blocks": [
+    {
+     "t": "h1",
+     "text": "Halden Softworks building (industrial rd) — DON'T"
+    },
+    {
+     "t": "post",
+     "text": "Went last spring. Fence is cut on the east side but it's PRIVATE PROPERTY. Castellan Security still has the contract. They call the police, they don't warn you.",
+     "author": "lowlight",
+     "meta": "#1"
+    },
+    {
+     "t": "post",
+     "text": "Can confirm. Buddy of mine got arrested there in 2019. Trespassing + 'unlawful entry'. Took a year to clear.",
+     "author": "rustbelt_rae",
+     "meta": "#2"
+    },
+    {
+     "t": "post",
+     "text": "Weird place anyway. Power's still on in the basement. Who pays for that??",
+     "author": "lowlight",
+     "meta": "#3"
+    },
+    {
+     "t": "post",
+     "text": "the doors lock by themselves sometimes. not joking",
+     "author": "m_k",
+     "meta": "#4"
     }
    ]
   }

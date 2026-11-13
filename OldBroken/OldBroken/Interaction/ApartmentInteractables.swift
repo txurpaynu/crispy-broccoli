@@ -57,7 +57,11 @@ enum ApartmentInteractables {
         })
 
         r.register(ActionInteractable(id: "door", prompt: { ctx in
-            ctx.session.currentObjective?.id == "ch2_dinner" ? "Go make dinner" : "Open door"
+            switch ctx.session.currentObjective?.id {
+            case "ch2_dinner": return "Go make dinner"
+            case "ch5_leave": return "Leave for Halden Softworks"
+            default: return "Open door"
+            }
         }) { ctx in
             if StoryDirector.shared.useDoor() { return }
             ctx.world.rattleDoor()

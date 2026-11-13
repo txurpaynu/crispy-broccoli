@@ -116,7 +116,7 @@ final class StoryDirector: ObservableObject {
 
     /// Return true if the story took over the door.
     func useDoor() -> Bool {
-        ch2Door()
+        ch2Door() || ch5Door()
     }
 
     /// Return true if the story took over the shutdown.
@@ -139,6 +139,8 @@ final class StoryDirector: ObservableObject {
         case "ch3_boot", "ch3_wait": return "I just got up."
         case "ch3_update", "ch3_notice", "ch3_talk", "ch3_restore": return "Not until I know what's happening on that computer."
         case "ch4_tv", "ch4_ask", "ch4_try", "ch4_use": return "It's the middle of the day."
+        case "ch5_mobile": return "Not yet."
+        case "ch5_install", "ch5_open", "ch5_decide", "ch5_pack", "ch5_leave": return "No sleeping tonight. We're going out."
         default: return "I'm not tired yet."
         }
     }

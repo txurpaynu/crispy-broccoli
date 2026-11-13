@@ -71,9 +71,6 @@ extension StoryDirector {
     func lumenSuggestions() -> [(String, String)] {
         var s: [(String, String)] = []
         if session.day >= 5 && !session.has("ch5_asked_mobile") { s.append(("Is there a phone app?", "ch5_mobile")) }
-        if session.has("ch5_store_live_seen") && !session.has("ch5_suggested") && session.has("phone_lumen_installed") {
-            s.append(("What should we do today?", "ch5_suggest"))
-        }
         if !session.has("lumen_q_weather") { s.append(("What's the weather?", "lumen_weather")) }
         if !session.has("lumen_q_joke") { s.append(("Tell me a joke", "lumen_joke")) }
         if !session.has("lumen_q_who") { s.append(("Who made you?", "lumen_who")) }
