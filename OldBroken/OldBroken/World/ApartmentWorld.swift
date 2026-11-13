@@ -227,7 +227,7 @@ final class ApartmentWorld: NSObject {
         SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         cameraNode.position = SCNVector3(-0.9, 1.12, -1.42)
         cameraNode.eulerAngles = SCNVector3(-0.02, 0, 0)
-        SCNTransaction.completionBlock = { done() }
+        SCNTransaction.completionBlock = { DispatchQueue.main.async { done() } }
         SCNTransaction.commit()
         hud.fade = 0
     }

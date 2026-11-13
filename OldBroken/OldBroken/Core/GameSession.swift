@@ -181,6 +181,10 @@ final class GameSession: ObservableObject {
         paused = false
         startClock()
         AudioManager.shared.setScene(screen == .desktop ? .desktop : .apartment)
+        if screen == .desktop {
+            apartmentWorld().sitAtComputer {}
+            DesktopHooks.onEnter?(self)
+        }
         showBanner("Game loaded", clockText)
     }
 

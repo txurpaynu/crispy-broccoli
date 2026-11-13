@@ -40,6 +40,7 @@ final class RetroGameController: ObservableObject {
     private var clock: Timer?
     private var buildDate = "1998-10-02"
     private var pendingAfterDialogue: (() -> Void)?
+    private var stirredAt: Double = 0
 
     private init() {
         dialogue.onEvent = { [weak self] e in self?.handleEvent(e) }
@@ -148,10 +149,17 @@ final class RetroGameController: ObservableObject {
         playTime += 1
         if !session.has("vexley_met") && !session.has("vx_stirring") && (interacted.count >= 3 || playTime > 90) {
             session.set("vx_stirring")
+            stirredAt = playTime
             buildDate = "????-??-??"
             AudioManager.shared.play(.glitch)
             glitchPulse(0.4)
             AudioManager.shared.setDread(0.15)
+        }
+        // if the player doesn't touch anything, he speaks up on his own
+        if session.has("vx_stirring") && !session.has("vexley_met") && !dialogue.isActive && !menuOpen
+            && playTime - stirredAt > 20 {
+            stirredAt = playTime
+            startDialogue("vx_pre_1")
         }
         updateDebug()
     }
