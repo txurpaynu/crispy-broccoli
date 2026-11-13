@@ -1,0 +1,9 @@
+{
+  "oldFile": {
+    "path": "C:/Games/Kestrel/PAPERLIGHT Reawakened/data/legacy/OLD",
+    "passphrase": "LANTERN1998",
+    "keysPerSecond": 120000,
+    "maxJobSeconds": 180,
+    "failsBeforeHint": 2
+  }
+}
