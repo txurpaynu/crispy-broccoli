@@ -54,6 +54,12 @@ jobs:
         run: |
           APP=build/Build/Products/Release-iphoneos/OldBroken.app
           test -d "$APP"
+          echo "--- icon check ---"
+          ls "$APP" | grep -iE "icon|Assets.car" || true
+          plutil -p "$APP/Info.plist" | grep -A12 CFBundleIcons || true
+          test -f "$APP/Assets.car" || { echo "::error::Assets.car missing"; exit 1; }
+          ls "$APP" | grep -q "OBIcon60x60@2x.png" || { echo "::error::app icon PNGs missing"; exit 1; }
+          plutil -extract CFBundleIcons.CFBundlePrimaryIcon raw "$APP/Info.plist" >/dev/null || { echo "::error::CFBundleIcons missing"; exit 1; }
           rm -rf Payload && mkdir Payload
           cp -R "$APP" Payload/
           zip -qry OldBroken.ipa Payload
