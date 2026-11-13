@@ -411,6 +411,15 @@ final class ComputerSimulationManager: ObservableObject {
                 self.notify(app: "KeySmith", title: "Installed", body: "KeySmith 2.4 is on your desktop.")
                 self.session.say("Okay. Let's see if this thing actually works.")
             }
+        case "LumenSetup.exe":
+            if session.has("lumen_installed") { open(.lumen); return }
+            confirm("Lumen Setup", "Install Lumen?\n\nPublisher: Lumen Labs (unverified)\nLumen is your personal assistant. It learns what you love.", button: "Install") { [weak self] in
+                guard let self else { return }
+                self.session.set("lumen_installed")
+                AudioManager.shared.play(.downloadDone)
+                self.notify(app: "Lumen", title: "Lumen is ready", body: "Say hi!")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { self.open(.lumen) }
+            }
         case "kestrel_setup.exe":
             alert("Kestrel Setup", "Kestrel is already installed and up to date.", icon: "bird.fill", tint: .purple, sound: .uiClick)
         default:

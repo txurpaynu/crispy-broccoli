@@ -19,6 +19,8 @@ final class GameSession: ObservableObject {
     @Published var inspecting: DocumentDef?
     /// Full-screen story text between scenes (nights, dinner, travel).
     @Published var interstitial: Interstitial?
+    /// TV or phone, shown full-screen over the apartment.
+    @Published var deviceOverlay: DeviceOverlay?
 
     /// Fires with the flag name every time a new flag is set.
     let flagSet = PassthroughSubject<String, Never>()

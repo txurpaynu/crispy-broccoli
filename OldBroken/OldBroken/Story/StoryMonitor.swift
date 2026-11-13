@@ -91,3 +91,30 @@ extension MonitorImages {
         }
     }
 }
+
+/// What the bedroom TV shows from across the room.
+@MainActor
+enum TVImages {
+    static func news() -> UIImage {
+        ProcTex.render(CGSize(width: 384, height: 216)) { c, s in
+            let colors = [UIColor(red: 0.05, green: 0.1, blue: 0.3, alpha: 1).cgColor,
+                          UIColor(red: 0.02, green: 0.03, blue: 0.12, alpha: 1).cgColor] as CFArray
+            let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors, locations: [0, 1])!
+            c.drawLinearGradient(g, start: .zero, end: CGPoint(x: 0, y: s.height), options: [])
+            c.setFillColor(UIColor(red: 0.12, green: 0.14, blue: 0.22, alpha: 1).cgColor)
+            c.fillEllipse(in: CGRect(x: 50, y: 60, width: 46, height: 46))
+            c.fill(CGRect(x: 36, y: 104, width: 76, height: 70))
+            if let face = VexleyArt.still(.happy) { face.draw(in: CGRect(x: 230, y: 40, width: 100, height: 100)) }
+            c.setFillColor(UIColor.red.cgColor)
+            c.fill(CGRect(x: 0, y: 170, width: 90, height: 18))
+            c.setFillColor(UIColor.white.cgColor)
+            c.fill(CGRect(x: 90, y: 170, width: s.width - 90, height: 18))
+            c.setFillColor(UIColor.black.cgColor)
+            c.fill(CGRect(x: 0, y: 188, width: s.width, height: 28))
+            let t: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 12, weight: .heavy), .foregroundColor: UIColor.white]
+            ("NEWSLINE 24" as NSString).draw(at: CGPoint(x: 4, y: 171), withAttributes: t)
+            let y: [NSAttributedString.Key: Any] = [.font: UIFont.monospacedSystemFont(ofSize: 11, weight: .medium), .foregroundColor: UIColor.yellow]
+            ("LUMEN · the assistant that knows you · LUMEN is free" as NSString).draw(at: CGPoint(x: 6, y: 194), withAttributes: y)
+        }
+    }
+}

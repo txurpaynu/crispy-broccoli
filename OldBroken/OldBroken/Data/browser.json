@@ -2,6 +2,18 @@
  "search": [
   {
    "keywords": [
+    "lumen",
+    "assistant",
+    "ai assistant",
+    "lumen ai",
+    "lumen labs"
+   ],
+   "results": [
+    "lumen-ai.com"
+   ]
+  },
+  {
+   "keywords": [
     "halden softworks",
     "halden closed",
     "what happened halden",
@@ -522,6 +534,50 @@
     {
      "t": "p",
      "text": "'We left a lot of things running,' one former programmer told Pulse. 'Some of us thought we'd come back. Nobody came back.'"
+    }
+   ]
+  },
+  {
+   "url": "lumen-ai.com",
+   "title": "Lumen — the assistant that knows you",
+   "theme": "store",
+   "blocks": [
+    {
+     "t": "small",
+     "text": "LUMEN LABS"
+    },
+    {
+     "t": "h1",
+     "text": "Meet Lumen."
+    },
+    {
+     "t": "p",
+     "text": "The assistant that actually listens. Lumen learns what you love, remembers what matters, and is always there when you need it."
+    },
+    {
+     "t": "download",
+     "text": "Download Lumen for Pane",
+     "action": "LumenSetup.exe"
+    },
+    {
+     "t": "h2",
+     "text": "Why everyone is talking about it"
+    },
+    {
+     "t": "review",
+     "text": "I've been using it for a week. It's honestly impressive.",
+     "author": "Theo",
+     "meta": "★★★★★"
+    },
+    {
+     "t": "review",
+     "text": "Like talking to an old friend.",
+     "author": "L. Halden",
+     "meta": "★★★★★"
+    },
+    {
+     "t": "meta",
+     "text": "© Lumen Labs. All rights reserved. Site registered 2 days ago."
     }
    ]
   }

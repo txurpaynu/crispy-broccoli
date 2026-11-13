@@ -10,6 +10,34 @@ extension ApartmentBuilder {
         buildPoster()
         buildWardrobe()
         buildClutter()
+        buildTVAndLaptop()
+    }
+
+    /// Wall-mounted TV (Chapter 4) and the old laptop on the bed (Chapter 5).
+    private func buildTVAndLaptop() {
+        let black = SK.material(UIColor(white: 0.03, alpha: 1), roughness: 0.35, metalness: 0.3)
+        let tv = SK.group(InteractionSystem.prefix + "tv", at: SCNVector3(-0.75, 1.32, Self.halfD - 0.04), in: root)
+        SK.box(0.96, 0.57, 0.05, black, at: SCNVector3(0, 0, 0), in: tv, chamfer: 0.01)
+        let screenMat = SK.material(.black, roughness: 0.2)
+        screenMat.lightingModel = .constant
+        screenMat.diffuse.contents = UIColor(white: 0.02, alpha: 1)
+        world.nodes["tvScreen"] = SK.plane(0.9, 0.51, screenMat, at: SCNVector3(0, 0, -0.027), yaw: .pi, in: tv)
+        let light = SCNNode()
+        light.light = SK.omni(UIColor(red: 0.5, green: 0.6, blue: 1, alpha: 1), intensity: 0, range: 2.6, shadows: false)
+        light.position = SCNVector3(0, 0, -0.5)
+        tv.addChildNode(light)
+        world.nodes["tvLight"] = light
+
+        let bed = root.childNode(withName: InteractionSystem.prefix + "bed", recursively: false)
+        let y = bed.map { ModelLibrary.surfaceY(x: 2.1, z: -1.05, on: $0, in: root, fallback: 0.45) } ?? 0.45
+        if let lap = ModelLibrary.place("classic_laptop", at: SCNVector3(2.12, y, -1.05), yaw: -.pi / 2 + 0.2, height: 0.24,
+                                        in: root, nodeName: InteractionSystem.prefix + "laptop") {
+            world.nodes["laptop"] = lap
+        } else {
+            let lap = SK.group(InteractionSystem.prefix + "laptop", at: SCNVector3(2.12, y, -1.05), in: root)
+            SK.box(0.34, 0.025, 0.24, SK.material(UIColor(white: 0.25, alpha: 1), roughness: 0.4, metalness: 0.5), at: SCNVector3(0, 0.0125, 0), in: lap)
+            world.nodes["laptop"] = lap
+        }
     }
 
     private func buildWindow() {
@@ -106,7 +134,7 @@ extension ApartmentBuilder {
         var phonePos = SCNVector3(1.85, 0.56, -0.2)
         if let bed = root.childNode(withName: InteractionSystem.prefix + "bed", recursively: false), bed.childNodes.first?.geometry == nil,
            bed.childNodes.count == 1 {
-            phonePos = SCNVector3(2.0, ModelLibrary.surfaceY(x: 2.0, z: -0.8, on: bed, in: root, fallback: 0.45) + 0.005, -0.8)
+            phonePos = SCNVector3(2.0, ModelLibrary.surfaceY(x: 2.0, z: -0.45, on: bed, in: root, fallback: 0.45) + 0.005, -0.45)
         }
         let phone = SK.box(0.075, 0.009, 0.155, phoneMat, at: phonePos, in: root,
                            name: InteractionSystem.prefix + "phone", chamfer: 0.004)

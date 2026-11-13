@@ -57,6 +57,16 @@ struct OverlayStack: View {
             .animation(.easeInOut(duration: 0.25), value: session.banner)
             .animation(.easeInOut(duration: 0.25), value: session.narration)
 
+            if let d = session.deviceOverlay {
+                Group {
+                    switch d {
+                    case .tv: TVView()
+                    case .phone: PhoneView()
+                    }
+                }
+                .transition(.opacity)
+            }
+
             StoryDialogueOverlay()
                 .animation(.spring(response: 0.35, dampingFraction: 0.85), value: StoryDirector.shared.showsOverlayDialogue)
 
@@ -70,6 +80,7 @@ struct OverlayStack: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: session.inspecting?.id)
+        .animation(.easeInOut(duration: 0.3), value: session.deviceOverlay)
         .animation(.easeInOut(duration: 0.6), value: session.chapterCard?.id)
     }
 }

@@ -79,6 +79,12 @@ final class ApartmentWorld: NSObject {
         setLamp(!s.has("lamp_off"), sound: false)
         refreshMonitor()
         applyDaylight()
+        setTV(s.has("tv_on"))
+    }
+
+    func setTV(_ on: Bool) {
+        nodes["tvScreen"]?.geometry?.firstMaterial?.diffuse.contents = on ? TVImages.news() : UIColor(white: 0.02, alpha: 1)
+        nodes["tvLight"]?.light?.intensity = on ? 18 : 0
     }
 
     // MARK: Time of day
@@ -194,7 +200,7 @@ final class ApartmentWorld: NSObject {
 
     private func tick(_ dt: Float) {
         guard let s = session else { return }
-        let paused = s.paused || s.screen != .apartment || s.inspecting != nil
+        let paused = s.paused || s.screen != .apartment || s.inspecting != nil || s.deviceOverlay != nil
         input.enabled = !paused && !cutscene
         if !cutscene {
             let settings = GameSettings.shared

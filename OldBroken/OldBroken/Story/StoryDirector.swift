@@ -138,6 +138,7 @@ final class StoryDirector: ObservableObject {
         case "ch2_read", "ch2_shutdown": return "Not with the computer still running."
         case "ch3_boot", "ch3_wait": return "I just got up."
         case "ch3_update", "ch3_notice", "ch3_talk", "ch3_restore": return "Not until I know what's happening on that computer."
+        case "ch4_tv", "ch4_ask", "ch4_try", "ch4_use": return "It's the middle of the day."
         default: return "I'm not tired yet."
         }
     }

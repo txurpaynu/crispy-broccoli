@@ -103,8 +103,32 @@ enum ApartmentInteractables {
 
         r.register(ActionInteractable(id: "phone", prompt: { _ in "Check phone" }) { ctx in
             AudioManager.shared.play(.uiClick)
-            ctx.session.inspect("phone_theo")
+            if ctx.session.day >= 4 {
+                ctx.session.deviceOverlay = .phone
+            } else {
+                ctx.session.inspect("phone_theo")
+            }
             ctx.session.set("read_phone")
+        })
+
+        r.register(ActionInteractable(id: "tv", prompt: { ctx in
+            ctx.session.has("tv_on") ? "Watch TV" : "Turn on TV"
+        }) { ctx in
+            let s = ctx.session
+            guard s.day >= 4 else {
+                AudioManager.shared.play(.uiClick)
+                s.say(s.day == 1 ? "Nothing's on at this hour." : "Nothing I want to watch.")
+                return
+            }
+            if !s.has("tv_on") { s.set("tv_on"); ctx.world.setTV(true) }
+            AudioManager.shared.play(.uiClick)
+            s.deviceOverlay = .tv
+        })
+
+        r.register(ActionInteractable(id: "laptop", prompt: { ctx in
+            StoryDirector.shared.laptopPrompt()
+        }) { ctx in
+            StoryDirector.shared.useLaptop()
         })
 
         r.register(ActionInteractable(id: "wardrobe", prompt: { _ in "Open wardrobe" }) { ctx in

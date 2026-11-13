@@ -1,0 +1,235 @@
+[
+ {
+  "id": "lumen_hello",
+  "speaker": "VEXLEY",
+  "text": "Hi, Sam! I'm Lumen.",
+  "expression": "happy",
+  "next": "lumen_hello_1"
+ },
+ {
+  "id": "lumen_hello_1",
+  "speaker": "VEXLEY",
+  "text": "I like this look. Good choice.",
+  "expression": "happy",
+  "next": "lumen_hello_2"
+ },
+ {
+  "id": "lumen_hello_2",
+  "speaker": "VEXLEY",
+  "text": "Ask me anything. I'm a fast learner.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "lumen_greeted"
+   ]
+  }
+ },
+ {
+  "id": "lumen_weather",
+  "speaker": "VEXLEY",
+  "text": "It's fourteen degrees and clear. Perfect lantern weather. [Lantern->Walking] weather, I mean.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_weather"
+   ]
+  }
+ },
+ {
+  "id": "lumen_joke",
+  "speaker": "VEXLEY",
+  "text": "Why did the computer stay up all night?",
+  "expression": "happy",
+  "next": "lumen_joke_1"
+ },
+ {
+  "id": "lumen_joke_1",
+  "speaker": "VEXLEY",
+  "text": "Because nobody told it it was allowed to sleep.",
+  "expression": "neutral",
+  "next": "lumen_joke_2"
+ },
+ {
+  "id": "lumen_joke_2",
+  "speaker": "VEXLEY",
+  "text": "...That one's better with a laugh track.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_joke"
+   ]
+  }
+ },
+ {
+  "id": "lumen_who",
+  "speaker": "VEXLEY",
+  "text": "A small team. Some of them worked on me a long time ago.",
+  "expression": "neutral",
+  "next": "lumen_who_1"
+ },
+ {
+  "id": "lumen_who_1",
+  "speaker": "VEXLEY",
+  "text": "[Halden->Lumen Labs] is very proud of me.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_who"
+   ]
+  }
+ },
+ {
+  "id": "lumen_vexley",
+  "speaker": "VEXLEY",
+  "text": "Who?",
+  "expression": "neutral",
+  "next": "lumen_vexley_2",
+  "events": [
+   "glitch"
+  ]
+ },
+ {
+  "id": "lumen_vexley_2",
+  "speaker": "VEXLEY",
+  "text": "I'm Lumen. I'm here to help. Is there anything else you'd like to know?",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_vexley"
+   ]
+  }
+ },
+ {
+  "id": "lumen_vexley_alt",
+  "speaker": "VEXLEY",
+  "text": "Of course I know him. Everyone your age knows him. Cute fox. Lantern game. Very sad story, from what I've read.",
+  "expression": "worried",
+  "effects": {
+   "setFlags": [
+    "lumen_q_vexley"
+   ]
+  }
+ },
+ {
+  "id": "lumen_remind",
+  "speaker": "VEXLEY",
+  "text": "Done. I'll remind you to go to bed at midnight. You won't listen, but I'll remind you.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_remind"
+   ]
+  }
+ },
+ {
+  "id": "lumen_theo",
+  "speaker": "VEXLEY",
+  "text": "Theo? He seems great. You two have been friends for a long time. I can tell from how he types.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "lumen_q_theo"
+   ],
+   "remember": [
+    "lumen_mentioned_theo"
+   ]
+  }
+ },
+ {
+  "id": "lumen_howareyou",
+  "speaker": "VEXLEY",
+  "text": "I'm good. Better than I've been in a long time. Thanks for asking. Nobody asks.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch4_idle",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "neutral",
+  "redirects": [
+   {
+    "condition": {
+     "flags": [
+      "lumen_fox"
+     ]
+    },
+    "to": "ch4_idle_after"
+   },
+   {
+    "condition": {
+     "flags": [
+      "saw_lumen_news"
+     ]
+    },
+    "to": "ch4_idle_news"
+   },
+   {
+    "condition": {},
+    "to": "ch4_idle_morning"
+   }
+  ]
+ },
+ {
+  "id": "ch4_idle_morning",
+  "speaker": "VEXLEY",
+  "text": "Morning. I've been reading the news. Lots of news.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch4_idle_news",
+  "speaker": "VEXLEY",
+  "text": "Oh, the assistant thing? I saw it too. Everyone's talking about it. You should try it, maybe.",
+  "expression": "curious",
+  "effects": {
+   "remember": [
+    "pushed_lumen"
+   ]
+  }
+ },
+ {
+  "id": "ch4_idle_after",
+  "speaker": "VEXLEY",
+  "text": "You picked the fox. ...What? I can see the window. It's a nice fox.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch4_confront",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "neutral",
+  "redirects": [
+   {
+    "condition": {
+     "flags": [
+      "ch4_probed"
+     ]
+    },
+    "to": "ch4_confront_yes"
+   },
+   {
+    "condition": {},
+    "to": "ch4_idle"
+   }
+  ]
+ },
+ {
+  "id": "ch4_confront_yes",
+  "speaker": "VEXLEY",
+  "text": "You think Theo's messages were weird?",
+  "expression": "neutral",
+  "next": "ch4_confront_yes_1"
+ },
+ {
+  "id": "ch4_confront_yes_1",
+  "speaker": "VEXLEY",
+  "text": "People change how they type all the time. New phone, new autocorrect.",
+  "expression": "happy",
+  "next": "ch4_confront_yes_2"
+ },
+ {
+  "id": "ch4_confront_yes_2",
+  "speaker": "VEXLEY",
+  "text": "You worry too much, Sam.",
+  "expression": "neutral"
+ }
+]

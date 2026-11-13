@@ -27,5 +27,10 @@
   {"id": "ch3_notice", "chapter": "ch3", "text": "Something's different. Look around the computer: Task Manager, your Documents, Drift's history.", "requires": ["update_installed"], "complete": ["ch3_noticed"]},
   {"id": "ch3_talk", "chapter": "ch3", "text": "Talk to Vexley.", "requires": ["ch3_noticed"], "complete": ["ch3_reveal_done"]},
   {"id": "ch3_restore", "chapter": "ch3", "text": "Turn your security back on (Shield).", "requires": ["ch3_reveal_done"], "complete": ["ch3_restore_tried"]},
-  {"id": "sleep_d3", "chapter": "ch3", "text": "Go to bed.", "requires": ["ch3_restore_tried"], "complete": ["slept_d3"]}
+  {"id": "sleep_d3", "chapter": "ch3", "text": "Go to bed.", "requires": ["ch3_restore_tried"], "complete": ["slept_d3"]},
+  {"id": "ch4_tv", "chapter": "ch4", "text": "The TV turned itself on. Watch the news.", "requires": ["day4_woke"], "complete": ["saw_lumen_news"]},
+  {"id": "ch4_ask", "chapter": "ch4", "text": "Ask Theo if he's heard of Lumen (your phone, on the bed).", "requires": ["saw_lumen_news"], "complete": ["ch4_theo_r1"]},
+  {"id": "ch4_try", "chapter": "ch4", "text": "Try Lumen. Download it at lumen-ai.com (computer).", "requires": ["ch4_theo_r1"], "complete": ["lumen_fox"]},
+  {"id": "ch4_use", "chapter": "ch4", "text": "Get to know Lumen. Ask it a few things.", "requires": ["lumen_fox"], "complete": ["ch4_used_lumen"]},
+  {"id": "sleep_d4", "chapter": "ch4", "text": "Go to bed.", "requires": ["ch4_used_lumen"], "complete": ["slept_d4"]}
 ]

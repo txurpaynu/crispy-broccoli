@@ -68,6 +68,18 @@ struct HUDTopBar: View {
                     .background(.black.opacity(0.35), in: RoundedRectangle(cornerRadius: 6))
                 }
                 Spacer()
+                if session.has("phone_lumen_installed") {
+                    Button {
+                        AudioManager.shared.play(.uiClick)
+                        session.deviceOverlay = .phone
+                    } label: {
+                        Image(systemName: "iphone")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(.white.opacity(0.85))
+                            .frame(width: 44, height: 44)
+                            .background(.black.opacity(0.35), in: Circle())
+                    }
+                }
                 Text(session.clockText)
                     .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .foregroundStyle(.white.opacity(0.6))

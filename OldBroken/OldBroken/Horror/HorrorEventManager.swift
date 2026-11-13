@@ -61,6 +61,15 @@ final class HorrorEventManager {
             AudioManager.shared.play(.vexleyVoice(pitch: 300, rough: 0.05))
             s.say("The webcam light just came on. I don't even use the webcam.")
         },
+        // Chapter 4
+        Beat(id: "h_ch4_tv", condition: { $0.day == 4 && !$0.has("saw_lumen_news") }, delay: 4) { _, s in
+            AudioManager.shared.play(.vexleyVoice(pitch: 360, rough: 0))
+            s.say("The TV's on. Volume low. I definitely didn't do that.")
+        },
+        Beat(id: "h_ch4_night", condition: { $0.day == 4 && $0.has("ch4_used_lumen") }, delay: 10) { w, s in
+            w.flickerLamp(times: 2)
+            s.say("Lumen said goodnight to me. I never told it when I go to bed.")
+        },
         Beat(id: "h_dead_monitor", condition: { $0.day == 2 && $0.has("pc_shutdown") }, delay: 7) { w, s in
             w.flashMonitorFace(s.data.vexley.remembered.contains("silent_shutdown") ? .scared : .worried)
             AudioManager.shared.setDread(0.3)
