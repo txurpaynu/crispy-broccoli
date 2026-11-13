@@ -7,9 +7,22 @@ enum ApartmentInteractables {
     static func register(in world: ApartmentWorld) {
         let r = world.interaction
 
-        r.register(ActionInteractable(id: "computer", prompt: { _ in "Use computer" }) { ctx in
+        r.register(ActionInteractable(id: "computer", prompt: { ctx in
+            guard ctx.session.has("pc_off") else { return "Use computer" }
+            return ctx.session.has("pc_shutdown") && ctx.session.day == 2 ? "Computer (off)" : "Turn on computer"
+        }) { ctx in
+            let s = ctx.session
+            if s.has("pc_off") {
+                if s.day == 2 {
+                    s.say("It's off. It stays off tonight.")
+                    return
+                }
+                s.unset("pc_off")
+                AudioManager.shared.play(.powerOn)
+                ctx.world.refreshMonitor()
+            }
             AudioManager.shared.play(.mouseClick)
-            ctx.world.sitAtComputer { ctx.session.enterDesktop() }
+            ctx.world.sitAtComputer { s.enterDesktop() }
         })
 
         r.register(ActionInteractable(id: "bed", prompt: { ctx in
@@ -19,6 +32,8 @@ enum ApartmentInteractables {
             if s.canSleep {
                 AudioManager.shared.play(.bedSheets)
                 s.sleep()
+            } else if s.day >= 2 {
+                s.say(StoryDirector.shared.bedLine())
             } else if s.has("vexley_refused_exit") {
                 s.say("Not with that thing still running on my computer. I should at least scan it.")
             } else if s.has("old_decrypted") {
@@ -41,8 +56,16 @@ enum ApartmentInteractables {
             }
         })
 
-        r.register(ActionInteractable(id: "door", prompt: { _ in "Open door" }) { ctx in
+        r.register(ActionInteractable(id: "door", prompt: { ctx in
+            ctx.session.currentObjective?.id == "ch2_dinner" ? "Go make dinner" : "Open door"
+        }) { ctx in
+            if StoryDirector.shared.useDoor() { return }
             ctx.world.rattleDoor()
+            if ctx.session.day >= 2 {
+                ctx.session.say(ctx.session.has("pc_shutdown") && ctx.session.day == 2
+                                ? "It's late. I'm staying in." : "I don't need anything out there right now.")
+                return
+            }
             let n = ctx.session.increment("door_tries")
             switch n {
             case 1: ctx.session.say("Stuck again. The landlord said he'd fix it in March.")

@@ -18,7 +18,7 @@ extension ApartmentBuilder {
         viewMat.lightingModel = .constant
         viewMat.diffuse.contents = ProcTex.nightCity()
         let win = SK.group(InteractionSystem.prefix + "window", at: SCNVector3(-2.68, 1.5, 0.6), in: root)
-        SK.plane(1.2, 1.1, viewMat, at: SCNVector3(-0.05, 0, 0), yaw: .pi / 2, in: win)
+        world.nodes["windowView"] = SK.plane(1.2, 1.1, viewMat, at: SCNVector3(-0.05, 0, 0), yaw: .pi / 2, in: win)
         SK.box(0.08, 0.05, 1.24, frameMat, at: SCNVector3(0.06, 0.55, 0), in: win)
         SK.box(0.08, 0.05, 1.24, frameMat, at: SCNVector3(0.06, -0.55, 0), in: win)
         SK.box(0.08, 1.1, 0.05, frameMat, at: SCNVector3(0.06, 0, -0.6), in: win)

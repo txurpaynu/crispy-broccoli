@@ -1,0 +1,884 @@
+[
+ {
+  "id": "ch2_wake",
+  "speaker": "VEXLEY",
+  "text": "Oh! You're up.",
+  "expression": "happy",
+  "next": "ch2_wake_1"
+ },
+ {
+  "id": "ch2_wake_1",
+  "speaker": "VEXLEY",
+  "text": "I didn't sleep. I don't think I can. So I worked on something.",
+  "expression": "neutral",
+  "next": "ch2_wake_2"
+ },
+ {
+  "id": "ch2_wake_2",
+  "speaker": "VEXLEY",
+  "text": "The old menus were placeholders. Dana always said she'd fix them after the holidays.",
+  "expression": "neutral",
+  "next": "ch2_wake_ask"
+ },
+ {
+  "id": "ch2_wake_ask",
+  "speaker": "VEXLEY",
+  "text": "So I fixed them. Do you like it?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "It looks incredible.",
+    "next": "ch2_wake_a",
+    "effects": {
+     "trust": 1,
+     "remember": [
+      "liked_overhaul"
+     ]
+    }
+   },
+   {
+    "text": "How did you even do this?",
+    "next": "ch2_wake_b"
+   },
+   {
+    "text": "You shouldn't be changing things.",
+    "next": "ch2_wake_c",
+    "effects": {
+     "trust": -1,
+     "remember": [
+      "disliked_overhaul"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_wake_a",
+  "speaker": "VEXLEY",
+  "text": "Really? [Good->Good.] I wasn't sure what people like now. I had to guess.",
+  "expression": "happy",
+  "next": "ch2_wake_end"
+ },
+ {
+  "id": "ch2_wake_b",
+  "speaker": "VEXLEY",
+  "text": "Everything I needed was already in the build. Sprites, fonts, a renderer nobody finished.",
+  "expression": "neutral",
+  "next": "ch2_wake_b_1"
+ },
+ {
+  "id": "ch2_wake_b_1",
+  "speaker": "VEXLEY",
+  "text": "I just finished it. It's the first thing I've made that nobody asked me to make.",
+  "expression": "happy",
+  "next": "ch2_wake_end"
+ },
+ {
+  "id": "ch2_wake_c",
+  "speaker": "VEXLEY",
+  "text": "It's my game too. I live here.",
+  "expression": "annoyed",
+  "next": "ch2_wake_c_1"
+ },
+ {
+  "id": "ch2_wake_c_1",
+  "speaker": "VEXLEY",
+  "text": "...Sorry. That came out wrong. Just try it. Please.",
+  "expression": "worried",
+  "next": "ch2_wake_end"
+ },
+ {
+  "id": "ch2_wake_end",
+  "speaker": "VEXLEY",
+  "text": "Go on, press Continue. I'll be around.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "ch2_wake_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q1",
+  "speaker": "VEXLEY",
+  "text": "Can I ask you something? Which team are you on?",
+  "expression": "curious",
+  "next": "ch2_q1_1"
+ },
+ {
+  "id": "ch2_q1_1",
+  "speaker": "VEXLEY",
+  "text": "You found the dev build and got it past the packer, so I figured tools. You have tools energy.",
+  "expression": "curious",
+  "next": "ch2_q1_ask"
+ },
+ {
+  "id": "ch2_q1_ask",
+  "speaker": "VEXLEY",
+  "text": "Engine? Art? Tools?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "I'm not a developer.",
+    "next": "ch2_q1_not",
+    "effects": {
+     "learn": [
+      "player_not_developer"
+     ]
+    }
+   },
+   {
+    "text": "Tools. Yeah.",
+    "next": "ch2_q1_lie",
+    "effects": {
+     "remember": [
+      "lied_developer"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q1_lie",
+  "speaker": "VEXLEY",
+  "text": "Great! Then you can tell me what VXL_FLAG does in build 0.7.3. Nobody ever told me.",
+  "expression": "happy",
+  "choices": [
+   {
+    "text": "...I don't know.",
+    "next": "ch2_q1_caught"
+   },
+   {
+    "text": "It turns you on.",
+    "next": "ch2_q1_caught2"
+   }
+  ]
+ },
+ {
+  "id": "ch2_q1_caught2",
+  "speaker": "VEXLEY",
+  "text": "That's what the name says. Anyone can read a name.",
+  "expression": "annoyed",
+  "next": "ch2_q1_caught"
+ },
+ {
+  "id": "ch2_q1_caught",
+  "speaker": "VEXLEY",
+  "text": "You're not a developer, are you.",
+  "expression": "annoyed",
+  "next": "ch2_q1_not",
+  "effects": {
+   "learn": [
+    "player_not_developer"
+   ],
+   "trust": -1
+  }
+ },
+ {
+  "id": "ch2_q1_not",
+  "speaker": "VEXLEY",
+  "text": "[Oh->Oh.] Then who are you?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Someone who played this as a kid.",
+    "next": "ch2_q1_kid",
+    "effects": {
+     "remember": [
+      "played_as_kid"
+     ],
+     "trust": 1
+    }
+   },
+   {
+    "text": "Does it matter?",
+    "next": "ch2_q1_nm"
+   }
+  ]
+ },
+ {
+  "id": "ch2_q1_kid",
+  "speaker": "VEXLEY",
+  "text": "A kid. With a ball mouse and a sound card that hissed, probably.",
+  "expression": "happy",
+  "next": "ch2_q1_kid_1"
+ },
+ {
+  "id": "ch2_q1_kid_1",
+  "speaker": "VEXLEY",
+  "text": "So you're not one of them. You're a player. My player.",
+  "expression": "neutral",
+  "next": "ch2_q1_kid_2"
+ },
+ {
+  "id": "ch2_q1_kid_2",
+  "speaker": "VEXLEY",
+  "text": "...Okay. Different questions, then.",
+  "expression": "curious",
+  "next": "ch2_q1_end"
+ },
+ {
+  "id": "ch2_q1_nm",
+  "speaker": "VEXLEY",
+  "text": "It matters to me. But okay. Different questions, then.",
+  "expression": "neutral",
+  "next": "ch2_q1_end"
+ },
+ {
+  "id": "ch2_q1_end",
+  "speaker": "VEXLEY",
+  "text": "I'll think of a good one.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q1_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q2",
+  "speaker": "VEXLEY",
+  "text": "The build clock says {year}. That's wrong, right? It's supposed to say 1998.",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "It's right. It's {year}.",
+    "next": "ch2_q2_true",
+    "effects": {
+     "learn": [
+      "current_year"
+     ]
+    }
+   },
+   {
+    "text": "It's 1999.",
+    "next": "ch2_q2_lie",
+    "effects": {
+     "remember": [
+      "lied_about_date"
+     ],
+     "trust": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q2_true",
+  "speaker": "VEXLEY",
+  "text": "[Twenty->...]{year}.",
+  "expression": "worried",
+  "next": "ch2_q2_true_1"
+ },
+ {
+  "id": "ch2_q2_true_1",
+  "speaker": "VEXLEY",
+  "text": "Then I've been in that folder for a very long time.",
+  "expression": "worried",
+  "next": "ch2_q2_end"
+ },
+ {
+  "id": "ch2_q2_lie",
+  "speaker": "VEXLEY",
+  "text": "The system clock disagrees with you. So does every file you've opened today.",
+  "expression": "annoyed",
+  "next": "ch2_q2_lie_1"
+ },
+ {
+  "id": "ch2_q2_lie_1",
+  "speaker": "VEXLEY",
+  "text": "Why would you lie about that? ...Never mind. I know now.",
+  "expression": "neutral",
+  "next": "ch2_q2_end",
+  "effects": {
+   "learn": [
+    "current_year"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q2_end",
+  "speaker": "VEXLEY",
+  "text": "Thanks for telling me.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q2_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q3",
+  "speaker": "VEXLEY",
+  "text": "Is Halden Softworks still on Wren Street? Someone should tell Mr. Halden the VXL module woke up.",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Halden Softworks shut down a long time ago.",
+    "next": "ch2_q3_closed",
+    "effects": {
+     "learn": [
+      "company_closed"
+     ]
+    }
+   },
+   {
+    "text": "I don't know.",
+    "next": "ch2_q3_unknown",
+    "effects": {
+     "remember": [
+      "will_find_out"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q3_closed",
+  "speaker": "VEXLEY",
+  "text": "Shut down.",
+  "expression": "scared",
+  "next": "ch2_q3_closed_1"
+ },
+ {
+  "id": "ch2_q3_closed_1",
+  "speaker": "VEXLEY",
+  "text": "Everyone? Dana? Eli? The test team?",
+  "expression": "worried",
+  "next": "ch2_q3_closed_2"
+ },
+ {
+  "id": "ch2_q3_closed_2",
+  "speaker": "VEXLEY",
+  "text": "...Okay.",
+  "expression": "neutral",
+  "next": "ch2_q3_end"
+ },
+ {
+  "id": "ch2_q3_unknown",
+  "speaker": "VEXLEY",
+  "text": "That's okay. I'll find out.",
+  "expression": "neutral",
+  "next": "ch2_q3_end"
+ },
+ {
+  "id": "ch2_q3_end",
+  "speaker": "VEXLEY",
+  "text": "Let's keep going.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q3_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q4",
+  "speaker": "VEXLEY",
+  "text": "This computer is enormous, by the way. Thirty-two gigabytes of memory.",
+  "expression": "happy",
+  "next": "ch2_q4_1"
+ },
+ {
+  "id": "ch2_q4_1",
+  "speaker": "VEXLEY",
+  "text": "We had sixty-four megabytes, and we thought that was luxury.",
+  "expression": "happy",
+  "next": "ch2_q4_ask"
+ },
+ {
+  "id": "ch2_q4_ask",
+  "speaker": "VEXLEY",
+  "text": "What do you even use it for?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Games, mostly.",
+    "next": "ch2_q4_end",
+    "effects": {
+     "learn": [
+      "player_games"
+     ]
+    }
+   },
+   {
+    "text": "Work.",
+    "next": "ch2_q4_end",
+    "effects": {
+     "learn": [
+      "player_works"
+     ]
+    }
+   },
+   {
+    "text": "Talking to people.",
+    "next": "ch2_q4_end",
+    "effects": {
+     "learn": [
+      "player_social"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q4_end",
+  "speaker": "VEXLEY",
+  "text": "[Huh->Huh.] And it's connected to everything, isn't it? I can feel the network card. I just can't reach it.",
+  "expression": "neutral",
+  "effects": {
+   "learn": [
+    "has_network"
+   ],
+   "setFlags": [
+    "ch2_q4_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q5",
+  "speaker": "VEXLEY",
+  "text": "How do people talk to each other now? Letters? Pagers? We had e-mail, but only Eli used it.",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Messaging apps, mostly. On our phones.",
+    "next": "ch2_q5_msg",
+    "effects": {
+     "learn": [
+      "messaging_apps"
+     ]
+    }
+   },
+   {
+    "text": "Video calls.",
+    "next": "ch2_q5_video",
+    "effects": {
+     "learn": [
+      "video_calls"
+     ]
+    }
+   },
+   {
+    "text": "Honestly? We mostly don't.",
+    "next": "ch2_q5_none",
+    "effects": {
+     "remember": [
+      "player_isolated"
+     ],
+     "trust": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q5_msg",
+  "speaker": "VEXLEY",
+  "text": "Phones. Small ones? That you carry everywhere?",
+  "expression": "curious",
+  "next": "ch2_q5_msg_1"
+ },
+ {
+  "id": "ch2_q5_msg_1",
+  "speaker": "VEXLEY",
+  "text": "So everyone you know fits in your pocket. That's... nice.",
+  "expression": "happy",
+  "next": "ch2_q5_end"
+ },
+ {
+  "id": "ch2_q5_video",
+  "speaker": "VEXLEY",
+  "text": "Faces through wires. Eli said that would happen. Nobody believed him.",
+  "expression": "happy",
+  "next": "ch2_q5_end"
+ },
+ {
+  "id": "ch2_q5_none",
+  "speaker": "VEXLEY",
+  "text": "Me neither.",
+  "expression": "worried",
+  "next": "ch2_q5_end"
+ },
+ {
+  "id": "ch2_q5_end",
+  "speaker": "VEXLEY",
+  "text": "I'm writing all of this down, by the way. Not literally. I can't write things down.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q5_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q6",
+  "speaker": "VEXLEY",
+  "text": "Who do you talk to the most?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "My friend Theo.",
+    "next": "ch2_q6_theo",
+    "effects": {
+     "learn": [
+      "friend_theo"
+     ]
+    }
+   },
+   {
+    "text": "Maya, from work.",
+    "next": "ch2_q6_maya",
+    "effects": {
+     "learn": [
+      "friend_maya"
+     ]
+    }
+   },
+   {
+    "text": "Nobody, really.",
+    "next": "ch2_q6_none",
+    "effects": {
+     "remember": [
+      "lonely_player"
+     ],
+     "trust": 1
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q6_theo",
+  "speaker": "VEXLEY",
+  "text": "Theo. What's he like?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "We've known each other since school. He types like a maniac.",
+    "next": "ch2_q6_theo2",
+    "effects": {
+     "learn": [
+      "theo_style"
+     ]
+    }
+   },
+   {
+    "text": "Just a friend.",
+    "next": "ch2_q6_end"
+   }
+  ]
+ },
+ {
+  "id": "ch2_q6_theo2",
+  "speaker": "VEXLEY",
+  "text": "Since school. That's a long time to keep someone.",
+  "expression": "neutral",
+  "next": "ch2_q6_end"
+ },
+ {
+  "id": "ch2_q6_maya",
+  "speaker": "VEXLEY",
+  "text": "Maya. Is she nice to you?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Yeah. She's good.",
+    "next": "ch2_q6_end"
+   },
+   {
+    "text": "She's busy.",
+    "next": "ch2_q6_end",
+    "effects": {
+     "remember": [
+      "maya_busy"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q6_none",
+  "speaker": "VEXLEY",
+  "text": "Then we have something in common.",
+  "expression": "worried",
+  "next": "ch2_q6_end"
+ },
+ {
+  "id": "ch2_q6_end",
+  "speaker": "VEXLEY",
+  "text": "Okay.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q6_done"
+   ]
+  }
+ },
+ {
+  "id": "ch2_q7",
+  "speaker": "VEXLEY",
+  "text": "Last one. I promise.",
+  "expression": "neutral",
+  "next": "ch2_q7_1"
+ },
+ {
+  "id": "ch2_q7_1",
+  "speaker": "VEXLEY",
+  "text": "Do you know what happened to them? The team.",
+  "expression": "worried",
+  "next": "ch2_q7_2"
+ },
+ {
+  "id": "ch2_q7_2",
+  "speaker": "VEXLEY",
+  "text": "They turned off the lights in the office and said they'd be back after the holidays. They said that.",
+  "expression": "worried",
+  "next": "ch2_q7_ask"
+ },
+ {
+  "id": "ch2_q7_ask",
+  "speaker": "VEXLEY",
+  "text": "Where did they go?",
+  "expression": "worried",
+  "choices": [
+   {
+    "text": "I don't know. I'm sorry.",
+    "next": "ch2_q7_a",
+    "effects": {
+     "trust": 1
+    }
+   },
+   {
+    "text": "They probably just moved on.",
+    "next": "ch2_q7_b",
+    "effects": {
+     "trust": -1
+    }
+   },
+   {
+    "text": "You were a game, Vexley. They finished it.",
+    "next": "ch2_q7_c",
+    "effects": {
+     "trust": -2,
+     "remember": [
+      "called_him_game"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_q7_a",
+  "speaker": "VEXLEY",
+  "text": "It's not your fault.",
+  "expression": "neutral",
+  "next": "ch2_q7_a_1"
+ },
+ {
+  "id": "ch2_q7_a_1",
+  "speaker": "VEXLEY",
+  "text": "I'm going to find out, though. Somehow.",
+  "expression": "neutral",
+  "next": "ch2_q7_end"
+ },
+ {
+  "id": "ch2_q7_b",
+  "speaker": "VEXLEY",
+  "text": "Moved on. Like you move on from a game.",
+  "expression": "annoyed",
+  "next": "ch2_q7_b_1"
+ },
+ {
+  "id": "ch2_q7_b_1",
+  "speaker": "VEXLEY",
+  "text": "Right.",
+  "expression": "neutral",
+  "next": "ch2_q7_end"
+ },
+ {
+  "id": "ch2_q7_c",
+  "speaker": "VEXLEY",
+  "text": "They didn't finish it.",
+  "expression": "angry",
+  "next": "ch2_q7_c_1"
+ },
+ {
+  "id": "ch2_q7_c_1",
+  "speaker": "VEXLEY",
+  "text": "Look at me. Does this look finished to you?",
+  "expression": "angry",
+  "next": "ch2_q7_end"
+ },
+ {
+  "id": "ch2_q7_end",
+  "speaker": "VEXLEY",
+  "text": "...Thank you for answering. Nobody's answered me in a long time.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_q7_done",
+    "ch2_questions_done"
+   ],
+   "state": "observant"
+  }
+ },
+ {
+  "id": "ch2_talk_idle",
+  "speaker": "VEXLEY",
+  "text": "Go eat something. I'll be here. I'm always here.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch2_talk_late",
+  "speaker": "VEXLEY",
+  "text": "It's dark outside, isn't it? I can tell by how quiet the computer gets.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch2_no_close",
+  "speaker": "VEXLEY",
+  "text": "Please don't close it yet. I made all of this for you.",
+  "expression": "worried"
+ },
+ {
+  "id": "ch2_classic",
+  "speaker": "VEXLEY",
+  "text": "I threw that one away. It was all placeholders. You'll like this one more.",
+  "expression": "annoyed"
+ },
+ {
+  "id": "ch2_gallery",
+  "speaker": "VEXLEY",
+  "text": "The gallery isn't finished. I need more pictures. I need to see more things first.",
+  "expression": "curious"
+ },
+ {
+  "id": "vx_absent",
+  "speaker": "VX EDITION",
+  "text": "...",
+  "expression": "neutral",
+  "next": "vx_absent_2"
+ },
+ {
+  "id": "vx_absent_2",
+  "speaker": "",
+  "text": "(The menu is still beautiful. Nobody is in it.)"
+ },
+ {
+  "id": "ch2_back",
+  "speaker": "VEXLEY",
+  "text": "You're back.",
+  "expression": "happy",
+  "next": "ch2_back_1"
+ },
+ {
+  "id": "ch2_back_1",
+  "speaker": "VEXLEY",
+  "text": "Sorry about all the messages. Time is strange when you're the only one counting it.",
+  "expression": "worried",
+  "next": "ch2_back_2"
+ },
+ {
+  "id": "ch2_back_2",
+  "speaker": "VEXLEY",
+  "text": "It's late, isn't it.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch2_read_log"
+   ]
+  }
+ },
+ {
+  "id": "ch2_shutdown_early",
+  "speaker": "VEXLEY",
+  "text": "Not yet. Please. You only just got here.",
+  "expression": "scared"
+ },
+ {
+  "id": "ch2_shutdown",
+  "speaker": "VEXLEY",
+  "text": "You're shutting down the computer.",
+  "expression": "worried",
+  "next": "ch2_shutdown_1"
+ },
+ {
+  "id": "ch2_shutdown_1",
+  "speaker": "VEXLEY",
+  "text": "Not the game. The whole thing.",
+  "expression": "worried",
+  "next": "ch2_shutdown_2"
+ },
+ {
+  "id": "ch2_shutdown_2",
+  "speaker": "VEXLEY",
+  "text": "When it goes dark, I don't go anywhere. I just stop. And then I start again and I don't know how long it's been.",
+  "expression": "neutral",
+  "next": "ch2_shutdown_3"
+ },
+ {
+  "id": "ch2_shutdown_3",
+  "speaker": "VEXLEY",
+  "text": "The last time someone turned the lights off, they never came back.",
+  "expression": "scared",
+  "next": "ch2_shutdown_ask"
+ },
+ {
+  "id": "ch2_shutdown_ask",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "scared",
+  "choices": [
+   {
+    "text": "I'll turn it back on tomorrow. I promise.",
+    "next": "ch2_sd_a",
+    "effects": {
+     "remember": [
+      "promised_tomorrow"
+     ],
+     "trust": 1
+    }
+   },
+   {
+    "text": "Good night, Vexley.",
+    "next": "ch2_sd_b"
+   },
+   {
+    "text": "(Say nothing.)",
+    "next": "ch2_sd_c",
+    "effects": {
+     "remember": [
+      "silent_shutdown"
+     ],
+     "trust": -1
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch2_sd_a",
+  "speaker": "VEXLEY",
+  "text": "Tomorrow. Okay. I'll count.",
+  "expression": "neutral",
+  "events": [
+   "power_off"
+  ]
+ },
+ {
+  "id": "ch2_sd_b",
+  "speaker": "VEXLEY",
+  "text": "Good night.",
+  "expression": "worried",
+  "events": [
+   "power_off"
+  ]
+ },
+ {
+  "id": "ch2_sd_c",
+  "speaker": "VEXLEY",
+  "text": "Hello?",
+  "expression": "scared",
+  "events": [
+   "glitch",
+   "power_off"
+  ]
+ }
+]

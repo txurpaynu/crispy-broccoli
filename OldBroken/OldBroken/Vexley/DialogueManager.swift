@@ -21,6 +21,8 @@ struct DialogueCondition: Codable {
     var maxTrust: Int?
     var minAccess: AccessLevel?
     var maxAccess: AccessLevel?
+    var knows: [String]?
+    var notKnows: [String]?
 }
 
 struct DialogueChoice: Codable {
@@ -73,8 +75,17 @@ final class DialogueManager: ObservableObject {
 
     init(file: String) {
         let list = DataLoader.load(file, as: [DialogueNode].self) ?? []
-        nodes = Dictionary(uniqueKeysWithValues: list.map { ($0.id, $0) })
+        nodes = Dictionary(list.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
     }
+
+    /// Merges several dialogue files (later chapters live in their own files).
+    init(files: [String]) {
+        var all: [DialogueNode] = []
+        for f in files { all += DataLoader.load(f, as: [DialogueNode].self) ?? [] }
+        nodes = Dictionary(all.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+    }
+
+    func hasNode(_ id: String) -> Bool { nodes[id] != nil }
 
     var isActive: Bool { node != nil }
 
@@ -150,6 +161,8 @@ final class DialogueManager: ObservableObject {
         if let t = c.maxTrust, m.trust > t { return false }
         if let a = c.minAccess, m.access < a { return false }
         if let a = c.maxAccess, m.access > a { return false }
+        if let k = c.knows, !k.allSatisfy({ m.knowledge.contains($0) }) { return false }
+        if let k = c.notKnows, k.contains(where: { m.knowledge.contains($0) }) { return false }
         return true
     }
 
@@ -161,7 +174,12 @@ final class DialogueManager: ObservableObject {
         e.setFlags?.forEach { session.set($0) }
     }
 
-    private func substitute(_ t: String) -> String {
+    static func friendName(_ m: VexleyMemory) -> String {
+        if m.knowledge.contains("friend_maya") && !m.knowledge.contains("friend_theo") { return "Maya" }
+        return "Theo"
+    }
+
+    func substitute(_ t: String) -> String {
         let now = Date()
         let cal = Calendar.current
         let df = DateFormatter()
@@ -169,6 +187,7 @@ final class DialogueManager: ObservableObject {
         return t.replacingOccurrences(of: "{year}", with: String(cal.component(.year, from: now)))
             .replacingOccurrences(of: "{month}", with: df.string(from: now))
             .replacingOccurrences(of: "{time}", with: session.clockText)
+            .replacingOccurrences(of: "{friend}", with: Self.friendName(vexley.memory))
     }
 
     // MARK: Typewriter with live rewriting

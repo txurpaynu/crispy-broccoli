@@ -78,6 +78,80 @@ final class ApartmentWorld: NSObject {
         }
         setLamp(!s.has("lamp_off"), sound: false)
         refreshMonitor()
+        applyDaylight()
+    }
+
+    // MARK: Time of day
+
+    enum Daylight { case night, day, dusk }
+    private(set) var daylight: Daylight?
+
+    var currentDaylight: Daylight {
+        guard let s = session else { return .night }
+        let m = Int(s.data.clockMinutes) % (24 * 60)
+        if m >= 7 * 60 && m < 18 * 60 + 30 { return .day }
+        if m >= 18 * 60 + 30 && m < 20 * 60 { return .dusk }
+        return .night
+    }
+
+    /// Sun through the window by day, sunset in the evening, moonlight at night.
+    func applyDaylight() {
+        let d = currentDaylight
+        guard d != daylight else { return }
+        daylight = d
+        let sun = nodes["moonLight"]?.light
+        let amb = nodes["ambient"]?.light
+        let view = nodes["windowView"]?.geometry?.firstMaterial
+        switch d {
+        case .day:
+            sun?.color = UIColor(red: 1, green: 0.95, blue: 0.86, alpha: 1)
+            sun?.intensity = Lighting.sun
+            amb?.color = UIColor(red: 0.75, green: 0.78, blue: 0.85, alpha: 1)
+            amb?.intensity = Lighting.dayAmbient
+            view?.diffuse.contents = ProcTex.dayCity()
+        case .dusk:
+            sun?.color = UIColor(red: 1, green: 0.62, blue: 0.4, alpha: 1)
+            sun?.intensity = Lighting.sun * 0.7
+            amb?.color = UIColor(red: 0.6, green: 0.45, blue: 0.5, alpha: 1)
+            amb?.intensity = Lighting.dayAmbient * 0.6
+            view?.diffuse.contents = ProcTex.duskCity()
+        case .night:
+            sun?.color = UIColor(red: 0.55, green: 0.65, blue: 1, alpha: 1)
+            sun?.intensity = Lighting.moon
+            amb?.color = UIColor(red: 0.30, green: 0.34, blue: 0.48, alpha: 1)
+            amb?.intensity = Lighting.ambient
+            view?.diffuse.contents = ProcTex.nightCity()
+        }
+    }
+
+    /// Morning: standing next to the bed, lamp off if it's light out.
+    func wake() {
+        placePlayer(PlayerTransform(x: 1.25, y: 0, z: -0.9, yaw: 1.2, pitch: -0.05))
+        daylight = nil
+        applyDaylight()
+        if currentDaylight == .day && lampOn {
+            setLamp(false, sound: false)
+            session?.set("lamp_off")
+        }
+        refreshMonitor()
+        hud.fade = 0
+    }
+
+    func placePlayer(_ t: PlayerTransform) {
+        controller.transform = t
+        cutscene = false
+        input.reset()
+        syncCamera()
+    }
+
+    /// The switched-off monitor shows his face for a fraction of a second.
+    func flashMonitorFace(_ e: VexleyExpression = .worried) {
+        guard let screen = nodes["monitorScreen"] else { return }
+        let face = MonitorImages.vexleyWatching(expression: e)
+        AudioManager.shared.play(.glitch)
+        screen.geometry?.firstMaterial?.diffuse.contents = face
+        nodes["monitorLight"]?.light?.intensity = Lighting.monitor
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) { [weak self] in self?.refreshMonitor() }
     }
 
     // MARK: View attachment / frame loop
@@ -136,6 +210,7 @@ final class ApartmentWorld: NSObject {
         if frame % 5 == 0 && !cutscene {
             updateTarget()
         }
+        if frame % 120 == 0 { applyDaylight() }
     }
 
     func syncCamera() {
@@ -194,18 +269,27 @@ final class ApartmentWorld: NSObject {
     func refreshMonitor() {
         guard let s = session, let screen = nodes["monitorScreen"] else { return }
         let image: UIImage
-        if s.has("vexley_refused_exit") {
+        var tint = UIColor(red: 0.55, green: 0.7, blue: 1, alpha: 1)
+        var on = true
+        if s.has("pc_off") {
+            image = MonitorImages.off()
+            on = false
+        } else if let story = StoryMonitor.image(for: s) {
+            image = story.0
+            tint = story.1
+        } else if s.has("vexley_refused_exit") {
             image = MonitorImages.vexleyWatching(expression: s.data.vexley.trust >= 2 ? .happy : .worried)
+            tint = UIColor(red: 1, green: 0.45, blue: 0.75, alpha: 1)
         } else if s.has("old_launched") {
             image = MonitorImages.retroRunning()
+            tint = UIColor(red: 1, green: 0.45, blue: 0.75, alpha: 1)
         } else {
             image = ProcTex.monitorIdle()
         }
         screen.geometry?.firstMaterial?.diffuse.contents = image
-        let tint: UIColor = s.has("old_launched")
-            ? UIColor(red: 1, green: 0.45, blue: 0.75, alpha: 1)
-            : UIColor(red: 0.55, green: 0.7, blue: 1, alpha: 1)
         nodes["monitorLight"]?.light?.color = tint
+        nodes["monitorLight"]?.light?.intensity = on ? Lighting.monitor : 0
+        monitorOn = on
     }
 
     func rattleDoor() {

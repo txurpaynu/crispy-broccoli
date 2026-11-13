@@ -69,6 +69,7 @@ struct ApartmentBuilder {
         ambient.light!.color = UIColor(red: 0.30, green: 0.34, blue: 0.48, alpha: 1)
         ambient.light!.intensity = Lighting.ambient
         root.addChildNode(ambient)
+        world.nodes["ambient"] = ambient
 
         // moonlight spilling through the window onto the floor
         let moon = SCNNode()

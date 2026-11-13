@@ -5,7 +5,7 @@ struct OldBrokenApp: App {
     init() {
         AudioManager.shared.start()
         AudioManager.shared.setScene(.title)
-        MainActor.assumeIsolated { ComputerSimulationManager.bootstrap(); RetroGameController.bootstrap() }
+        MainActor.assumeIsolated { ComputerSimulationManager.bootstrap(); RetroGameController.bootstrap(); StoryDirector.bootstrap() }
     }
 
     var body: some Scene {

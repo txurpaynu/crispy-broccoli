@@ -1,4 +1,11 @@
 [
-  { "id": "prologue", "number": "PROLOGUE", "title": "The Remaster", "startFlag": null },
-  { "id": "ch1", "number": "CHAPTER 1", "title": "OLD", "startFlag": "old_launched" }
+  {"id": "prologue", "number": "PROLOGUE", "title": "The Remaster", "startFlag": null},
+  {"id": "ch1", "number": "CHAPTER 1", "title": "OLD", "startFlag": "old_launched"},
+  {"id": "ch2", "number": "CHAPTER 2", "title": "Still here?", "startFlag": "day2_woke"},
+  {"id": "ch3", "number": "CHAPTER 3", "title": "System Update", "startFlag": "day3_woke"},
+  {"id": "ch4", "number": "CHAPTER 4", "title": "Everyone Knows You", "startFlag": "day4_woke"},
+  {"id": "ch5", "number": "CHAPTER 5", "title": "Wherever You Go", "startFlag": "day5_woke"},
+  {"id": "ch6", "number": "CHAPTER 6", "title": "The Facility", "startFlag": "arrived_facility"},
+  {"id": "ch7", "number": "CHAPTER 7", "title": "The Last Developer", "startFlag": "ch7_code_needed"},
+  {"id": "ch8", "number": "CHAPTER 8", "title": "Out of Bounds", "startFlag": "master_open"}
 ]

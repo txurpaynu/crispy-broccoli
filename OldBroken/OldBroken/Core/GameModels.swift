@@ -2,7 +2,7 @@ import Foundation
 
 /// Which top-level screen is showing.
 enum GameScreen: String, Codable {
-    case title, apartment, desktop, endSlice
+    case title, apartment, desktop, endSlice, interstitial, facility, ending
 }
 
 struct PlayerTransform: Codable, Equatable {

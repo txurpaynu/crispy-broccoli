@@ -168,6 +168,58 @@ enum ProcTex {
         }
     }
 
+    /// The same skyline by day: washed blue sky, grey towers.
+    static func dayCity() -> UIImage {
+        render(CGSize(width: 512, height: 512)) { c, s in
+            let colors = [UIColor(red: 0.55, green: 0.72, blue: 0.92, alpha: 1).cgColor,
+                          UIColor(red: 0.86, green: 0.9, blue: 0.95, alpha: 1).cgColor] as CFArray
+            let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors, locations: [0, 1])!
+            c.drawLinearGradient(g, start: .zero, end: CGPoint(x: 0, y: s.height), options: [])
+            var x: CGFloat = 0
+            var i = 0
+            while x < s.width {
+                let w = CGFloat(30 + (i * 37) % 50), h = CGFloat(120 + (i * 71) % 210)
+                c.setFillColor(UIColor(white: 0.45 + CGFloat(i % 3) * 0.06, alpha: 1).cgColor)
+                c.fill(CGRect(x: x, y: s.height - h, width: w, height: h))
+                c.setFillColor(UIColor(red: 0.6, green: 0.7, blue: 0.8, alpha: 0.6).cgColor)
+                var wy = s.height - h + 8
+                while wy < s.height - 6 {
+                    var wx = x + 5
+                    while wx < x + w - 6 { c.fill(CGRect(x: wx, y: wy, width: 4, height: 5)); wx += 9 }
+                    wy += 11
+                }
+                x += w + CGFloat(2 + i % 8)
+                i += 1
+            }
+        }
+    }
+
+    /// Sunset version for the evening.
+    static func duskCity() -> UIImage {
+        render(CGSize(width: 512, height: 512)) { c, s in
+            let colors = [UIColor(red: 0.2, green: 0.15, blue: 0.4, alpha: 1).cgColor,
+                          UIColor(red: 0.95, green: 0.5, blue: 0.35, alpha: 1).cgColor] as CFArray
+            let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors, locations: [0, 1])!
+            c.drawLinearGradient(g, start: .zero, end: CGPoint(x: 0, y: s.height), options: [])
+            var x: CGFloat = 0
+            var i = 0
+            while x < s.width {
+                let w = CGFloat(30 + (i * 37) % 50), h = CGFloat(120 + (i * 71) % 210)
+                c.setFillColor(UIColor(red: 0.12, green: 0.08, blue: 0.15, alpha: 1).cgColor)
+                c.fill(CGRect(x: x, y: s.height - h, width: w, height: h))
+                c.setFillColor(UIColor(red: 1, green: 0.8, blue: 0.5, alpha: 0.7).cgColor)
+                var wy = s.height - h + 8
+                while wy < s.height - 6 {
+                    var wx = x + 5
+                    while wx < x + w - 6 { if (Int(wx) + Int(wy)) % 4 == 0 { c.fill(CGRect(x: wx, y: wy, width: 4, height: 5)) }; wx += 9 }
+                    wy += 11
+                }
+                x += w + CGFloat(2 + i % 8)
+                i += 1
+            }
+        }
+    }
+
     /// What the monitor shows when you're not sitting at it.
     static func monitorIdle(_ text: String = "") -> UIImage {
         render(CGSize(width: 512, height: 304)) { c, s in
@@ -198,4 +250,6 @@ enum Lighting {
     static let monitor: CGFloat = 26
     static let lamp: CGFloat = 95
     static let exposure: CGFloat = -0.35
+    static let sun: CGFloat = 170
+    static let dayAmbient: CGFloat = 38
 }

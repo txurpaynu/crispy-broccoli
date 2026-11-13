@@ -13,8 +13,14 @@ struct RootView: View {
                 ApartmentView()
             case .desktop:
                 DesktopRootView()
+            case .interstitial:
+                if let i = session.interstitial { InterstitialView(beat: i).id(i.id) } else { Color.black }
+            case .facility:
+                FacilityView()
+            case .ending:
+                EndingView()
             case .endSlice:
-                EndSliceView()
+                Color.black.onAppear { session.screen = .apartment }
             }
 
             if session.screen != .title {
@@ -50,6 +56,9 @@ struct OverlayStack: View {
             .allowsHitTesting(false)
             .animation(.easeInOut(duration: 0.25), value: session.banner)
             .animation(.easeInOut(duration: 0.25), value: session.narration)
+
+            StoryDialogueOverlay()
+                .animation(.spring(response: 0.35, dampingFraction: 0.85), value: StoryDirector.shared.showsOverlayDialogue)
 
             if let doc = session.inspecting {
                 InspectView(doc: doc) { session.inspecting = nil }

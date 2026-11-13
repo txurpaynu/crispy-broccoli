@@ -70,7 +70,7 @@ final class RetroGameController: ObservableObject {
         clock?.invalidate()
     }
 
-    var canMove: Bool { phase == .playing && !dialogue.isActive && !menuOpen && !vexleyEntrance }
+    var canMove: Bool { phase == .playing && !dialogue.isActive && !menuOpen && !vexleyEntrance && !StoryDirector.shared.dialogue.isActive }
 
     // MARK: Lifecycle
 
@@ -101,6 +101,13 @@ final class RetroGameController: ObservableObject {
         clock?.invalidate()
         held = nil
         if session.screen == .desktop { AudioManager.shared.setScene(.desktop) }
+    }
+
+    /// The VX overhaul drops straight into Lantern Town.
+    func skipToPlaying() {
+        if bootLines.isEmpty { bootLines = ["VX EDITION"] }
+        phase = .playing
+        updateDebug()
     }
 
     private func boot() {
@@ -370,6 +377,11 @@ final class RetroGameController: ObservableObject {
     }
 
     private func quitPressed() {
+        if session.day >= 2 {
+            menuOpen = false
+            StoryDirector.shared.vxMode = .menu
+            return
+        }
         if !session.has("vexley_met") {
             menuOpen = false
             comp.windows.removeAll { $0.app == .oldgame }
@@ -413,6 +425,7 @@ final class RetroGameController: ObservableObject {
     }
 
     func attemptClose() -> Bool {
+        if session.day >= 2 { return StoryDirector.shared.oldWindowCloseRequested() }
         guard session.has("vexley_refused_exit") else {
             if session.has("vexley_met") && !session.has("vexley_refused_exit") {
                 // He's not ready to let go yet either, but he asks rather than blocks.
@@ -434,6 +447,11 @@ final class RetroGameController: ObservableObject {
 
     func attemptKill() -> Bool {
         guard session.has("vexley_met") else { return true }
+        if session.day >= 2 {
+            if StoryDirector.shared.oldWindowCloseRequested() { return true }
+            comp.alert("Task Manager", "Unable to terminate process paperlight_dev.exe.\n\nAccess is denied.", icon: "xmark.octagon.fill", tint: .red)
+            return false
+        }
         comp.alert("Task Manager", "Unable to terminate process paperlight_dev.exe.\n\nAccess is denied.", icon: "xmark.octagon.fill", tint: .red)
         vexley.handle(.playerTriedToKill)
         if let i = comp.windows.firstIndex(where: { $0.app == .oldgame }) {
@@ -453,6 +471,7 @@ final class RetroGameController: ObservableObject {
     /// he can only see that it lost focus, not what the player did.
     func returnedToDesktop() {
         vexley.handle(.playerReturned)
+        guard session.day == 1 else { return }
         guard session.has("av_scanned") || session.has("vexley_refused_exit"),
               !vexley.remembers("noticed_focus_loss") else { return }
         if let i = comp.windows.firstIndex(where: { $0.app == .oldgame }) {

@@ -17,6 +17,8 @@ final class GameSession: ObservableObject {
     @Published var paused = false
     /// Document currently open in the inspect overlay.
     @Published var inspecting: DocumentDef?
+    /// Full-screen story text between scenes (nights, dinner, travel).
+    @Published var interstitial: Interstitial?
 
     /// Fires with the flag name every time a new flag is set.
     let flagSet = PassthroughSubject<String, Never>()
@@ -177,10 +179,14 @@ final class GameSession: ObservableObject {
         data = d
         if data.filesystem == nil { data.filesystem = FilesystemFactory.initial() }
         resetWorlds()
-        screen = d.screen == .title || d.screen == .endSlice ? .apartment : d.screen
+        switch d.screen {
+        case .title, .endSlice, .interstitial, .ending: screen = .apartment
+        default: screen = d.screen
+        }
         paused = false
         startClock()
         AudioManager.shared.setScene(screen == .desktop ? .desktop : .apartment)
+        StoryHooks.onLoad?(self)
         if screen == .desktop {
             apartmentWorld().sitAtComputer {}
             DesktopHooks.onEnter?(self)

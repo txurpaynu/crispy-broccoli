@@ -33,9 +33,27 @@ final class HorrorEventManager {
             AudioManager.shared.play(.vexleyVoice(pitch: 300, rough: 0.2))
             s.say("That came from the speakers. The game's still running.")
         },
-        Beat(id: "h_after_scan", condition: { $0.has("av_scanned") }, delay: 3) { w, _ in
+        Beat(id: "h_after_scan", condition: { $0.has("av_scanned") && $0.day == 1 }, delay: 3) { w, _ in
             w.refreshMonitor()
             AudioManager.shared.play(.heartbeat)
+        },
+        // Chapter 2
+        Beat(id: "h_ch2_morning", condition: { $0.day == 2 && !$0.has("ch2_seen_overhaul") }, delay: 9) { _, s in
+            AudioManager.shared.play(.vexleyVoice(pitch: 340, rough: 0))
+            s.say("Did the computer just... hum a tune?")
+        },
+        Beat(id: "h_ch2_speakers", condition: { $0.day == 2 && $0.has("ch2_questions_done") && !$0.has("ate_dinner") }, delay: 8) { _, s in
+            for i in 0..<5 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.16) {
+                    AudioManager.shared.play(.vexleyVoice(pitch: 320 + Float(i * 9), rough: 0.05))
+                }
+            }
+            s.say("He keeps talking even when I'm not at the desk.")
+        },
+        Beat(id: "h_dead_monitor", condition: { $0.day == 2 && $0.has("pc_shutdown") }, delay: 7) { w, s in
+            w.flashMonitorFace(s.data.vexley.remembered.contains("silent_shutdown") ? .scared : .worried)
+            AudioManager.shared.setDread(0.3)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { s.say("...The monitor's off. It's off.") }
         },
     ]
 

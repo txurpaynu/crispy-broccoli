@@ -258,13 +258,25 @@ struct StartMenu: View {
                 .buttonStyle(.plain)
             }
             Divider().background(.white.opacity(0.2))
-            Button {
-                session.leaveDesktop()
-            } label: {
-                Label("Stand up from the desk", systemImage: "power").font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
-                    .padding(8)
+            HStack(spacing: 0) {
+                Button {
+                    session.leaveDesktop()
+                } label: {
+                    Label("Stand up", systemImage: "figure.stand").font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
+                        .padding(8)
+                }
+                .buttonStyle(.plain)
+                Spacer()
+                if session.day >= 2 {
+                    Button {
+                        comp.requestShutdown()
+                    } label: {
+                        Label("Shut down", systemImage: "power").font(.system(size: 12, weight: .semibold)).foregroundStyle(Color(red: 1, green: 0.5, blue: 0.5))
+                            .padding(8)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
-            .buttonStyle(.plain)
         }
         .frame(width: 220)
         .background(Color(red: 0.08, green: 0.09, blue: 0.12).opacity(0.97), in: RoundedRectangle(cornerRadius: 8))

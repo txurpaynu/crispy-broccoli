@@ -132,6 +132,27 @@ final class ComputerSimulationManager: ObservableObject {
         if s.has("vexley_refused_exit") && windows.contains(where: { $0.app == .oldgame }) {
             OldGameHooks.onDesktopReturn?()
         }
+        StoryDirector.shared.desktopEntered()
+    }
+
+    // MARK: Power
+
+    func requestShutdown() {
+        startOpen = false
+        if StoryDirector.shared.interceptShutdown() { return }
+        confirm("Shut down", "Shut down the computer?", button: "Shut down") { [weak self] in self?.powerOff() }
+    }
+
+    /// Turns the (fictional) PC off and stands the player up from the desk.
+    func powerOff() {
+        AudioManager.shared.play(.powerOff)
+        windows.removeAll()
+        dialog = nil
+        startOpen = false
+        notificationCenterOpen = false
+        session.data.desktop.oldWindowOpen = false
+        session.set("pc_off")
+        session.leaveDesktop()
     }
 
     private func didLeave(_ s: GameSession) {

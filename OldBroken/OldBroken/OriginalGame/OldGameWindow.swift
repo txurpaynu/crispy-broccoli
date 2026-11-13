@@ -1,11 +1,25 @@
 import SwiftUI
 import SpriteKit
 
-/// The OLD window: the 1998 original game, presented like a CRT inside the desktop.
+/// The OLD window. Day 1: the 1998 original. From Chapter 2 on: Vexley's overhaul.
 struct OldGameWindow: View {
+    @EnvironmentObject var session: GameSession
+    var body: some View {
+        if session.day >= 2 {
+            OverhauledGameView()
+        } else {
+            ClassicOldGameView()
+        }
+    }
+}
+
+/// The 1998 original game, presented like a CRT inside the desktop.
+struct ClassicOldGameView: View {
     @EnvironmentObject var comp: ComputerSimulationManager
     @EnvironmentObject var session: GameSession
     @ObservedObject private var game = RetroGameController.shared
+    /// Embedded inside the VX overhaul: no window buttons of its own.
+    var embedded = false
 
     var body: some View {
         GeometryReader { geo in
@@ -44,10 +58,12 @@ struct OldGameWindow: View {
                 }
                 .frame(width: vw, height: vh)
                 .clipped()
-                windowButtons.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                if !embedded {
+                    windowButtons.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                }
             }
         }
-        .onAppear { game.windowAppeared() }
+        .onAppear { game.windowAppeared(); if embedded { game.skipToPlaying() } }
         .onDisappear { game.windowDisappeared() }
     }
 

@@ -2,7 +2,6 @@ import Foundation
 
 /// Screen-to-screen flow: apartment <-> desktop, sleeping, the end of the slice.
 extension GameSession {
-    var canSleep: Bool { has("av_scanned") && !has("slept") }
 
     func enterDesktop() {
         set("sat_at_pc")
@@ -19,12 +18,6 @@ extension GameSession {
         autosave()
     }
 
-    func sleep() {
-        set("slept")
-        autosave()
-        AudioManager.shared.setScene(.silence)
-        screen = .endSlice
-    }
 }
 
 /// Filled in by the computer simulation so GameSession doesn't depend on it directly.
@@ -32,4 +25,10 @@ extension GameSession {
 enum DesktopHooks {
     static var onEnter: ((GameSession) -> Void)?
     static var onLeave: ((GameSession) -> Void)?
+}
+
+/// Filled in by the story layer (StoryDirector) so the core doesn't depend on it.
+@MainActor
+enum StoryHooks {
+    static var onLoad: ((GameSession) -> Void)?
 }
