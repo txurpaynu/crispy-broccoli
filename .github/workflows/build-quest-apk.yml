@@ -1,0 +1,64 @@
+name: Build Quest APK
+
+on:
+  push:
+    paths: ["quest/**", ".github/workflows/build-quest-apk.yml"]
+  pull_request:
+    paths: ["quest/**", ".github/workflows/build-quest-apk.yml"]
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: "4.4.1"
+  VENDORS_TAG: "3.1.2-stable"
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Download Godot and export templates
+        run: |
+          set -e
+          cd "$RUNNER_TEMP"
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          curl -sSLo godot.zip "$base/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
+          curl -sSLo templates.tpz "$base/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          mkdir -p ~/.local/share/godot/export_templates
+          unzip -q templates.tpz
+          mv templates ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          godot --version
+
+      - name: Add the Godot OpenXR vendors plugin
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          gh release list -R GodotVR/godot_openxr_vendors --limit 30 || true
+          cd "$RUNNER_TEMP"
+          gh release download "$VENDORS_TAG" -R GodotVR/godot_openxr_vendors --pattern '*.zip' -D vendors
+          ls -la vendors
+          mkdir vx && cd vx && for z in ../vendors/*.zip; do unzip -q -o "$z"; done
+          dir=$(find . -type d -name godotopenxrvendors | head -n 1)
+          echo "plugin dir: $dir"
+          mkdir -p "$GITHUB_WORKSPACE/quest/addons"
+          cp -r "$dir" "$GITHUB_WORKSPACE/quest/addons/"
+          ls "$GITHUB_WORKSPACE/quest/addons/godotopenxrvendors"
+          echo "--- export option names baked into the plugin ---"
+          find "$GITHUB_WORKSPACE/quest/addons/godotopenxrvendors" -name '*linux*' -name '*.so' | head -n 1 | xargs -r strings | grep -E '^(meta_xr_features|xr_features|pico_xr|khronos_xr)/' | sort -u || true
+
+      - name: Import project
+        working-directory: quest
+        run: godot --headless --import 2>&1 | tail -n 40
+
+      - name: Print plugin API (diagnostics)
+        working-directory: quest
+        run: godot --headless -s res://tools/diag.gd 2>&1 | tee "$RUNNER_TEMP/diag.txt" | head -n 400
