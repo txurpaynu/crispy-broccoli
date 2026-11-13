@@ -1,0 +1,4 @@
+[
+  { "id": "prologue", "number": "PROLOGUE", "title": "The Remaster", "startFlag": null },
+  { "id": "ch1", "number": "CHAPTER 1", "title": "OLD", "startFlag": "old_launched" }
+]

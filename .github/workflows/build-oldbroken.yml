@@ -1,0 +1,66 @@
+name: Build OLD BROKEN (unsigned IPA)
+
+on:
+  push:
+    paths:
+      - "OldBroken/**"
+      - ".github/workflows/build-oldbroken.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: OldBroken
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 26
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | grep -v -i beta | sort -V | tail -n 1)
+          [ -z "$XCODE" ] && XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1)
+          [ -z "$XCODE" ] && { echo "::error::Xcode 26 not found"; ls -d /Applications/Xcode*.app; exit 1; }
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+          xcodebuild -version
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build (no code signing)
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project OldBroken.xcodeproj \
+            -scheme OldBroken \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build 2>&1 | tee build.log | grep -E "error:|warning: unre|BUILD (SUCCEEDED|FAILED)" || true
+          grep -q "BUILD SUCCEEDED" build.log
+
+      - name: Show compiler errors
+        if: failure()
+        run: grep -E "error:" build.log | sort -u | head -80
+
+      - name: Package IPA
+        run: |
+          APP=build/Build/Products/Release-iphoneos/OldBroken.app
+          test -d "$APP"
+          rm -rf Payload && mkdir Payload
+          cp -R "$APP" Payload/
+          zip -qry OldBroken.ipa Payload
+          ls -lh OldBroken.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OldBroken-ipa
+          path: OldBroken/OldBroken.ipa
+          if-no-files-found: error
