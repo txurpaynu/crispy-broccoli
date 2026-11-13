@@ -189,3 +189,13 @@ enum ProcTex {
         }
     }
 }
+
+/// One place to tune the apartment's light levels (SceneKit physically based units).
+/// It's a dark room at 1 AM: a warm bedside lamp, a cold monitor and a little moonlight.
+enum Lighting {
+    static let ambient: CGFloat = 14
+    static let moon: CGFloat = 55
+    static let monitor: CGFloat = 26
+    static let lamp: CGFloat = 95
+    static let exposure: CGFloat = -0.35
+}

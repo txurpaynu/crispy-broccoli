@@ -38,7 +38,7 @@ final class ApartmentWorld: NSObject {
         self.session = session
         super.init()
         scene.background.contents = UIColor.black
-        scene.lightingEnvironment.intensity = 0.2
+        scene.lightingEnvironment.intensity = 0.0
         setupCamera()
         ApartmentBuilder(world: self).build()
         ApartmentInteractables.register(in: self)
@@ -54,9 +54,9 @@ final class ApartmentWorld: NSObject {
         cam.fieldOfView = 72
         cam.wantsHDR = true
         cam.wantsExposureAdaptation = false
-        cam.exposureOffset = 0.15
-        cam.bloomIntensity = 0.55
-        cam.bloomThreshold = 0.75
+        cam.exposureOffset = Lighting.exposure
+        cam.bloomIntensity = 0.2
+        cam.bloomThreshold = 1.1
         cam.bloomBlurRadius = 10
         cam.vignettingIntensity = 0.7
         cam.vignettingPower = 0.7
@@ -171,7 +171,7 @@ final class ApartmentWorld: NSObject {
 
     func setLamp(_ on: Bool, sound: Bool = true) {
         lampOn = on
-        nodes["lampLight"]?.light?.intensity = on ? 520 : 0
+        nodes["lampLight"]?.light?.intensity = on ? Lighting.lamp : 0
         nodes["lampShade"]?.geometry?.firstMaterial?.emission.contents =
             on ? UIColor(red: 1, green: 0.7, blue: 0.4, alpha: 1) : UIColor.black
         if sound { AudioManager.shared.play(.lampSwitch) }
@@ -181,7 +181,7 @@ final class ApartmentWorld: NSObject {
         guard lampOn, let light = nodes["lampLight"] else { return }
         var actions: [SCNAction] = []
         for i in 0..<times {
-            let off = SCNAction.run { _ in light.light?.intensity = CGFloat(i % 2 == 0 ? 40 : 300) }
+            let off = SCNAction.run { _ in light.light?.intensity = (i % 2 == 0 ? Lighting.lamp * 0.1 : Lighting.lamp * 0.7) }
             actions.append(off)
             actions.append(.wait(duration: Double.random(in: 0.04...0.16)))
         }

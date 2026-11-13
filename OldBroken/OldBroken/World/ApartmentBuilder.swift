@@ -62,7 +62,7 @@ struct ApartmentBuilder {
         ambient.light = SCNLight()
         ambient.light!.type = .ambient
         ambient.light!.color = UIColor(red: 0.30, green: 0.34, blue: 0.48, alpha: 1)
-        ambient.light!.intensity = 55
+        ambient.light!.intensity = Lighting.ambient
         root.addChildNode(ambient)
 
         // moonlight spilling through the window onto the floor
@@ -70,7 +70,7 @@ struct ApartmentBuilder {
         moon.light = SCNLight()
         moon.light!.type = .spot
         moon.light!.color = UIColor(red: 0.55, green: 0.65, blue: 1, alpha: 1)
-        moon.light!.intensity = 260
+        moon.light!.intensity = Lighting.moon
         moon.light!.spotInnerAngle = 25
         moon.light!.spotOuterAngle = 70
         moon.light!.attenuationEndDistance = 7
@@ -105,7 +105,7 @@ struct ApartmentBuilder {
         let screen = SK.plane(0.62, 0.36, screenMat, at: SCNVector3(0, 1.10, -0.191), in: pc, name: "monitorScreen")
         world.nodes["monitorScreen"] = screen
         let screenLight = SCNNode()
-        screenLight.light = SK.omni(UIColor(red: 0.55, green: 0.7, blue: 1, alpha: 1), intensity: 140, range: 3.2, shadows: false)
+        screenLight.light = SK.omni(UIColor(red: 0.55, green: 0.7, blue: 1, alpha: 1), intensity: Lighting.monitor, range: 3.2, shadows: false)
         screenLight.position = SCNVector3(0, 1.1, 0.1)
         pc.addChildNode(screenLight)
         world.nodes["monitorLight"] = screenLight
@@ -166,7 +166,7 @@ struct ApartmentBuilder {
         world.nodes["lampShade"] = shade
 
         let light = SCNNode()
-        light.light = SK.omni(UIColor(red: 1, green: 0.72, blue: 0.45, alpha: 1), intensity: 520, range: 6.5, shadows: true)
+        light.light = SK.omni(UIColor(red: 1, green: 0.72, blue: 0.45, alpha: 1), intensity: Lighting.lamp, range: 6.5, shadows: true)
         light.position = SCNVector3(0, 0.34, 0)
         lamp.addChildNode(light)
         world.nodes["lampLight"] = light
