@@ -39,6 +39,7 @@ struct ContentView: View {
                 IdleNotifications.cancel()
                 engine.start()
                 store.appBecameActive()
+                IdleNotifications.scheduleRandomThoughts(name: store.name)
             case .background:
                 engine.stop()
                 store.appWentToBackground()
