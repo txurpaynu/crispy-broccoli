@@ -133,7 +133,7 @@ final class RobotRig {
                 self.pose(slump: 0)
                 // look up, straight at the player
                 self.head.runAction(.sequence([.rotateTo(x: -0.25, y: 0, z: 0, duration: 0.6), .wait(duration: 0.6),
-                                               .rotateTo(x: 0, y: 0, z: 0, duration: 0.4)]))
+                                               .rotateTo(x: 0, y: 0, z: 0, duration: 0.4)]), completionHandler: nil)
                 self.mode = .idle
                 done()
             }

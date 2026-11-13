@@ -100,7 +100,7 @@ extension StoryDirector {
 
     private func workstationOn(_ w: FacilityWorld, net: Bool) {
         guard let screen = w.nodes["workstation"] else { return }
-        let img = SK.render(CGSize(width: 512, height: 316)) { c, s in
+        let img = ProcTex.render(CGSize(width: 512, height: 316)) { c, s in
             c.setFillColor(UIColor(red: 0.02, green: 0.04, blue: 0.1, alpha: 1).cgColor)
             c.fill(CGRect(origin: .zero, size: s))
             let lines = net
