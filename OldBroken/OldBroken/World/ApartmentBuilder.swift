@@ -13,6 +13,8 @@ struct ApartmentBuilder {
     static let halfW: Float = 2.6
     static let halfD: Float = 2.2
     static let height: Float = 2.6
+    static let deskTop: Float = 0.80
+    static let deskZ: Float = -1.9
 
     let world: ApartmentWorld
     var root: SCNNode { world.scene.rootNode }
@@ -32,9 +34,12 @@ struct ApartmentBuilder {
 
     private func buildShell() {
         let wallTex = ProcTex.noiseWall()
-        let wall = SK.material(UIColor(red: 0.62, green: 0.60, blue: 0.56, alpha: 1), roughness: 0.92, image: wallTex, repeat: 3)
-        let floor = SK.material(.white, roughness: 0.55, image: ProcTex.woodFloor(), repeat: 2)
-        let ceiling = SK.material(UIColor(white: 0.7, alpha: 1), roughness: 0.95)
+        let wall = ModelLibrary.texturedMaterial("painted_plaster_wall", repeat: 2.5, tint: UIColor(red: 0.78, green: 0.76, blue: 0.72, alpha: 1))
+            ?? SK.material(UIColor(red: 0.62, green: 0.60, blue: 0.56, alpha: 1), roughness: 0.92, image: wallTex, repeat: 3)
+        let floor = ModelLibrary.texturedMaterial("laminate_floor_02", repeat: 3)
+            ?? SK.material(.white, roughness: 0.55, image: ProcTex.woodFloor(), repeat: 2)
+        let ceiling = ModelLibrary.texturedMaterial("ceiling_interior", repeat: 3, tint: UIColor(white: 0.8, alpha: 1))
+            ?? SK.material(UIColor(white: 0.7, alpha: 1), roughness: 0.95)
         let trim = SK.material(UIColor(white: 0.85, alpha: 1), roughness: 0.5)
 
         let w = CGFloat(Self.halfW * 2), d = CGFloat(Self.halfD * 2), h = CGFloat(Self.height)
@@ -87,15 +92,19 @@ struct ApartmentBuilder {
         let black = SK.material(UIColor(white: 0.04, alpha: 1), roughness: 0.4, metalness: 0.2)
         let plastic = SK.material(UIColor(white: 0.10, alpha: 1), roughness: 0.55)
 
-        let desk = SK.group("desk", at: SCNVector3(-0.9, 0, -1.82), in: root)
-        SK.box(1.4, 0.04, 0.7, wood, at: SCNVector3(0, 0.74, 0), in: desk)
-        for (x, z) in [(-0.66, -0.31), (0.66, -0.31), (-0.66, 0.31), (0.66, 0.31)] as [(Float, Float)] {
-            SK.box(0.04, 0.72, 0.04, black, at: SCNVector3(x, 0.36, z), in: desk)
+        // Real table model (Poly Haven, CC0); blockout if it is missing.
+        if ModelLibrary.place("WoodenTable_03", at: SCNVector3(-0.9, 0, Self.deskZ), height: Self.deskTop, in: root, nodeName: "desk") == nil {
+            let desk = SK.group("desk", at: SCNVector3(-0.9, 0, Self.deskZ), in: root)
+            SK.box(1.4, 0.04, 0.6, wood, at: SCNVector3(0, Self.deskTop - 0.02, 0), in: desk)
+            for (x, z) in [(-0.66, -0.27), (0.66, -0.27), (-0.66, 0.27), (0.66, 0.27)] as [(Float, Float)] {
+                SK.box(0.04, CGFloat(Self.deskTop - 0.04), 0.04, black, at: SCNVector3(x, (Self.deskTop - 0.04) / 2, z), in: desk)
+            }
         }
-        world.controller.obstacles.append(AABB2D(x: -0.9, z: -1.82, w: 1.44, d: 0.74))
+        world.controller.obstacles.append(AABB2D(x: -0.9, z: Self.deskZ, w: 1.38, d: 0.62))
+        let dy = Self.deskTop - 0.76   // everything below was laid out for a 0.76 m desk
 
         // the computer: monitor, keyboard, mouse, tower — one interactable
-        let pc = SK.group(InteractionSystem.prefix + "computer", at: SCNVector3(-0.9, 0, -1.82), in: root)
+        let pc = SK.group(InteractionSystem.prefix + "computer", at: SCNVector3(-0.9, dy, -1.84), in: root)
         SK.box(0.07, 0.16, 0.06, black, at: SCNVector3(0, 0.84, -0.2), in: pc)
         SK.box(0.24, 0.012, 0.16, black, at: SCNVector3(0, 0.766, -0.2), in: pc)
         SK.box(0.66, 0.40, 0.035, black, at: SCNVector3(0, 1.10, -0.21), in: pc, chamfer: 0.01)
@@ -117,19 +126,19 @@ struct ApartmentBuilder {
         }
         SK.box(0.06, 0.02, 0.1, plastic, at: SCNVector3(0.32, 0.77, 0.12), in: pc, chamfer: 0.01)
         // tower under the desk with a faint power LED
-        SK.box(0.2, 0.45, 0.45, black, at: SCNVector3(0.5, 0.225, 0), in: pc)
+        SK.box(0.2, 0.45, 0.45, black, at: SCNVector3(0.5, 0.225 - dy, 0), in: pc)
         let led = SK.material(.black, emission: UIColor(red: 0.3, green: 0.6, blue: 1, alpha: 1))
-        SK.box(0.01, 0.01, 0.01, led, at: SCNVector3(0.4, 0.40, 0.226), in: pc)
+        SK.box(0.01, 0.01, 0.01, led, at: SCNVector3(0.4, 0.40 - dy, 0.226), in: pc)
 
-        // office chair (pushed in a little)
-        let chair = SK.group("chair", at: SCNVector3(-0.85, 0, -1.12), in: root)
-        let fabric = SK.material(UIColor(red: 0.12, green: 0.12, blue: 0.14, alpha: 1), roughness: 0.9)
-        SK.box(0.48, 0.07, 0.46, fabric, at: SCNVector3(0, 0.47, 0), in: chair, chamfer: 0.02)
-        SK.box(0.46, 0.55, 0.06, fabric, at: SCNVector3(0, 0.8, 0.22), in: chair, chamfer: 0.02)
-        SK.cylinder(0.025, 0.4, black, at: SCNVector3(0, 0.24, 0), in: chair)
-        SK.box(0.5, 0.03, 0.06, black, at: SCNVector3(0, 0.05, 0), in: chair)
-        SK.box(0.06, 0.03, 0.5, black, at: SCNVector3(0, 0.05, 0), in: chair)
-        chair.eulerAngles.y = 0.25
+        // chair, pushed back a little and turned toward the desk
+        if ModelLibrary.place("dining_chair_02", at: SCNVector3(-0.85, 0, -1.12), yaw: .pi + 0.22, in: root, nodeName: "chair") == nil {
+            let chair = SK.group("chair", at: SCNVector3(-0.85, 0, -1.12), in: root)
+            let fabric = SK.material(UIColor(red: 0.12, green: 0.12, blue: 0.14, alpha: 1), roughness: 0.9)
+            SK.box(0.48, 0.07, 0.46, fabric, at: SCNVector3(0, 0.47, 0), in: chair, chamfer: 0.02)
+            SK.box(0.46, 0.55, 0.06, fabric, at: SCNVector3(0, 0.8, 0.22), in: chair, chamfer: 0.02)
+            SK.cylinder(0.025, 0.4, black, at: SCNVector3(0, 0.24, 0), in: chair)
+            chair.eulerAngles.y = 0.25
+        }
         world.controller.obstacles.append(AABB2D(x: -0.85, z: -1.12, w: 0.42, d: 0.42))
     }
 
@@ -139,21 +148,38 @@ struct ApartmentBuilder {
         let frame = SK.material(UIColor(red: 0.22, green: 0.16, blue: 0.12, alpha: 1), roughness: 0.7)
         let sheet = SK.material(UIColor(red: 0.62, green: 0.64, blue: 0.68, alpha: 1), roughness: 0.95)
         let blanket = SK.material(UIColor(red: 0.20, green: 0.26, blue: 0.36, alpha: 1), roughness: 0.95)
-        let bed = SK.group(InteractionSystem.prefix + "bed", at: SCNVector3(2.05, 0, -1.2), in: root)
-        SK.box(1.05, 0.3, 2.05, frame, at: SCNVector3(0, 0.15, 0), in: bed)
-        SK.box(1.05, 0.7, 0.06, frame, at: SCNVector3(0, 0.35, -1.0), in: bed)
-        SK.box(0.98, 0.2, 1.98, sheet, at: SCNVector3(0, 0.4, 0), in: bed, chamfer: 0.04)
-        SK.box(1.0, 0.06, 1.3, blanket, at: SCNVector3(0, 0.52, 0.32), in: bed, chamfer: 0.03)
-        SK.box(0.6, 0.12, 0.34, sheet, at: SCNVector3(0, 0.56, -0.72), in: bed, chamfer: 0.05)
-        world.controller.obstacles.append(AABB2D(x: 2.05, z: -1.2, w: 1.1, d: 2.1))
+        let bedName = InteractionSystem.prefix + "bed"
+        if let bed = ModelLibrary.place("vintage_day_bed", at: SCNVector3(2.15, 0, -1.2), yaw: -.pi / 2, in: root, nodeName: bedName) {
+            // pillows against the headboard end, phone tossed on the mattress
+            let seat = ModelLibrary.surfaceY(x: 2.1, z: -1.0, on: bed, in: root, fallback: 0.45)
+            ModelLibrary.place("throw_pillows_01", at: SCNVector3(2.3, seat - 0.02, -1.55), yaw: -.pi / 2 + 0.15, height: 0.36, in: root)
+            world.controller.obstacles.append(AABB2D(x: 2.15, z: -1.2, w: 0.9, d: 2.0))
+        } else {
+            let bed = SK.group(bedName, at: SCNVector3(2.05, 0, -1.2), in: root)
+            SK.box(1.05, 0.3, 2.05, frame, at: SCNVector3(0, 0.15, 0), in: bed)
+            SK.box(1.05, 0.7, 0.06, frame, at: SCNVector3(0, 0.35, -1.0), in: bed)
+            SK.box(0.98, 0.2, 1.98, sheet, at: SCNVector3(0, 0.4, 0), in: bed, chamfer: 0.04)
+            SK.box(1.0, 0.06, 1.3, blanket, at: SCNVector3(0, 0.52, 0.32), in: bed, chamfer: 0.03)
+            SK.box(0.6, 0.12, 0.34, sheet, at: SCNVector3(0, 0.56, -0.72), in: bed, chamfer: 0.05)
+            world.controller.obstacles.append(AABB2D(x: 2.05, z: -1.2, w: 1.1, d: 2.1))
+        }
     }
 
     private func buildNightstandAndLamp() {
         let wood = SK.material(UIColor(red: 0.25, green: 0.18, blue: 0.13, alpha: 1), roughness: 0.65)
-        SK.box(0.45, 0.55, 0.42, wood, at: SCNVector3(2.3, 0.275, 0.12), in: root)
-        world.controller.obstacles.append(AABB2D(x: 2.3, z: 0.12, w: 0.47, d: 0.44))
+        var top: Float = 0.55
+        var lx: Float = 2.3
+        if let stand = ModelLibrary.place("ClassicNightstand_01", at: SCNVector3(2.36, 0, 0.12), yaw: -.pi / 2, in: root, nodeName: "nightstand") {
+            top = ModelLibrary.surfaceY(x: 2.36, z: 0.12, on: stand, in: root, fallback: 0.70)
+            lx = 2.36
+            ModelLibrary.place("alarm_clock_01", at: SCNVector3(2.3, top, 0.33), yaw: -.pi / 2 - 0.3, in: root)
+            world.controller.obstacles.append(AABB2D(x: 2.36, z: 0.12, w: 0.46, d: 0.6))
+        } else {
+            SK.box(0.45, 0.55, 0.42, wood, at: SCNVector3(2.3, 0.275, 0.12), in: root)
+            world.controller.obstacles.append(AABB2D(x: 2.3, z: 0.12, w: 0.47, d: 0.44))
+        }
 
-        let lamp = SK.group(InteractionSystem.prefix + "lamp", at: SCNVector3(2.3, 0.55, 0.12), in: root)
+        let lamp = SK.group(InteractionSystem.prefix + "lamp", at: SCNVector3(lx, top, 0.05), in: root)
         let brass = SK.material(UIColor(red: 0.6, green: 0.48, blue: 0.3, alpha: 1), roughness: 0.35, metalness: 0.8)
         SK.cylinder(0.07, 0.02, brass, at: SCNVector3(0, 0.01, 0), in: lamp)
         SK.cylinder(0.012, 0.3, brass, at: SCNVector3(0, 0.16, 0), in: lamp)

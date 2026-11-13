@@ -78,7 +78,12 @@ extension ApartmentBuilder {
     private func buildWardrobe() {
         let wood = SK.material(UIColor(red: 0.35, green: 0.27, blue: 0.2, alpha: 1), roughness: 0.6)
         let metal = SK.material(UIColor(white: 0.6, alpha: 1), roughness: 0.3, metalness: 0.9)
-        let w = SK.group(InteractionSystem.prefix + "wardrobe", at: SCNVector3(-2.18, 0, 1.8), in: root)
+        let name = InteractionSystem.prefix + "wardrobe"
+        if ModelLibrary.place("drawer_cabinet", at: SCNVector3(-1.95, 0, Self.halfD - 0.27), yaw: .pi, in: root, nodeName: name) != nil {
+            world.controller.obstacles.append(AABB2D(x: -1.95, z: Self.halfD - 0.27, w: 1.18, d: 0.54))
+            return
+        }
+        let w = SK.group(name, at: SCNVector3(-2.18, 0, 1.8), in: root)
         SK.box(0.75, 2.0, 0.55, wood, at: SCNVector3(0, 1.0, 0), in: w)
         SK.box(0.01, 1.9, 0.01, SK.material(.black), at: SCNVector3(0.376, 1.0, 0), in: w)
         SK.box(0.02, 0.12, 0.02, metal, at: SCNVector3(0.39, 1.05, -0.04), in: w)
@@ -88,16 +93,22 @@ extension ApartmentBuilder {
 
     private func buildClutter() {
         // rug
-        let rug = SK.material(UIColor(red: 0.3, green: 0.12, blue: 0.14, alpha: 1), roughness: 1)
+        let rug = ModelLibrary.texturedMaterial("dirty_carpet", repeat: 1.5, tint: UIColor(red: 0.75, green: 0.5, blue: 0.52, alpha: 1))
+            ?? SK.material(UIColor(red: 0.3, green: 0.12, blue: 0.14, alpha: 1), roughness: 1)
         SK.box(1.8, 0.01, 1.3, rug, at: SCNVector3(0.2, 0.005, 0.3), in: root)
         // mug on desk
-        let mug = SK.group(InteractionSystem.prefix + "mug", at: SCNVector3(-0.35, 0.76, -1.75), in: root)
+        let mug = SK.group(InteractionSystem.prefix + "mug", at: SCNVector3(-0.35, Self.deskTop, -1.72), in: root)
         SK.cylinder(0.04, 0.1, SK.material(UIColor(red: 0.85, green: 0.85, blue: 0.82, alpha: 1), roughness: 0.3), at: SCNVector3(0, 0.05, 0), in: mug)
         SK.cylinder(0.035, 0.002, SK.material(UIColor(red: 0.15, green: 0.08, blue: 0.04, alpha: 1), roughness: 0.1), at: SCNVector3(0, 0.085, 0), in: mug)
         // phone on the bed
         let phoneMat = SK.material(UIColor(white: 0.05, alpha: 1), roughness: 0.2, metalness: 0.4,
                                    emission: UIColor(red: 0.15, green: 0.2, blue: 0.3, alpha: 1))
-        let phone = SK.box(0.075, 0.009, 0.155, phoneMat, at: SCNVector3(1.85, 0.56, -0.2), in: root,
+        var phonePos = SCNVector3(1.85, 0.56, -0.2)
+        if let bed = root.childNode(withName: InteractionSystem.prefix + "bed", recursively: false), bed.childNodes.first?.geometry == nil,
+           bed.childNodes.count == 1 {
+            phonePos = SCNVector3(2.0, ModelLibrary.surfaceY(x: 2.0, z: -0.8, on: bed, in: root, fallback: 0.45) + 0.005, -0.8)
+        }
+        let phone = SK.box(0.075, 0.009, 0.155, phoneMat, at: phonePos, in: root,
                            name: InteractionSystem.prefix + "phone", chamfer: 0.004)
         phone.eulerAngles.y = 0.4
         // trash can with crumpled paper
@@ -109,15 +120,25 @@ extension ApartmentBuilder {
         ball.position = SCNVector3(0.03, 0.33, 0.02); bin.addChildNode(ball)
         world.controller.obstacles.append(AABB2D(x: 0, z: -1.9, w: 0.3, d: 0.3))
         // ceiling light fixture (switched off)
-        SK.cylinder(0.22, 0.05, SK.material(UIColor(white: 0.9, alpha: 1), roughness: 0.3), at: SCNVector3(0, Self.height - 0.03, 0), in: root)
-        // a small plant by the window
-        let pot = SK.group("plant", at: SCNVector3(-2.35, 0, 1.45), in: root)
-        SK.cylinder(0.12, 0.25, SK.material(UIColor(red: 0.5, green: 0.3, blue: 0.2, alpha: 1)), at: SCNVector3(0, 0.125, 0), in: pot)
-        let leaf = SK.material(UIColor(red: 0.12, green: 0.3, blue: 0.14, alpha: 1), roughness: 0.8)
-        for i in 0..<6 {
-            let l = SK.box(0.04, 0.4, 0.12, leaf, at: SCNVector3(0, 0.42, 0), in: pot, chamfer: 0.02)
-            l.eulerAngles = SCNVector3(Float(i) * 0.2 - 0.5, Float(i) * 1.05, 0.3)
+        if ModelLibrary.place("modern_ceiling_lamp_01", at: SCNVector3(0, Self.height, 0), height: 0.45, anchorTop: true, in: root) == nil {
+            SK.cylinder(0.22, 0.05, SK.material(UIColor(white: 0.9, alpha: 1), roughness: 0.3), at: SCNVector3(0, Self.height - 0.03, 0), in: root)
         }
+        // a plant in the corner by the window
+        if ModelLibrary.place("potted_plant_02", at: SCNVector3(-2.22, 0, -0.3), yaw: 0.6, in: root, nodeName: "plant") != nil {
+            world.controller.obstacles.append(AABB2D(x: -2.22, z: -0.3, w: 0.6, d: 0.6))
+        } else {
+            let pot = SK.group("plant", at: SCNVector3(-2.35, 0, -0.3), in: root)
+            SK.cylinder(0.12, 0.25, SK.material(UIColor(red: 0.5, green: 0.3, blue: 0.2, alpha: 1)), at: SCNVector3(0, 0.125, 0), in: pot)
+        }
+        // desk clutter: arm lamp (unlit), an old console next to the PC
+        ModelLibrary.place("desk_lamp_arm_01", at: SCNVector3(-1.42, Self.deskTop, -2.0), yaw: 0.5, in: root)
+        ModelLibrary.place("gaming_console", at: SCNVector3(-0.42, Self.deskTop, -2.0), yaw: -0.2, in: root)
+        // moving box nobody unpacked
+        if ModelLibrary.place("cardboard_box_01", at: SCNVector3(-0.75, 0, 1.92), yaw: 0.3, in: root) != nil {
+            world.controller.obstacles.append(AABB2D(x: -0.75, z: 1.92, w: 0.55, d: 0.55))
+        }
+        // a framed picture over the bed
+        ModelLibrary.place("hanging_picture_frame_02", at: SCNVector3(1.0, 1.3, -Self.halfD + 0.02), in: root)
     }
 }
 
