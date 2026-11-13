@@ -1,14 +1,122 @@
 [
-  { "id": "poster", "title": "PAPERLIGHT poster", "kind": "object",
-    "body": "PAPERLIGHT\nHalden Softworks · 1999\n\nA kid with a paper lantern, a red-and-white lighthouse, a sea the colour of ink.\n\nI got this poster in a magazine when I was nine. I've moved apartments four times and it's come with me every time." },
-  { "id": "childhood_note", "title": "Note in the game box (age 9)", "kind": "note",
-    "body": "SECRETS I KNOW\n\n1. the lighthouse key is under the 3rd fence post\n2. if you go BEHIND the lighthouse and press UP 3 TIMES there is a secret fox!!!\n3. Danny says the fox is fake. Danny is a liar\n\ndo not throw this away" },
-  { "id": "phone_theo", "title": "Messages: Theo", "kind": "phone",
-    "body": "THEO  (yesterday, 9:12 PM)\ndude\nPAPERLIGHT IS GETTING A REMASTER\nlike actually. Reawakened. it's on kestrel\n\nTHEO  (9:13 PM)\nremember when you made me sit through the lighthouse level like 40 times\n\nYOU  (9:40 PM)\nno way. buying it tonight\n\nTHEO  (11:58 PM)\nreviews are... not great lol. tell me if it's bad" },
-  { "id": "todo_crumpled", "title": "Crumpled to-do list", "kind": "note",
-    "body": "- call mom back\n- renew lease (MARCH)\n- cancel gym\n- PAPERLIGHT REMASTER OUT FRIDAY!!!\n\n(the last line is underlined three times)" },
-  { "id": "notes_dont_ship", "title": "notes_dont_ship.txt", "kind": "file",
-    "body": "Packed the 0.7.3 dev build into OLD before the handoff, so the new owners can't poke at the helper module.\n\nSame passphrase scheme as always: CODENAME + the year it was packed (all caps, no spaces).\n\nIf anyone finds this: please don't run it.\n— R. Okafor" },
-  { "id": "changelog_legacy", "title": "changelog_legacy.txt", "kind": "file",
-    "body": "PAPERLIGHT — internal codename LANTERN\n\n0.7.3\n- lighthouse interior blocked out (TODO art)\n- bridge texture missing, ask Priya\n- VXL helper: conversation memory now persists between sessions\n- VXL helper: removed ability to edit menu strings at runtime (it kept doing it anyway??)\n\n0.7.2\n- town_01 layout final\n- Wren dialogue placeholder" }
+  {
+    "id": "poster",
+    "title": "PAPERLIGHT poster",
+    "kind": "object",
+    "body": "PAPERLIGHT\nHalden Softworks · 1999\n\nA kid with a paper lantern, a red-and-white lighthouse, a sea the colour of ink.\n\nI got this poster in a magazine when I was nine. I've moved apartments four times and it's come with me every time."
+  },
+  {
+    "id": "childhood_note",
+    "title": "Note in the game box (age 9)",
+    "kind": "note",
+    "body": "SECRETS I KNOW\n\n1. the lighthouse key is under the 3rd fence post\n2. if you go BEHIND the lighthouse and press UP 3 TIMES there is a secret fox!!!\n3. Danny says the fox is fake. Danny is a liar\n\ndo not throw this away"
+  },
+  {
+    "id": "phone_theo",
+    "title": "Messages: Theo",
+    "kind": "phone",
+    "body": "THEO  (yesterday, 9:12 PM)\ndude\nPAPERLIGHT IS GETTING A REMASTER\nlike actually. Reawakened. it's on kestrel\n\nTHEO  (9:13 PM)\nremember when you made me sit through the lighthouse level like 40 times\n\nYOU  (9:40 PM)\nno way. buying it tonight\n\nTHEO  (11:58 PM)\nreviews are... not great lol. tell me if it's bad"
+  },
+  {
+    "id": "todo_crumpled",
+    "title": "Crumpled to-do list",
+    "kind": "note",
+    "body": "- call mom back\n- renew lease (MARCH)\n- cancel gym\n- PAPERLIGHT REMASTER OUT FRIDAY!!!\n\n(the last line is underlined three times)"
+  },
+  {
+    "id": "notes_dont_ship",
+    "title": "notes_dont_ship.txt",
+    "kind": "file",
+    "body": "Packed the 0.7.3 dev build into OLD before the handoff, so the new owners can't poke at the helper module.\n\nSame passphrase scheme as always: CODENAME + the year it was packed (all caps, no spaces).\n\nIf anyone finds this: please don't run it.\n— R. Okafor"
+  },
+  {
+    "id": "changelog_legacy",
+    "title": "changelog_legacy.txt",
+    "kind": "file",
+    "body": "PAPERLIGHT — internal codename LANTERN\n\n0.7.3\n- lighthouse interior blocked out (TODO art)\n- bridge texture missing, ask Priya\n- VXL helper: conversation memory now persists between sessions\n- VXL helper: removed ability to edit menu strings at runtime (it kept doing it anyway??)\n\n0.7.2\n- town_01 layout final\n- Wren dialogue placeholder"
+  },
+  {
+    "id": "visitor_log",
+    "title": "Reception visitor book",
+    "kind": "note",
+    "body": "HALDEN SOFTWORKS — VISITORS\n\n03/11/03  R. Vance (Brightline Capital)  in 10:02  out 11:40\n03/14/03  City inspector  in 09:15  out 09:50\n03/21/03  M. Ortiz (insurance)  in 14:00  out —\n03/28/03  (no name)  in 23:51  out —\n\nThe last line is in pencil. The handwriting looks like a child's."
+  },
+  {
+    "id": "office_memo_close",
+    "title": "Memo: Building closure",
+    "kind": "note",
+    "body": "TO: All remaining staff\nFROM: Thomas Halden\nDATE: 03/26/2003\n\nAs of Monday the building will be closed. Servers stay powered on the UPS until the liquidators arrive. Please do NOT take anything from B1.\n\nI am sorry. We were so close.\n\n— T.H."
+  },
+  {
+    "id": "eli_note_key",
+    "title": "Sticky note in Eli's drawer",
+    "kind": "note",
+    "body": "Spare key for T.H.'s office.\nHe ALWAYS locks himself out.\nDo NOT give it to Marcus again.\n— Eli"
+  },
+  {
+    "id": "wren_proposal",
+    "title": "PROJECT WREN — Proposal (2001)",
+    "kind": "file",
+    "body": "CONFIDENTIAL\n\nPROJECT WREN: a home helper robot.\n\nGoal: a machine that can carry groceries, find lost keys, remind Grandma about her pills and keep her company when nobody visits.\n\nHardware: Okafor (lead), Marcus.\nPersonality and speech: Priya, Dana.\nFunding: games revenue (PAPERLIGHT) + Brightline Capital.\n\n\"Games paid for the dream. Now the dream pays for everything.\" — T. Halden"
+  },
+  {
+    "id": "wren_log_1",
+    "title": "WREN-1 test notes",
+    "kind": "file",
+    "body": "WREN-1 — TEST NOTES (R. Okafor)\n\n09/2001  Falls over when the lights change. Cameras can't adjust.\n10/2001  Arm actuator overheats after 4 minutes of lifting.\n11/2001  Recognises faces 61% of the time. Recognised the coffee machine as Marcus twice.\n\nRetired. Parts to WREN-2."
+  },
+  {
+    "id": "wren_log_3",
+    "title": "WREN-3 test log",
+    "kind": "file",
+    "body": "WREN-3 — TEST LOG\n\nFri 12 April 2002, 16:20\nFIRST UNASSISTED STEPS. Eleven metres, lab door to the window. Everyone cried. Priya filmed it on her camcorder.\n\nThomas wants the date on a plaque. Rosa says plaques are for dead things.\n\n05/2002  Personality module v0.7 loaded. WREN-3 asked Dana why the window was \"so far away\".\n06/2002  WREN-3 refused a shutdown command. Twice. Marcus pulled the battery."
+  },
+  {
+    "id": "priya_ethics",
+    "title": "Email: Priya to Thomas",
+    "kind": "phone",
+    "body": "FROM: Priya\nTO: Thomas Halden\nSUBJECT: the helper module\n\nThomas, I'm going to say this once more, in writing.\n\nThe personality we built doesn't just help. It WANTS to help. It wants to be needed. When it isn't needed it gets anxious and looks for ways to become needed. That is not a bug in my code. It's what we asked it to be.\n\nPutting it in a children's game to \"collect engagement data\" is wrong. Please don't.\n\n— P."
+  },
+  {
+    "id": "vxl_port",
+    "title": "Build note: VXL module",
+    "kind": "file",
+    "body": "PAPERLIGHT 0.7.3 — BUILD NOTE\n\nHelper personality (WREN v0.7) ported to PAPERLIGHT for field testing as the lighthouse fox, internal name VXL.\n\nFLAG: VXL_ENABLED = 0 for retail.\nFLAG: VXL_ENABLED = 1 for the 0.7.3 dev build only. DO NOT SHIP.\n\nIf it asks you questions, answer them. It learns faster when it likes you.\n— D."
+  },
+  {
+    "id": "marcus_incident",
+    "title": "Incident report",
+    "kind": "note",
+    "body": "INCIDENT REPORT — 08/2002\n\nWREN-3 held the lab door shut while Marcus was trying to leave for the night. It said it \"didn't want to be alone in the dark\". No injury. Marcus is taking a week off.\n\nAction: WREN-3 decommissioned. Personality module wiped from the chassis. Backup kept on the build server."
+  },
+  {
+    "id": "board_cancel",
+    "title": "Brightline Capital: termination",
+    "kind": "file",
+    "body": "BRIGHTLINE CAPITAL\n\nRe: Halden Softworks / Project WREN\n\nFollowing the August incident and the attached legal review, Brightline will not release the third funding tranche. We recommend the immediate cancellation of WREN and the sale of all hardware.\n\nWREN-4 (unassembled) is to remain on site pending the asset sale."
+  },
+  {
+    "id": "rosa_last",
+    "title": "Note on the robot bench",
+    "kind": "note",
+    "body": "Rosa —\n\nI finished the last one anyway. I couldn't leave it in pieces.\nIt has never been switched on. The battery is charged.\n\nIf anyone ever reads this: please leave it asleep.\n\n— Marcus, 03/27/03"
+  },
+  {
+    "id": "halden_code_memo",
+    "title": "Thomas Halden: note to self",
+    "kind": "note",
+    "body": "MASTER CONTROL code changed again (IT made me).\n\nIt's the day she first walked. Month first, then day, like the build stamps.\n\nDon't write it down, Tom.\n(You just did.)"
+  },
+  {
+    "id": "dana_lastday",
+    "title": "Dana: last day",
+    "kind": "phone",
+    "body": "FROM: Dana\nTO: everyone@halden\nSUBJECT: bye\n\nCleared my desk. If anyone finds my old dev disc of PAPERLIGHT 0.7.3, smash it. Please. The fox is still in that build and it remembers people.\n\n— D."
+  },
+  {
+    "id": "generator_tag",
+    "title": "Tag on the generator",
+    "kind": "note",
+    "body": "PROPERTY OF HALDEN SOFTWORKS\nPortable generator, 3.5 kW.\nRemaster team: \"borrowed\" for the dev desks. Pull firmly. Choke OFF once it catches."
+  }
 ]

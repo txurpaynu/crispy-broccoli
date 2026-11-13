@@ -14,7 +14,8 @@ protocol Interactable: AnyObject {
 @MainActor
 struct InteractionContext {
     let session: GameSession
-    let world: ApartmentWorld
+    /// The apartment (nil for interactables in the facility).
+    let world: ApartmentWorld!
     /// The SceneKit node this interactable is attached to.
     let node: SCNNode?
 }
@@ -67,4 +68,11 @@ final class ActionInteractable: Interactable {
 
     func prompt(_ ctx: InteractionContext) -> String? { promptFn(ctx) }
     func interact(_ ctx: InteractionContext) { action(ctx) }
+}
+
+/// Anything the touch controls can drive: the apartment and the facility.
+@MainActor
+protocol PlayableWorld: AnyObject {
+    var input: PlayerInput { get }
+    func interact()
 }

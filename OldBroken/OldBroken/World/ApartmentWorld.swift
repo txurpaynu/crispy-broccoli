@@ -13,7 +13,7 @@ final class ApartmentHUD: ObservableObject {
 /// Owns the apartment scene, the player controller and the interaction system.
 /// Long-lived: survives switching to the desktop and back.
 @MainActor
-final class ApartmentWorld: NSObject {
+final class ApartmentWorld: NSObject, PlayableWorld {
     let scene = SCNScene()
     let controller = FirstPersonController()
     let input = PlayerInput()

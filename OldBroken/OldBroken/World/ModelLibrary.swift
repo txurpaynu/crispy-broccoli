@@ -16,7 +16,20 @@ enum ModelLibrary {
 
     /// Loads a model as a node whose origin is at its bottom-center (or top-center),
     /// with Y up and its front facing +Z.
+    private static var cache: [String: SCNNode] = [:]
+    private static var cacheTop: [String: SCNNode] = [:]
+
     static func load(_ name: String, anchorTop: Bool = false) -> SCNNode? {
+        if let c = (anchorTop ? cacheTop : cache)[name] { return c.clone() }
+        guard let made = build(name, anchorTop: anchorTop) else { return nil }
+        if anchorTop { cacheTop[name] = made } else { cache[name] = made }
+        return made.clone()
+    }
+
+    /// Frees cached prototypes (e.g. when leaving a level).
+    static func purge() { cache = [:]; cacheTop = [:] }
+
+    private static func build(_ name: String, anchorTop: Bool) -> SCNNode? {
         guard let url = Bundle.main.url(forResource: name, withExtension: "usdz"),
               let scene = try? SCNScene(url: url, options: [.checkConsistency: false]) else {
             print("[ModelLibrary] missing \(name)")

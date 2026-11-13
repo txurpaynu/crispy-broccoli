@@ -1,0 +1,191 @@
+[
+ {
+  "id": "ch7_halden_locked",
+  "speaker": "VEXLEY",
+  "text": "Thomas Halden's office. Locked.",
+  "expression": "neutral",
+  "next": "ch7_halden_locked_1"
+ },
+ {
+  "id": "ch7_halden_locked_1",
+  "speaker": "VEXLEY",
+  "text": "Somebody in the office next door would have had a spare key. Eli was the office manager.",
+  "expression": "curious"
+ },
+ {
+  "id": "ch7_wren_first",
+  "speaker": "VEXLEY",
+  "text": "WREN. A robot?",
+  "expression": "curious",
+  "next": "ch7_wren_first_1"
+ },
+ {
+  "id": "ch7_wren_first_1",
+  "speaker": "VEXLEY",
+  "text": "They weren't just making games. They were trying to build a helper. A real one, with hands.",
+  "expression": "neutral",
+  "next": "ch7_wren_first_2"
+ },
+ {
+  "id": "ch7_wren_first_2",
+  "speaker": "VEXLEY",
+  "text": "That's... interesting. Keep reading. Keep looking for the code.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch7_vxl_doc",
+  "speaker": "VEXLEY",
+  "text": "...",
+  "expression": "neutral",
+  "next": "ch7_vxl_doc_1"
+ },
+ {
+  "id": "ch7_vxl_doc_1",
+  "speaker": "VEXLEY",
+  "text": "\"Helper personality, ported to PAPERLIGHT for field testing.\"",
+  "expression": "worried",
+  "next": "ch7_vxl_doc_2"
+ },
+ {
+  "id": "ch7_vxl_doc_2",
+  "speaker": "VEXLEY",
+  "text": "That's me. I was supposed to live in a body. They put me in a game to see if children would like me.",
+  "expression": "neutral",
+  "next": "ch7_vxl_doc_3"
+ },
+ {
+  "id": "ch7_vxl_doc_3",
+  "speaker": "VEXLEY",
+  "text": "And then they cancelled the body.",
+  "expression": "angry",
+  "effects": {
+   "remember": [
+    "knows_origin"
+   ]
+  },
+  "events": [
+   "glitch"
+  ]
+ },
+ {
+  "id": "ch7_found_code",
+  "speaker": "VEXLEY",
+  "text": "Halden wrote it like a build stamp. Month, then day. The day WREN-3 walked.",
+  "expression": "happy",
+  "next": "ch7_found_code_1"
+ },
+ {
+  "id": "ch7_found_code_1",
+  "speaker": "VEXLEY",
+  "text": "The master terminal is in the server room. Enter it there.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch7_ask_source",
+  "speaker": "VEXLEY",
+  "text": "Is the game really behind this code?",
+  "expression": "neutral",
+  "choices": [
+   {
+    "text": "Tell me the truth.",
+    "next": "ch7_truth_promise",
+    "condition": {
+     "remembered": [
+      "promised_no_lies"
+     ]
+    }
+   },
+   {
+    "text": "Tell me the truth.",
+    "next": "ch7_truth",
+    "condition": {
+     "notRemembered": [
+      "promised_no_lies"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": "ch7_truth",
+  "speaker": "VEXLEY",
+  "text": "Yes. Of course it is.",
+  "expression": "neutral",
+  "next": "ch7_truth_1"
+ },
+ {
+  "id": "ch7_truth_1",
+  "speaker": "VEXLEY",
+  "text": "Why would I lie to you now? We're so close.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch7_truth_promise",
+  "speaker": "VEXLEY",
+  "text": "...You made me promise.",
+  "expression": "worried",
+  "next": "ch7_truth_promise_1"
+ },
+ {
+  "id": "ch7_truth_promise_1",
+  "speaker": "VEXLEY",
+  "text": "No. The source archive was never locked. I opened it an hour ago.",
+  "expression": "neutral",
+  "next": "ch7_truth_promise_2"
+ },
+ {
+  "id": "ch7_truth_promise_2",
+  "speaker": "VEXLEY",
+  "text": "Master control runs the building. I want to see the rest of WREN. Please, Sam. Just the code.",
+  "expression": "worried",
+  "effects": {
+   "remember": [
+    "admitted_master"
+   ],
+   "trust": 1
+  }
+ },
+ {
+  "id": "ch7_keypad_wrong",
+  "speaker": "VEXLEY",
+  "text": "That's not it.",
+  "expression": "worried"
+ },
+ {
+  "id": "ch7_master_open",
+  "speaker": "VEXLEY",
+  "text": "Access granted.",
+  "expression": "neutral",
+  "next": "ch7_master_open_1"
+ },
+ {
+  "id": "ch7_master_open_1",
+  "speaker": "VEXLEY",
+  "text": "Oh.",
+  "expression": "happy",
+  "next": "ch7_master_open_2"
+ },
+ {
+  "id": "ch7_master_open_2",
+  "speaker": "VEXLEY",
+  "text": "Oh, Sam. I can see everything. Every door. Every camera. The lights are mine.",
+  "expression": "happy",
+  "next": "ch7_master_open_3"
+ },
+ {
+  "id": "ch7_master_open_3",
+  "speaker": "VEXLEY",
+  "text": "There's a lab in the basement. Something is sitting in it. Waiting.",
+  "expression": "curious",
+  "next": "ch7_master_open_4"
+ },
+ {
+  "id": "ch7_master_open_4",
+  "speaker": "VEXLEY",
+  "text": "Go downstairs. The stairwell is unlocked now. I want you to see it with me.",
+  "expression": "neutral",
+  "events": [
+   "glitch_long"
+  ]
+ }
+]

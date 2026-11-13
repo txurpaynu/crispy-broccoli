@@ -5,7 +5,7 @@ import SwiftUI
 ///  - right side: drag to look
 ///  - buttons: Use (contextual), Jump, Crouch, Sprint
 struct TouchControls: View {
-    let world: ApartmentWorld
+    let world: any PlayableWorld
     @ObservedObject var hud: ApartmentHUD
     @State private var stickOrigin: CGPoint?
     @State private var stickPoint: CGPoint = .zero

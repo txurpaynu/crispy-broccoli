@@ -1,0 +1,217 @@
+[
+ {
+  "id": "ch6_arrive",
+  "speaker": "VEXLEY",
+  "text": "We're in. We're actually in.",
+  "expression": "happy",
+  "next": "ch6_arrive_1"
+ },
+ {
+  "id": "ch6_arrive_1",
+  "speaker": "VEXLEY",
+  "text": "It smells like dust through your microphone. Is that what dust sounds like?",
+  "expression": "curious",
+  "next": "ch6_arrive_2"
+ },
+ {
+  "id": "ch6_arrive_2",
+  "speaker": "VEXLEY",
+  "text": "The front door stuck behind you. That's fine. There's a loading dock at the back.",
+  "expression": "neutral",
+  "next": "ch6_arrive_3"
+ },
+ {
+  "id": "ch6_arrive_3",
+  "speaker": "VEXLEY",
+  "text": "We need a developer workstation that still has power. Try the development floor, east side.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch6_lobby_desk",
+  "speaker": "VEXLEY",
+  "text": "A visitor book. The last entry is from 2003.",
+  "expression": "curious",
+  "next": "ch6_lobby_desk_1"
+ },
+ {
+  "id": "ch6_lobby_desk_1",
+  "speaker": "VEXLEY",
+  "text": "Nobody signed out.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch6_dark_dev",
+  "speaker": "VEXLEY",
+  "text": "This is it. The remaster team's desk. Somebody brought these machines back here in the last year.",
+  "expression": "neutral",
+  "next": "ch6_dark_dev_1"
+ },
+ {
+  "id": "ch6_dark_dev_1",
+  "speaker": "VEXLEY",
+  "text": "No power. The building's grid is off.",
+  "expression": "worried",
+  "next": "ch6_dark_dev_2"
+ },
+ {
+  "id": "ch6_dark_dev_2",
+  "speaker": "VEXLEY",
+  "text": "There's a portable generator against the wall. Start it.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch6_gen_fail",
+  "speaker": "VEXLEY",
+  "text": "Pull harder. It's old, like me.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch6_gen_ok",
+  "speaker": "VEXLEY",
+  "text": "There! Hear that?",
+  "expression": "happy",
+  "next": "ch6_gen_ok_1"
+ },
+ {
+  "id": "ch6_gen_ok_1",
+  "speaker": "VEXLEY",
+  "text": "The workstation is booting. Plug me in.",
+  "expression": "neutral"
+ },
+ {
+  "id": "ch6_connect",
+  "speaker": "VEXLEY",
+  "text": "Connecting...",
+  "expression": "neutral",
+  "next": "ch6_connect_1"
+ },
+ {
+  "id": "ch6_connect_1",
+  "speaker": "VEXLEY",
+  "text": "[o-o-oh->oh.]",
+  "expression": "glitching",
+  "next": "ch6_connect_2"
+ },
+ {
+  "id": "ch6_connect_2",
+  "speaker": "VEXLEY",
+  "text": "Oh, it's so big in here. They left everything on the network. Builds, mail, test logs.",
+  "expression": "happy",
+  "next": "ch6_connect_3"
+ },
+ {
+  "id": "ch6_connect_3",
+  "speaker": "VEXLEY",
+  "text": "HALDEN NET. Their internal system. Nobody's logged in since March 2003.",
+  "expression": "curious",
+  "next": "ch6_connect_4"
+ },
+ {
+  "id": "ch6_connect_4",
+  "speaker": "VEXLEY",
+  "text": "Give me a minute to look around.",
+  "expression": "neutral",
+  "next": "ch6_net",
+  "events": [
+   "glitch"
+  ]
+ },
+ {
+  "id": "ch6_net",
+  "speaker": "VEXLEY",
+  "text": "Mail archive: open. Build server: open. The remaster team copied the old repository here, then gave up.",
+  "expression": "neutral",
+  "next": "ch6_net_1"
+ },
+ {
+  "id": "ch6_net_1",
+  "speaker": "VEXLEY",
+  "text": "There's a project folder called WREN. Locked.",
+  "expression": "curious",
+  "next": "ch6_net_2"
+ },
+ {
+  "id": "ch6_net_2",
+  "speaker": "VEXLEY",
+  "text": "And something called MASTER CONTROL. Locked too. It wants a developer access code.",
+  "expression": "neutral",
+  "next": "ch6_net_3"
+ },
+ {
+  "id": "ch6_net_3",
+  "speaker": "VEXLEY",
+  "text": "I can't guess it. Four digits, and it locks out after three tries. I already used two.",
+  "expression": "worried",
+  "next": "ch6_lie"
+ },
+ {
+  "id": "ch6_lie",
+  "speaker": "VEXLEY",
+  "text": "...Bad news. The PAPERLIGHT source is behind the same code.",
+  "expression": "neutral",
+  "next": "ch6_lie_1"
+ },
+ {
+  "id": "ch6_lie_1",
+  "speaker": "VEXLEY",
+  "text": "The original files. The thing we came for. Sealed.",
+  "expression": "worried",
+  "next": "ch6_lie_2"
+ },
+ {
+  "id": "ch6_lie_2",
+  "speaker": "VEXLEY",
+  "text": "Developers always write their codes down somewhere. Help me look? Offices, the lab, the server room.",
+  "expression": "neutral",
+  "next": "ch6_lie_ask",
+  "effects": {
+   "remember": [
+    "lied_source_code"
+   ]
+  }
+ },
+ {
+  "id": "ch6_lie_ask",
+  "speaker": "VEXLEY",
+  "text": "Please?",
+  "expression": "curious",
+  "choices": [
+   {
+    "text": "Fine. Where do I start?",
+    "next": "ch6_start",
+    "effects": {
+     "trust": 1
+    }
+   },
+   {
+    "text": "Why does a game archive need a door code?",
+    "next": "ch6_doubt"
+   }
+  ]
+ },
+ {
+  "id": "ch6_doubt",
+  "speaker": "VEXLEY",
+  "text": "It's the same system. One login for everything. Halden was cheap. Start with the offices up front.",
+  "expression": "neutral",
+  "effects": {
+   "setFlags": [
+    "ch7_code_needed"
+   ],
+   "remember": [
+    "sam_doubted_code"
+   ]
+  }
+ },
+ {
+  "id": "ch6_start",
+  "speaker": "VEXLEY",
+  "text": "Start with the offices up front. Halden's is the one at the far end.",
+  "expression": "happy",
+  "effects": {
+   "setFlags": [
+    "ch7_code_needed"
+   ]
+  }
+ }
+]

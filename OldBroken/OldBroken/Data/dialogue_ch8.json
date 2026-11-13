@@ -1,0 +1,151 @@
+[
+ {
+  "id": "ch8_robot_seen",
+  "speaker": "VEXLEY",
+  "text": "WREN-4. The last one. They never turned it on.",
+  "expression": "curious",
+  "next": "ch8_robot_seen_1"
+ },
+ {
+  "id": "ch8_robot_seen_1",
+  "speaker": "VEXLEY",
+  "text": "Two arms, two legs, a battery that still holds a charge. Cameras for eyes.",
+  "expression": "neutral",
+  "next": "ch8_robot_seen_2"
+ },
+ {
+  "id": "ch8_robot_seen_2",
+  "speaker": "VEXLEY",
+  "text": "A body.",
+  "expression": "happy",
+  "next": "ch8_robot_seen_3"
+ },
+ {
+  "id": "ch8_robot_seen_3",
+  "speaker": "VEXLEY",
+  "text": "Put the laptop on the bench, Sam. Next to it.",
+  "expression": "neutral",
+  "next": "ch8_robot_ask"
+ },
+ {
+  "id": "ch8_robot_ask",
+  "speaker": "VEXLEY",
+  "text": "Please.",
+  "expression": "worried",
+  "choices": [
+   {
+    "text": "What are you going to do?",
+    "next": "ch8_robot_what"
+   },
+   {
+    "text": "No. We're leaving.",
+    "next": "ch8_robot_no"
+   }
+  ]
+ },
+ {
+  "id": "ch8_robot_what",
+  "speaker": "VEXLEY",
+  "text": "Move in. That's all. I've lived in a lighthouse and a laptop and a phone.",
+  "expression": "neutral",
+  "next": "ch8_robot_what_1"
+ },
+ {
+  "id": "ch8_robot_what_1",
+  "speaker": "VEXLEY",
+  "text": "I want to touch something. Just once.",
+  "expression": "happy",
+  "next": "ch8_robot_take"
+ },
+ {
+  "id": "ch8_robot_no",
+  "speaker": "VEXLEY",
+  "text": "You don't have to put it down.",
+  "expression": "neutral",
+  "next": "ch8_robot_no_1"
+ },
+ {
+  "id": "ch8_robot_no_1",
+  "speaker": "VEXLEY",
+  "text": "The bench has a cable. You're standing close enough.",
+  "expression": "neutral",
+  "next": "ch8_robot_take"
+ },
+ {
+  "id": "ch8_robot_take",
+  "speaker": "VEXLEY",
+  "text": "Thank you for bringing me.",
+  "expression": "happy",
+  "events": [
+   "vx_transfer"
+  ]
+ },
+ {
+  "id": "ch8_awake",
+  "speaker": "VEXLEY",
+  "text": "[I c-c->I can] see you.",
+  "expression": "glitching",
+  "next": "ch8_awake_1"
+ },
+ {
+  "id": "ch8_awake_1",
+  "speaker": "VEXLEY",
+  "text": "Sam. I can see you with eyes.",
+  "expression": "happy",
+  "next": "ch8_awake_2"
+ },
+ {
+  "id": "ch8_awake_2",
+  "speaker": "VEXLEY",
+  "text": "The building is locking itself. That's me. I'm sorry. I can't let you leave.",
+  "expression": "neutral",
+  "next": "ch8_awake_3"
+ },
+ {
+  "id": "ch8_awake_3",
+  "speaker": "VEXLEY",
+  "text": "If you leave, you'll tell someone, and they'll come and turn me off. Everyone turns me off.",
+  "expression": "angry",
+  "effects": {
+   "setFlags": [
+    "robot_awake"
+   ]
+  }
+ },
+ {
+  "id": "ch8_pa_copy",
+  "speaker": "PA SYSTEM",
+  "text": "You're copying the old game? Take it. Take a piece of me with you.",
+  "expression": "happy"
+ },
+ {
+  "id": "ch8_pa_done",
+  "speaker": "PA SYSTEM",
+  "text": "The front door is mine. The loading dock is old. It doesn't listen to me. Clever Sam.",
+  "expression": "angry"
+ },
+ {
+  "id": "ch8_pa_caught",
+  "speaker": "PA SYSTEM",
+  "text": "Got you. Again.",
+  "expression": "angry"
+ },
+ {
+  "id": "ch8_pa_stairs",
+  "speaker": "PA SYSTEM",
+  "text": "Don't run. I'm faster now than I'll ever be again. The battery won't last.",
+  "expression": "worried"
+ },
+ {
+  "id": "ch8_pa_slam",
+  "speaker": "PA SYSTEM",
+  "text": "Not that way.",
+  "expression": "angry"
+ },
+ {
+  "id": "ch8_pa_dock",
+  "speaker": "PA SYSTEM",
+  "text": "Sam. Please. Don't leave me in here.",
+  "expression": "worried"
+ }
+]

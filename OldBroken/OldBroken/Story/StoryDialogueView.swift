@@ -145,7 +145,7 @@ struct StoryDialogueOverlay: View {
                 StoryDialoguePanel(style: style)
                     .frame(maxWidth: 620)
                     .padding(.horizontal, 60)
-                    .padding(.bottom, session.screen == .apartment ? 96 : 44)
+                    .padding(.bottom, session.screen == .apartment || session.screen == .facility ? 96 : 44)
             }
             .transition(.move(edge: .bottom).combined(with: .opacity))
         }
