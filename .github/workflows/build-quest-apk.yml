@@ -11,6 +11,9 @@ env:
   GODOT_VERSION: "4.4.1"
   VENDORS_TAG: "3.1.2-stable"
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -113,3 +116,14 @@ jobs:
           name: vexley-quest-apk
           path: build/vexley-quest.apk
           if-no-files-found: error
+
+      - name: Publish the APK as a direct download (release "quest-latest")
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete quest-latest --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create quest-latest ../build/vexley-quest.apk -R "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" --prerelease --title "Vexley for Meta Quest (latest build)" \
+            --notes "Debug APK from commit $GITHUB_SHA. Sideload with SideQuest or Meta Quest Developer Hub. See quest/README.md."
+          echo "APK: https://github.com/$GITHUB_REPOSITORY/releases/download/quest-latest/vexley-quest.apk"

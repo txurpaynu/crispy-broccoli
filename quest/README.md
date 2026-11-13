@@ -14,8 +14,9 @@ chat and face animations as the iPhone app.
 
 1. Turn on **Developer Mode** for your headset in the Meta Horizon phone app
    (Devices → your headset → Headset settings → Developer mode).
-2. Download the APK: open the latest **Build Quest APK** run in the repo's Actions tab and
-   download the `vexley-quest-apk` artifact (it's a zip with `vexley-quest.apk` inside).
+2. On a computer, download the APK directly from the **quest-latest** release:
+   `https://github.com/txurpaynu/crispy-broccoli/releases/download/quest-latest/vexley-quest.apk`
+   (every build also uploads it as the `vexley-quest-apk` artifact on its Actions run).
 3. Install it with **SideQuest** (drag the APK onto the window) or **Meta Quest Developer Hub**
    (Device Manager → Apps → Add build), or `adb install -r vexley-quest.apk`.
 4. On the headset: Library → filter **Unknown Sources** → **Vexley**.
