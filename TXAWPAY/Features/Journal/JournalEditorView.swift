@@ -67,6 +67,10 @@ struct JournalEditorView: View {
     }
 
     var body: some View {
+        withDialogs(withObservers(editorScreen))
+    }
+
+    private var editorScreen: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Theme.Spacing.l) {
                 header
@@ -108,6 +112,10 @@ struct JournalEditorView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar { toolbarContent }
+    }
+
+    private func withObservers<V: View>(_ view: V) -> some View {
+        view
         .onChange(of: entry.title) { _, _ in scheduleAutosave() }
         .onChange(of: entry.body) { _, _ in scheduleAutosave() }
         .onChange(of: entry.reflection) { _, _ in scheduleAutosave() }
@@ -118,10 +126,15 @@ struct JournalEditorView: View {
         .onChange(of: entry.isImportant) { _, _ in scheduleAutosave() }
         .onChange(of: entry.locationName) { _, _ in scheduleAutosave() }
         .onChange(of: photoItems) { _, items in importPhotos(items) }
+    }
+
+    private func withDialogs<V: View>(_ view: V) -> some View {
+        view
         .onAppear {
             if isNew { focus = .body }
             if categoryID == nil, isNew {
-                categoryID = (pendingTrip != nil ? categories.first { $0.name == "Travel Journal" } : nil)?.id ?? categories.first?.id
+                let travel: JournalCategory? = pendingTrip != nil ? categories.first(where: { $0.name == "Travel Journal" }) : nil
+                categoryID = travel?.id ?? categories.first?.id
             }
         }
         .onDisappear { finish() }
