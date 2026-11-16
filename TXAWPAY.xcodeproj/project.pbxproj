@@ -1,0 +1,384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		TX000000000000000000001B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = TX0000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = TX0000000000000000000007;
+			remoteInfo = TXAWPAY;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		TX0000000000000000000009 /* TXAWPAY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXAWPAY.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		TX000000000000000000000A /* TXAWPAYTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TXAWPAYTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		TX000000000000000000001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		TX000000000000000000001D /* TXAWPAY.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TXAWPAY.entitlements; sourceTree = "<group>"; };
+		TX000000000000000000001E /* TXAWPAY-NoiCloud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TXAWPAY-NoiCloud.entitlements"; sourceTree = "<group>"; };
+		TX000000000000000000001F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		TX0000000000000000000004 /* TXAWPAY */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TXAWPAY;
+			sourceTree = "<group>";
+		};
+		TX0000000000000000000005 /* TXAWPAYTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TXAWPAYTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		TX000000000000000000000C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TX000000000000000000000F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		TX0000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				TX000000000000000000001F /* README.md */,
+				TX0000000000000000000006 /* Config */,
+				TX0000000000000000000004 /* TXAWPAY */,
+				TX0000000000000000000005 /* TXAWPAYTests */,
+				TX0000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		TX0000000000000000000006 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				TX000000000000000000001C /* Info.plist */,
+				TX000000000000000000001D /* TXAWPAY.entitlements */,
+				TX000000000000000000001E /* TXAWPAY-NoiCloud.entitlements */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		TX0000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				TX0000000000000000000009 /* TXAWPAY.app */,
+				TX000000000000000000000A /* TXAWPAYTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TX0000000000000000000007 /* TXAWPAY */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TX0000000000000000000014 /* Build configuration list for PBXNativeTarget "TXAWPAY" */;
+			buildPhases = (
+				TX000000000000000000000B /* Sources */,
+				TX000000000000000000000C /* Frameworks */,
+				TX000000000000000000000D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				TX0000000000000000000004 /* TXAWPAY */,
+			);
+			name = TXAWPAY;
+			packageProductDependencies = (
+			);
+			productName = TXAWPAY;
+			productReference = TX0000000000000000000009 /* TXAWPAY.app */;
+			productType = "com.apple.product-type.application";
+		};
+		TX0000000000000000000008 /* TXAWPAYTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TX0000000000000000000017 /* Build configuration list for PBXNativeTarget "TXAWPAYTests" */;
+			buildPhases = (
+				TX000000000000000000000E /* Sources */,
+				TX000000000000000000000F /* Frameworks */,
+				TX0000000000000000000010 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				TX000000000000000000001A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				TX0000000000000000000005 /* TXAWPAYTests */,
+			);
+			name = TXAWPAYTests;
+			packageProductDependencies = (
+			);
+			productName = TXAWPAYTests;
+			productReference = TX000000000000000000000A /* TXAWPAYTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		TX0000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					TX0000000000000000000007 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					TX0000000000000000000008 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = TX0000000000000000000007;
+					};
+				};
+			};
+			buildConfigurationList = TX0000000000000000000011 /* Build configuration list for PBXProject "TXAWPAY" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = TX0000000000000000000002;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = TX0000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TX0000000000000000000007 /* TXAWPAY */,
+				TX0000000000000000000008 /* TXAWPAYTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		TX000000000000000000000D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TX0000000000000000000010 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		TX000000000000000000000B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		TX000000000000000000000E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		TX000000000000000000001A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = TX0000000000000000000007 /* TXAWPAY */;
+			targetProxy = TX000000000000000000001B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		TX0000000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		TX0000000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		TX0000000000000000000015 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Config/TXAWPAY.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.txawpay.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		TX0000000000000000000016 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Config/TXAWPAY.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Config/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.txawpay.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		TX0000000000000000000018 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.txawpay.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TXAWPAY.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TXAWPAY";
+			};
+			name = Debug;
+		};
+		TX0000000000000000000019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.txawpay.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TXAWPAY.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TXAWPAY";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		TX0000000000000000000011 /* Build configuration list for PBXProject "TXAWPAY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TX0000000000000000000012 /* Debug */,
+				TX0000000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TX0000000000000000000014 /* Build configuration list for PBXNativeTarget "TXAWPAY" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TX0000000000000000000015 /* Debug */,
+				TX0000000000000000000016 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TX0000000000000000000017 /* Build configuration list for PBXNativeTarget "TXAWPAYTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				TX0000000000000000000018 /* Debug */,
+				TX0000000000000000000019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = TX0000000000000000000001 /* Project object */;
+}

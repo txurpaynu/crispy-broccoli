@@ -1,0 +1,52 @@
+# XcodeGen spec (optional). The checked-in TXAWPAY.xcodeproj already works;
+# run `xcodegen generate` only if you prefer to regenerate it.
+name: TXAWPAY
+options:
+  bundleIdPrefix: com.txawpay
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  TXAWPAY:
+    type: application
+    platform: iOS
+    sources:
+      - path: TXAWPAY
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.txawpay.app
+        PRODUCT_NAME: TXAWPAY
+        INFOPLIST_FILE: Config/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Config/TXAWPAY.entitlements
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+        GENERATE_INFOPLIST_FILE: NO
+  TXAWPAYTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: TXAWPAYTests
+    dependencies:
+      - target: TXAWPAY
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.txawpay.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/TXAWPAY.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TXAWPAY"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  TXAWPAY:
+    build:
+      targets:
+        TXAWPAY: all
+        TXAWPAYTests: [test]
+    test:
+      targets: [TXAWPAYTests]
