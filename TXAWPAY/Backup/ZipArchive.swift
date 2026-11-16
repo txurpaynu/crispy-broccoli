@@ -183,10 +183,15 @@ final class ZipWriter {
 
     static func dosDateTime(_ date: Date) -> (UInt16, UInt16) {
         let c = Calendar(identifier: .gregorian).dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let year = max(1980, c.year ?? 1980)
-        let time = UInt16(((c.hour ?? 0) << 11) | ((c.minute ?? 0) << 5) | ((c.second ?? 0) / 2))
-        let day = UInt16(((year - 1980) << 9) | ((c.month ?? 1) << 5) | (c.day ?? 1))
-        return (time, day)
+        let year: Int = max(1980, c.year ?? 1980)
+        let hour: Int = c.hour ?? 0
+        let minute: Int = c.minute ?? 0
+        let second: Int = c.second ?? 0
+        let month: Int = c.month ?? 1
+        let day: Int = c.day ?? 1
+        let timeBits: Int = (hour << 11) | (minute << 5) | (second / 2)
+        let dateBits: Int = ((year - 1980) << 9) | (month << 5) | day
+        return (UInt16(truncatingIfNeeded: timeBits), UInt16(truncatingIfNeeded: dateBits))
     }
 }
 
@@ -280,6 +285,10 @@ extension Data {
     }
     func le32(at i: Int) -> UInt32 {
         let s = self.startIndex + i
-        return UInt32(self[s]) | (UInt32(self[s + 1]) << 8) | (UInt32(self[s + 2]) << 16) | (UInt32(self[s + 3]) << 24)
+        let b0: UInt32 = UInt32(self[s])
+        let b1: UInt32 = UInt32(self[s + 1]) << 8
+        let b2: UInt32 = UInt32(self[s + 2]) << 16
+        let b3: UInt32 = UInt32(self[s + 3]) << 24
+        return b0 | b1 | b2 | b3
     }
 }

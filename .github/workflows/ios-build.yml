@@ -24,6 +24,7 @@ jobs:
           xcodebuild test \
             -project TXAWPAY.xcodeproj -scheme TXAWPAY \
             -destination "id=$SIM" \
+            -IDEBuildingContinueBuildingAfterErrors=YES \
             CODE_SIGNING_ALLOWED=NO | xcbeautify
 
       - name: Build unsigned device app
