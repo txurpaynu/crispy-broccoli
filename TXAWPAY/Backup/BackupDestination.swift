@@ -74,7 +74,7 @@ enum BackupDestinationError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .iCloudUnavailable:
-            "iCloud Drive isn't available to this build of TXAWPAY. Choose a folder in Files instead (you can pick a folder inside iCloud Drive)."
+            "This copy of TXAWPAY isn't allowed to use iCloud. Apple only gives iCloud access to apps signed with a paid developer account, so sideloaded copies can't use it. Choose \"Folder in Files\" instead and pick a folder inside iCloud Drive: your journal still goes to iCloud. (If you're signed in with a paid account, check you're signed in to iCloud and iCloud Drive is on.)"
         case .iCloudNotSignedIn:
             "You're not signed in to iCloud, or iCloud Drive is turned off for TXAWPAY in Settings."
         case .noFolderSelected:
@@ -99,10 +99,12 @@ enum BackupDestinationResolver {
             return ResolvedBackupRoot(kind: .onDevice, rootURL: docs.appendingPathComponent("TXAWPAY", isDirectory: true),
                                       scopedURL: nil, isUbiquitous: false)
         case .iCloudDrive:
-            guard fm.ubiquityIdentityToken != nil else { throw BackupDestinationError.iCloudNotSignedIn }
+            // Without the iCloud entitlement (sideloaded or free-account builds) the
+            // container is nil even when the person is signed in, so check it first.
             guard let container = fm.url(forUbiquityContainerIdentifier: iCloudContainerID) else {
                 throw BackupDestinationError.iCloudUnavailable
             }
+            guard fm.ubiquityIdentityToken != nil else { throw BackupDestinationError.iCloudNotSignedIn }
             // Only the "Documents" sub-folder of the container is shown in iCloud Drive.
             let root = container.appendingPathComponent("Documents", isDirectory: true)
                 .appendingPathComponent("TXAWPAY", isDirectory: true)

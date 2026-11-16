@@ -11,6 +11,7 @@ struct BackupSettingsView: View {
     @State private var integrityError: String?
     @State private var verifying = false
     @State private var historyDay: String?
+    @State private var iCloudProblem: String?
 
     var body: some View {
         List {
@@ -76,7 +77,7 @@ struct BackupSettingsView: View {
                 ForEach(BackupDestinationKind.allCases) { kind in
                     Button {
                         if kind == .folder { Task { await chooseFolder() } }
-                        else { Task { await backup.changeDestination(to: kind) } }
+                        else { Task { await choose(kind) } }
                     } label: {
                         HStack(alignment: .top) {
                             Image(systemName: kind.symbol).frame(width: 28).foregroundStyle(Theme.accent)
@@ -86,6 +87,11 @@ struct BackupSettingsView: View {
                                 Text(kind.explanation)
                                     .font(Typo.caption)
                                     .foregroundStyle(Theme.textSecondary)
+                                if kind == .iCloudDrive, let iCloudProblem {
+                                    Label(iCloudProblem, systemImage: "exclamationmark.icloud")
+                                        .font(Typo.caption)
+                                        .foregroundStyle(Theme.danger)
+                                }
                             }
                             Spacer()
                             if backup.destination == kind {
@@ -206,7 +212,21 @@ struct BackupSettingsView: View {
         .sheet(item: Binding(get: { historyDay.map { DayBox(key: $0) } }, set: { historyDay = $0?.key })) { box in
             VersionHistoryView(dayKey: box.key)
         }
-        .task { backup.refreshStats(); await backup.checkUploads() }
+        .task {
+            backup.refreshStats()
+            iCloudProblem = await backup.availabilityError(for: .iCloudDrive)?.localizedDescription
+            await backup.checkUploads()
+        }
+    }
+
+    private func choose(_ kind: BackupDestinationKind) async {
+        if let error = await backup.availabilityError(for: kind) {
+            if kind == .iCloudDrive { iCloudProblem = error.localizedDescription }
+            router.showToast(kind == .iCloudDrive ? "iCloud Drive isn't available. See the note under it." : error.localizedDescription,
+                             symbol: "exclamationmark.icloud", isError: true)
+            return
+        }
+        await backup.changeDestination(to: kind)
     }
 
     private func chooseFolder() async {

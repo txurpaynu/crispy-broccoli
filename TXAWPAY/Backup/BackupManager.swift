@@ -382,6 +382,19 @@ final class BackupManager: ObservableObject {
         await backUpEverything()
     }
 
+    /// Checks whether a destination can be used, without switching to it.
+    func availabilityError(for kind: BackupDestinationKind) async -> Error? {
+        let bookmark = UserDefaults.standard.data(forKey: AppSettings.Keys.backupFolderBookmark)
+        do {
+            _ = try await Task.detached(priority: .userInitiated) {
+                try BackupDestinationResolver.resolve(kind: kind, bookmark: bookmark)
+            }.value
+            return nil
+        } catch {
+            return error
+        }
+    }
+
     func resolveRoot() async throws -> ResolvedBackupRoot {
         let kind = destination
         let bookmark = UserDefaults.standard.data(forKey: AppSettings.Keys.backupFolderBookmark)
