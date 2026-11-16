@@ -23,14 +23,18 @@ struct Provider: TimelineProvider {
                                     matchingPolicy: .nextTime) ?? now.addingTimeInterval(3600)
         var entries = [entry(at: now)]
         for i in 0..<24 {
-            entries.append(entry(at: nextHour.addingTimeInterval(Double(i) * 3600)))
+            let offset: TimeInterval = TimeInterval(i) * 3600.0
+            entries.append(entry(at: nextHour.addingTimeInterval(offset)))
         }
         completion(Timeline(entries: entries, policy: .atEnd))
     }
 
     private func entry(at date: Date) -> ClockEntry {
         let c = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
-        let secs = Double((c.hour ?? 0) * 3600 + (c.minute ?? 0) * 60 + (c.second ?? 0))
+        let h: Int = c.hour ?? 0
+        let m: Int = c.minute ?? 0
+        let sec: Int = c.second ?? 0
+        let secs: TimeInterval = TimeInterval(h * 3600 + m * 60 + sec)
         return ClockEntry(date: date, midnight: date.addingTimeInterval(-secs))
     }
 }
