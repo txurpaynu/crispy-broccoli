@@ -10,7 +10,6 @@ struct OnboardingView: View {
     @Query private var profiles: [UserSettings]
     @State private var page = 0
     @State private var name = ""
-    @State private var pickingFolder = false
     @State private var folderError: String?
 
     var body: some View {
@@ -29,14 +28,6 @@ struct OnboardingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .frame(height: 470)
-            }
-        }
-        .fileImporter(isPresented: $pickingFolder, allowedContentTypes: [.folder]) { result in
-            switch result {
-            case .success(let url):
-                do { try backup.setFolder(url); finish() } catch { folderError = error.localizedDescription }
-            case .failure(let error):
-                folderError = error.localizedDescription
             }
         }
     }
@@ -112,7 +103,18 @@ struct OnboardingView: View {
                 Label("Use iCloud Drive", systemImage: "icloud")
             }
             .buttonStyle(PrimaryButtonStyle(fullWidth: true))
-            Button { pickingFolder = true } label: {
+            Button {
+                Task {
+                    do {
+                        guard let url = try await FolderPicker.pickFolder() else { return }
+                        try backup.setFolder(url)
+                        await backup.changeDestination(to: .folder)
+                        finish()
+                    } catch {
+                        folderError = error.localizedDescription
+                    }
+                }
+            } label: {
                 Label("Choose a folder in Files", systemImage: "folder")
             }
             .buttonStyle(SecondaryButtonStyle(fullWidth: true))

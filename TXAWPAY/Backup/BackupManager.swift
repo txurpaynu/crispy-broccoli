@@ -347,10 +347,27 @@ final class BackupManager: ObservableObject {
 
     /// Saves a security-scoped bookmark for a folder picked in Files.
     func setFolder(_ url: URL) throws {
-        guard url.startAccessingSecurityScopedResource() else {
-            throw BackupDestinationError.permissionDenied("Please choose the folder again.")
+        // Folders inside TXAWPAY's own storage aren't security-scoped, so a
+        // `false` here is not an error by itself. The write test below decides.
+        let accessing = url.startAccessingSecurityScopedResource()
+        defer { if accessing { url.stopAccessingSecurityScopedResource() } }
+
+        // Prove we can write here before switching, so problems show up now.
+        let probe = url.appendingPathComponent(".txawpay-write-test-\(UUID().uuidString)")
+        var coordinationError: NSError?
+        var writeError: Error?
+        NSFileCoordinator().coordinate(writingItemAt: probe, options: .forReplacing, error: &coordinationError) { target in
+            do {
+                try Data("ok".utf8).write(to: target)
+                try FileManager.default.removeItem(at: target)
+            } catch {
+                writeError = error
+            }
         }
-        defer { url.stopAccessingSecurityScopedResource() }
+        if let failure = writeError ?? coordinationError {
+            throw BackupDestinationError.permissionDenied("Choose a folder you can add files to, such as one in iCloud Drive or On My iPhone. (\(failure.localizedDescription))")
+        }
+
         let bookmark = try url.bookmarkData(options: [], includingResourceValuesForKeys: nil, relativeTo: nil)
         UserDefaults.standard.set(bookmark, forKey: AppSettings.Keys.backupFolderBookmark)
         folderName = url.lastPathComponent

@@ -7,7 +7,6 @@ struct BackupSettingsView: View {
     @EnvironmentObject private var backup: BackupManager
     @EnvironmentObject private var router: AppRouter
     @Query(sort: \BackupRecord.dayKey, order: .reverse) private var records: [BackupRecord]
-    @State private var pickingFolder = false
     @State private var integrity: IntegrityReport?
     @State private var integrityError: String?
     @State private var verifying = false
@@ -76,7 +75,7 @@ struct BackupSettingsView: View {
             Section("Destination") {
                 ForEach(BackupDestinationKind.allCases) { kind in
                     Button {
-                        if kind == .folder { pickingFolder = true }
+                        if kind == .folder { Task { await chooseFolder() } }
                         else { Task { await backup.changeDestination(to: kind) } }
                     } label: {
                         HStack(alignment: .top) {
@@ -204,23 +203,23 @@ struct BackupSettingsView: View {
         }
         .screenBackground()
         .navigationTitle("Journal Backup")
-        .fileImporter(isPresented: $pickingFolder, allowedContentTypes: [.folder]) { result in
-            switch result {
-            case .success(let url):
-                do {
-                    try backup.setFolder(url)
-                    Task { await backup.changeDestination(to: .folder) }
-                } catch {
-                    router.showToast(error.localizedDescription, symbol: "exclamationmark.triangle", isError: true)
-                }
-            case .failure(let error):
-                router.showToast(error.localizedDescription, symbol: "exclamationmark.triangle", isError: true)
-            }
-        }
         .sheet(item: Binding(get: { historyDay.map { DayBox(key: $0) } }, set: { historyDay = $0?.key })) { box in
             VersionHistoryView(dayKey: box.key)
         }
         .task { backup.refreshStats(); await backup.checkUploads() }
+    }
+
+    private func chooseFolder() async {
+        do {
+            guard let url = try await FolderPicker.pickFolder() else { return }
+            try backup.setFolder(url)
+            await backup.changeDestination(to: .folder)
+            if backup.stats.failed == 0 {
+                router.showToast("Backing up to \(backup.folderName)", symbol: "folder.badge.checkmark")
+            }
+        } catch {
+            router.showToast(error.localizedDescription, symbol: "exclamationmark.triangle", isError: true)
+        }
     }
 
     private func statRow(_ label: String, _ value: String) -> some View {
