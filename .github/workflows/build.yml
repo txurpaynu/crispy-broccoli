@@ -1,6 +1,9 @@
 name: Build IPA
 on: [push, workflow_dispatch]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-15-intel
@@ -23,3 +26,11 @@ jobs:
         with:
           name: SecondsClock-ipa
           path: SecondsClock.ipa
+      - name: Publish to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view seconds-clock-latest >/dev/null 2>&1 || \
+            gh release create seconds-clock-latest --target "$GITHUB_SHA" \
+              --title "Seconds Clock (latest build)" --notes "Unsigned IPA. Install with Sideloadly, AltStore or TrollStore."
+          gh release upload seconds-clock-latest SecondsClock.ipa --clobber
