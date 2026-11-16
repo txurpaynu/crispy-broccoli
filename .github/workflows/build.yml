@@ -5,14 +5,15 @@ jobs:
   build:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: brew install xcodegen
       - run: xcodegen generate
       - name: Build (unsigned)
         run: |
           xcodebuild -project SecondsClock.xcodeproj -target SecondsClock \
             -configuration Release -sdk iphoneos SYMROOT="$PWD/build" \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build \
+            > build.log 2>&1 || { grep -E "error:|fatal" build.log | sort -u | head -30 | while read -r l; do echo "::error::$l"; done; tail -40 build.log; exit 1; }
       - name: Package IPA
         run: |
           mkdir Payload
