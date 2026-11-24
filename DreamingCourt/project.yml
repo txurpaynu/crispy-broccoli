@@ -1,0 +1,42 @@
+name: DreamingCourt
+
+options:
+  bundleIdPrefix: com.dreamingcourt
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_STYLE: Manual
+    DEVELOPMENT_TEAM: ""
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+
+targets:
+  DreamingCourt:
+    type: application
+    platform: iOS
+    sources:
+      - path: DreamingCourt
+      - path: web
+        type: folder
+        buildPhase: resources
+    info:
+      path: DreamingCourt/Info.plist
+      properties:
+        CFBundleDisplayName: Dreaming Court
+        UILaunchScreen:
+          UIColorName: ""
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UIViewControllerBasedStatusBarAppearance: false
+        ITSAppUsesNonExemptEncryption: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dreamingcourt.game
